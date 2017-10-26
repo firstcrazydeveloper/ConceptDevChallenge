@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9E038D71-45C0-46E4-B788-E0E0D9F6FCCA}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ConceptDevChallenge</RootNamespace>
+    <AssemblyName>ConceptDevChallenge</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>2.4</TypeScriptToolsVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.0.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.0.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.0.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.0.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.0.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.0.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include=".angular-cli.json" />
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
+    <Content Include="src\app\common\components\login\login.component.css">
+      <DependentUpon>login.component.less</DependentUpon>
+    </Content>
+    <Content Include="src\app\common\components\login\login.component.html" />
+    <Content Include="src\app\common\components\login\login.component.min.css">
+      <DependentUpon>login.component.css</DependentUpon>
+    </Content>
+    <Content Include="src\app\features\speech\components\allSpeech\allSpeech.component.css">
+      <DependentUpon>allSpeech.component.less</DependentUpon>
+    </Content>
+    <Content Include="src\app\features\speech\components\allSpeech\allSpeech.component.html" />
+    <Content Include="src\app\features\speech\components\allSpeech\allSpeech.component.min.css">
+      <DependentUpon>allSpeech.component.css</DependentUpon>
+    </Content>
+    <Content Include="src\app\features\speech\components\newSpeech\newSpeech.component.css">
+      <DependentUpon>newSpeech.component.less</DependentUpon>
+    </Content>
+    <Content Include="src\app\features\speech\components\newSpeech\newSpeech.component.html" />
+    <Content Include="src\app\features\speech\components\newSpeech\newSpeech.component.min.css">
+      <DependentUpon>newSpeech.component.css</DependentUpon>
+    </Content>
+    <Content Include="src\app\features\speech\components\selfSpeech\selfSpeech.component.css">
+      <DependentUpon>selfSpeech.component.less</DependentUpon>
+    </Content>
+    <Content Include="src\app\features\speech\components\selfSpeech\selfSpeech.component.html" />
+    <Content Include="src\app\features\speech\components\selfSpeech\selfSpeech.component.min.css">
+      <DependentUpon>selfSpeech.component.css</DependentUpon>
+    </Content>
+    <Content Include="src\app\shared\components\busyspinner\busyspinner.component.css">
+      <DependentUpon>busyspinner.component.less</DependentUpon>
+    </Content>
+    <Content Include="src\app\shared\components\busyspinner\busyspinner.component.html" />
+    <Content Include="src\app\shared\components\busyspinner\busyspinner.component.min.css">
+      <DependentUpon>busyspinner.component.css</DependentUpon>
+    </Content>
+    <Content Include="src\app\shared\components\navmenu\navmenu.component.css">
+      <DependentUpon>navmenu.component.less</DependentUpon>
+    </Content>
+    <Content Include="src\app\shared\components\navmenu\navmenu.component.html" />
+    <Content Include="src\app\shared\components\navmenu\navmenu.component.min.css">
+      <DependentUpon>navmenu.component.css</DependentUpon>
+    </Content>
+    <Content Include="src\app\shared\components\sidemenu\sidemenu.component.css">
+      <DependentUpon>sidemenu.component.less</DependentUpon>
+    </Content>
+    <Content Include="src\app\shared\components\sidemenu\sidemenu.component.html" />
+    <Content Include="src\app\shared\components\sidemenu\sidemenu.component.min.css">
+      <DependentUpon>sidemenu.component.css</DependentUpon>
+    </Content>
+    <Content Include="src\fonts\font-awesome.min.css" />
+    <Content Include="src\fonts\fontawesome-webfont.svg" />
+    <Content Include="src\vendor\js\jquery-3.2.1.slim.min.js" />
+    <Content Include="tsconfig.json" />
+    <Content Include="tslint.json" />
+    <Content Include="src\tsconfig.app.json" />
+    <Content Include="src\tsconfig.spec.json" />
+    <Content Include="src\tsconfig.json" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <Content Include="src\assets\conceptDevChallenge.less" />
+    <Content Include="src\app\features\speech\components\speechDashboard\speechDashboard.component.less" />
+    <Content Include="src\app\shared\components\navmenu\navmenu.component.less" />
+    <Content Include="web.config" />
+    <Content Include="src\fonts\fontawesome-webfont.eot" />
+    <Content Include="src\fonts\fontawesome-webfont.ttf" />
+    <Content Include="src\fonts\fontawesome-webfont.woff" />
+    <Content Include="src\fonts\FontAwesome.otf" />
+    <Content Include="src\app\shared\components\sidemenu\sidemenu.component.less" />
+    <Content Include="src\app\common\components\login\login.component.less" />
+    <Content Include="src\app\features\speech\components\allSpeech\allSpeech.component.less" />
+    <Content Include="src\app\features\speech\components\newSpeech\newSpeech.component.less" />
+    <Content Include="src\app\features\speech\components\selfSpeech\selfSpeech.component.less" />
+    <Content Include="src\assets\userdata.json" />
+    <Content Include="src\assets\speechdata.json" />
+    <Content Include="src\assets\navigationdata.json" />
+    <Content Include="src\app\shared\components\busyspinner\busyspinner.component.less" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="scripts\ai.0.22.9-build00167.js" />
+    <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="src\app\app.component.css" />
+    <Content Include="src\app\app.component.html" />
+    <Content Include="src\app\features\speech\components\speechDashboard\speechDashboard.component.css">
+      <DependentUpon>speechDashboard.component.less</DependentUpon>
+    </Content>
+    <Content Include="src\app\features\speech\components\speechDashboard\speechDashboard.component.html" />
+    <Content Include="src\app\features\speech\components\speechDashboard\speechDashboard.component.min.css">
+      <DependentUpon>speechDashboard.component.css</DependentUpon>
+    </Content>
+    <Content Include="src\assets\conceptDevChallenge.css">
+      <DependentUpon>conceptDevChallenge.less</DependentUpon>
+    </Content>
+    <Content Include="src\assets\conceptDevChallenge.min.css">
+      <DependentUpon>conceptDevChallenge.css</DependentUpon>
+    </Content>
+    <Content Include="src\favicon.ico" />
+    <Content Include="index.html" />
+    <Content Include="src\index.html" />
+    <Content Include="src\vendor\js\app.js" />
+    <Content Include="src\vendor\js\ie-support\html5.js" />
+    <Content Include="src\vendor\js\ie-support\pie.htc" />
+    <Content Include="src\vendor\js\ie-support\respond.js" />
+    <Content Include="src\vendor\js\jquery.ticker.js" />
+    <Content Include="src\vendor\js\plugins.js" />
+    <Content Include="src\vendor\js\shim.min.js" />
+    <Content Include="src\vendor\js\system.src.js" />
+    <Content Include="src\vendor\js\zone.js" />
+    <Content Include="src\styles.css" />
+    <Content Include="src\systemjs-angular-loader.js" />
+    <Content Include="src\systemjs.config.extras.js" />
+    <Content Include="src\systemjs.config.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="dist\" />
+    <Folder Include="e2e\" />
+    <Folder Include="src\app\shared\directives\" />
+    <Folder Include="src\app\shared\pipes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="src\app\app.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\app.component.ts" />
+    <TypeScriptCompile Include="src\app\app.module.ts" />
+    <TypeScriptCompile Include="src\app\app.routing.ts" />
+    <TypeScriptCompile Include="src\app\appSettings.setting.ts" />
+    <TypeScriptCompile Include="src\app\common\components\login\login.component.ts" />
+    <TypeScriptCompile Include="src\app\common\components\pagenotfound\pagenotfound.component.ts" />
+    <TypeScriptCompile Include="src\app\common\components\sharepeech\sharespeech.component.ts" />
+    <TypeScriptCompile Include="src\app\features\speech\components\allSpeech\allSpeech.component.ts" />
+    <TypeScriptCompile Include="src\app\features\speech\model\navMenu.model.ts" />
+    <TypeScriptCompile Include="src\app\features\speech\model\shareSpeech.model.ts" />
+    <TypeScriptCompile Include="src\app\features\speech\model\speech.model.ts" />
+    <TypeScriptCompile Include="src\app\features\speech\components\newSpeech\newSpeech.component.ts" />
+    <TypeScriptCompile Include="src\app\features\speech\speech.service.ts" />
+    <TypeScriptCompile Include="src\app\features\speech\speechComponentBase.ts" />
+    <TypeScriptCompile Include="src\app\features\speech\components\selfSpeech\selfSpeech.component.ts" />
+    <TypeScriptCompile Include="src\app\features\speech\speech.module.ts" />
+    <TypeScriptCompile Include="src\app\features\speech\speech.routing.ts" />
+    <TypeScriptCompile Include="src\app\features\speech\components\speechDashboard\speechDashboard.component.ts" />
+    <TypeScriptCompile Include="src\app\shared\components\busyspinner\busyspinner.component.ts" />
+    <TypeScriptCompile Include="src\app\shared\components\busyspinner\busyspinner.service.ts" />
+    <TypeScriptCompile Include="src\app\shared\components\navmenu\navmenu.component.ts" />
+    <TypeScriptCompile Include="src\app\shared\components\navmenu\navmenu.service.ts" />
+    <TypeScriptCompile Include="src\app\shared\components\sidemenu\sidemenu.component.ts" />
+    <TypeScriptCompile Include="src\app\shared\model\user.model.ts" />
+    <TypeScriptCompile Include="src\app\shared\service\auth.guard.service.ts" />
+    <TypeScriptCompile Include="src\app\shared\service\auth.service.ts" />
+    <TypeScriptCompile Include="src\app\shared\service\webApiManager.service.ts" />
+    <TypeScriptCompile Include="src\app\shared\shared.module.ts" />
+    <TypeScriptCompile Include="src\environments\environment.prod.ts" />
+    <TypeScriptCompile Include="src\environments\environment.ts" />
+    <TypeScriptCompile Include="src\main.ts" />
+    <TypeScriptCompile Include="src\polyfills.ts" />
+    <TypeScriptCompile Include="src\typings.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>4565</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:4565/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <UserProperties package_1json__JSONSchema="" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

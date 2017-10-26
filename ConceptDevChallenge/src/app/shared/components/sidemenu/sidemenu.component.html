@@ -1,0 +1,7 @@
+﻿<div id="navigation" *ngIf="sideMenus != undefined && sideMenus.length>0">
+    <div class="list-group leftPadding">
+        <a *ngFor="let menu of sideMenus;" class="list-group-item list-group-item-action " [ngClass]="{'list-group-item-success': menu.id==activeSpeech.id}" (click)="loadContent(menu)">
+            {{menu.title}}<i *ngIf="menu.id==activeSpeech.id" class="fa fa-caret-right" aria-hidden="true"></i>
+        </a>
+    </div>
+</div>

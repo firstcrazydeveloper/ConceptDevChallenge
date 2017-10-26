@@ -1,0 +1,22 @@
+﻿<div class="flexbox-parent">
+    <div class="flexbox-item header">
+        <nav-menu [navMenus]="navMenusCollection" [activeMenu]="activeMenu"></nav-menu>
+    </div>
+
+    <div class="flexbox-item fill-area content flexbox-item-grow">
+        <div class="fill-area-content flexbox-item-grow" style="position:relative;padding:0;">
+            <div class="flexbox-parent" style="position:absolute;">
+                <div class="flexbox-item fill-area content flexbox-item-grow" style="padding:0;">
+                    <div class="fill-area-content flexbox-item-grow">
+                        <router-outlet></router-outlet>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flexbox-item footer">
+        Powered by Abhishek @firstcrazydeveloper.com
+    </div>
+</div>

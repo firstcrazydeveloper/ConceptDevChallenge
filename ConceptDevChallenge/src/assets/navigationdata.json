@@ -1,0 +1,17 @@
+﻿[
+  {
+    "id": 1,
+    "name": "View My Speeches",
+    "routeLink": "userspeech"
+  },
+  {
+    "id": 2,
+    "name": "Submit a new Speech",
+    "routeLink": "newspeech"
+  },
+  {
+    "id": 3,
+    "name": "Search all Speeches",
+    "routeLink": "allspeech"
+  }
+]

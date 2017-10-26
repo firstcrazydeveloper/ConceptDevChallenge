@@ -1,0 +1,50 @@
+﻿[
+  {
+    "outputFile": "src/app/components/speech/speech.component.css",
+    "inputFile": "src/app/components/speech/speech.component.less"
+  },
+  {
+    "outputFile": "src/app/resources/styles/conceptDevChallenge.css",
+    "inputFile": "src/app/resources/styles/conceptDevChallenge.less"
+  },
+  {
+    "outputFile": "src/app/components/speech/speechDashboard.component.css",
+    "inputFile": "src/app/components/speech/speechDashboard.component.less"
+  },
+  {
+    "outputFile": "src/app/shared/components/navmenu/navmenu.component.css",
+    "inputFile": "src/app/shared/components/navmenu/navmenu.component.less"
+  },
+  {
+    "outputFile": "src/assets/conceptDevChallenge.css",
+    "inputFile": "src/assets/conceptDevChallenge.less"
+  },
+  {
+    "outputFile": "src/app/shared/components/sidemenu/sidemenu.component.css",
+    "inputFile": "src/app/shared/components/sidemenu/sidemenu.component.less"
+  },
+  {
+    "outputFile": "src/app/components/login/login.component.css",
+    "inputFile": "src/app/components/login/login.component.less"
+  },
+  {
+    "outputFile": "src/app/features/speech/components/selfSpeech/selfSpeech.component.css",
+    "inputFile": "src/app/features/speech/components/selfSpeech/selfSpeech.component.less"
+  },
+  {
+    "outputFile": "src/app/features/speech/components/newSpeech/newSpeech.component.css",
+    "inputFile": "src/app/features/speech/components/newSpeech/newSpeech.component.less"
+  },
+  {
+    "outputFile": "src/app/features/speech/components/allSpeech/allSpeech.component.css",
+    "inputFile": "src/app/features/speech/components/allSpeech/allSpeech.component.less"
+  },
+  {
+    "outputFile": "src/app/common/components/login/login.component.css",
+    "inputFile": "src/app/common/components/login/login.component.less"
+  },
+  {
+    "outputFile": "src/app/shared/components/busyspinner/busyspinner.component.css",
+    "inputFile": "src/app/shared/components/busyspinner/busyspinner.component.less"
+  }
+]

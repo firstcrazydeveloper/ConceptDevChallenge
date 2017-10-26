@@ -1,0 +1,5 @@
+﻿<ul class="nav nav-pills nav-fill">
+    <li *ngFor="let menu of navMenus;" class="nav-item navmenu">
+        <a class="nav-link active" (click)="navigate(menu.routeLink)" [ngClass]="{'active': menu.routeLink==activeMenu}">{{menu.name}}</a>
+    </li>
+</ul>

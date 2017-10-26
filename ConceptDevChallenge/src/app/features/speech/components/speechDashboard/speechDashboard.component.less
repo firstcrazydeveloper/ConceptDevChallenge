@@ -1,0 +1,92 @@
+﻿.speech-dashboard-container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    /*justify-content: center;*/
+    align-items: flex-start;
+    background: white;
+    border-radius: 5px;
+    height: 100%;
+}
+
+.contentSlot { //full-height
+}
+
+.dashboardContentContainer {
+    height: 95%;
+}
+
+#speechDashBoardContainer {
+    padding-top: 10px;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: stretch;
+    height: 100vh;
+    width: calc(100%);
+}
+
+#speechmenu {
+    background: #99C;
+    flex: 0 0 auto;
+    width: calc(100%);
+}
+
+#speechcontent {
+    background: #9C9;
+    flex: 1 0 auto;
+    width: calc(100%);
+}
+
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+.flexbox-parent {
+    display: flex;
+    flex-flow: column wrap;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start; /* align items in Main Axis */
+    align-items: stretch; /* align items in Cross Axis */
+    align-content: stretch; /* Extra space in Cross Axis */
+}
+
+.flexbox-item {
+    padding: 8px;
+}
+
+.flexbox-item-grow {
+    flex: 1; /* same as flex: 1 1 auto; */
+}
+
+.flexbox-item.header {
+}
+
+.flexbox-item.footer {
+}
+
+.flexbox-item.content {
+}
+
+.fill-area {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start; /* align items in Main Axis */
+    align-items: stretch; /* align items in Cross Axis */
+    align-content: stretch; /* Extra space in Cross Axis */
+    width: 100%;
+    height: 100%;
+}
+
+.fill-area-content {
+    width: 100%;
+    height: 100%;
+    /* Needed for when the area gets squished too far and there is content that can't be displayed */
+    // overflow: auto;
+}
