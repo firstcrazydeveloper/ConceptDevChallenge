@@ -55,16 +55,20 @@ var SelfSpeechComponent = (function (_super) {
         var _this = this;
         this.getSpeechListCollection(this.requestType);
         this.speechService.dispatcher.subscribe(function (val) {
-            if (val.id !== undefined) {
+            if (val !== undefined) {
                 _this.isActiveSpeech = true;
+                _this.setInitialValue(val);
             }
             else {
                 _this.isActiveSpeech = false;
+                _this.setInitialValue(val);
             }
-            _this.activeSpeech = val;
-            _this.isActiveSpeechLoading = false;
-            _this.busySpinnerService.dispatcher.next(false);
         });
+    };
+    SelfSpeechComponent.prototype.setInitialValue = function (val) {
+        this.activeSpeech = val;
+        this.isActiveSpeechLoading = false;
+        this.busySpinnerService.dispatcher.next(false);
     };
     SelfSpeechComponent.prototype.buildUICommand = function () {
         var _this = this;

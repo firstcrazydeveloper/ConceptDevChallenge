@@ -17,6 +17,7 @@ var speechDashboard_component_1 = require("./components/speechDashboard/speechDa
 var selfSpeech_component_1 = require("./components/selfSpeech/selfSpeech.component");
 var newSpeech_component_1 = require("./components/newSpeech/newSpeech.component");
 var allSpeech_component_1 = require("./components/allSpeech/allSpeech.component");
+var speech_component_1 = require("./components/speech/speech.component");
 var sharespeech_component_1 = require("../../common/components/sharepeech/sharespeech.component");
 var speech_service_1 = require("./speech.service");
 var SpeechModule = (function () {
@@ -25,8 +26,8 @@ var SpeechModule = (function () {
     SpeechModule = __decorate([
         core_1.NgModule({
             imports: [common_1.CommonModule, forms_1.FormsModule, shared_module_1.SharedModule, ng_bootstrap_1.NgbModule, router_1.RouterModule, speech_routing_1.speechRouting],
-            declarations: [speechDashboard_component_1.SpeechDashboardComponent, selfSpeech_component_1.SelfSpeechComponent, newSpeech_component_1.NewSpeechComponent, allSpeech_component_1.AllSpeechComponent, sharespeech_component_1.ShareSpeechContent],
-            exports: [speechDashboard_component_1.SpeechDashboardComponent, selfSpeech_component_1.SelfSpeechComponent, newSpeech_component_1.NewSpeechComponent, allSpeech_component_1.AllSpeechComponent, sharespeech_component_1.ShareSpeechContent],
+            declarations: [speechDashboard_component_1.SpeechDashboardComponent, selfSpeech_component_1.SelfSpeechComponent, newSpeech_component_1.NewSpeechComponent, allSpeech_component_1.AllSpeechComponent, sharespeech_component_1.ShareSpeechContent, speech_component_1.SpeechComponent],
+            exports: [speechDashboard_component_1.SpeechDashboardComponent, selfSpeech_component_1.SelfSpeechComponent, newSpeech_component_1.NewSpeechComponent, allSpeech_component_1.AllSpeechComponent, sharespeech_component_1.ShareSpeechContent, speech_component_1.SpeechComponent],
             entryComponents: [sharespeech_component_1.ShareSpeechContent],
             providers: [speech_service_1.SpeechService]
         })

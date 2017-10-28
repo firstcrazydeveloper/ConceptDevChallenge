@@ -10,13 +10,14 @@ import { SpeechDashboardComponent } from './components/speechDashboard/speechDas
 import { SelfSpeechComponent } from './components/selfSpeech/selfSpeech.component';
 import { NewSpeechComponent } from './components/newSpeech/newSpeech.component';
 import { AllSpeechComponent } from './components/allSpeech/allSpeech.component';
+import { SpeechComponent } from './components/speech/speech.component';
 import { ShareSpeechContent } from '../../common/components/sharepeech/sharespeech.component';
 import { SpeechService } from './speech.service';
 
 @NgModule({
     imports: [CommonModule, FormsModule, SharedModule, NgbModule, RouterModule, speechRouting],
-    declarations: [SpeechDashboardComponent, SelfSpeechComponent, NewSpeechComponent, AllSpeechComponent, ShareSpeechContent],
-    exports: [SpeechDashboardComponent, SelfSpeechComponent, NewSpeechComponent, AllSpeechComponent, ShareSpeechContent],
+    declarations: [SpeechDashboardComponent, SelfSpeechComponent, NewSpeechComponent, AllSpeechComponent, ShareSpeechContent, SpeechComponent],
+    exports: [SpeechDashboardComponent, SelfSpeechComponent, NewSpeechComponent, AllSpeechComponent, ShareSpeechContent, SpeechComponent],
     entryComponents: [ShareSpeechContent],
     providers: [SpeechService]
 })

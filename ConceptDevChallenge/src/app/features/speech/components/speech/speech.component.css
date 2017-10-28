@@ -1,0 +1,47 @@
+﻿#speech textarea {
+  background: rgba(71, 207, 96, 0.14) !important;
+  height: 275px;
+  width: 100%;
+}
+.speechContainer-child {
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin: 0 !important;
+  padding: 0;
+  padding-top: 20px;
+}
+.speechContainer-sidemenu {
+  float: right;
+  padding: 0;
+  overflow: auto;
+}
+.speech-content div {
+  margin-left: 15px;
+  margin-top: 5px;
+}
+#sidemenu::-webkit-scrollbar {
+  width: .5em;
+  height: .5em;
+}
+#sidemenu::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+#sidemenu::-webkit-scrollbar-thumb {
+  background-color: #ffaa3c;
+  outline: 1px solid slategrey;
+}
+.textcontent {
+  width: calc(-50%);
+  min-height: 275px;
+  overflow: auto;
+}
+.commandButtonContainer {
+  display: inline-flex;
+  float: right;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+.commandButtonContainer div {
+  margin-left: 10px;
+}

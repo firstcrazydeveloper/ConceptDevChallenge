@@ -46,5 +46,9 @@
   {
     "outputFile": "src/app/shared/components/busyspinner/busyspinner.component.css",
     "inputFile": "src/app/shared/components/busyspinner/busyspinner.component.less"
+  },
+  {
+    "outputFile": "src/app/features/speech/components/speech/speech.component.css",
+    "inputFile": "src/app/features/speech/components/speech/speech.component.less"
   }
 ]

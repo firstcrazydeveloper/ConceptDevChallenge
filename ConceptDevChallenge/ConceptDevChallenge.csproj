@@ -135,6 +135,13 @@
     <Content Include="src\app\features\speech\components\selfSpeech\selfSpeech.component.min.css">
       <DependentUpon>selfSpeech.component.css</DependentUpon>
     </Content>
+    <Content Include="src\app\features\speech\components\speech\speech.component.css">
+      <DependentUpon>speech.component.less</DependentUpon>
+    </Content>
+    <Content Include="src\app\features\speech\components\speech\speech.component.html" />
+    <Content Include="src\app\features\speech\components\speech\speech.component.min.css">
+      <DependentUpon>speech.component.css</DependentUpon>
+    </Content>
     <Content Include="src\app\shared\components\busyspinner\busyspinner.component.css">
       <DependentUpon>busyspinner.component.less</DependentUpon>
     </Content>
@@ -186,6 +193,7 @@
     <Content Include="src\assets\speechdata.json" />
     <Content Include="src\assets\navigationdata.json" />
     <Content Include="src\app\shared\components\busyspinner\busyspinner.component.less" />
+    <Content Include="src\app\features\speech\components\speech\speech.component.less" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -247,6 +255,7 @@
     <TypeScriptCompile Include="src\app\common\components\pagenotfound\pagenotfound.component.ts" />
     <TypeScriptCompile Include="src\app\common\components\sharepeech\sharespeech.component.ts" />
     <TypeScriptCompile Include="src\app\features\speech\components\allSpeech\allSpeech.component.ts" />
+    <TypeScriptCompile Include="src\app\features\speech\components\speech\speech.component.ts" />
     <TypeScriptCompile Include="src\app\features\speech\model\navMenu.model.ts" />
     <TypeScriptCompile Include="src\app\features\speech\model\shareSpeech.model.ts" />
     <TypeScriptCompile Include="src\app\features\speech\model\speech.model.ts" />

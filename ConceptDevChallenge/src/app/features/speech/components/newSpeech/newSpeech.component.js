@@ -51,6 +51,7 @@ var NewSpeechComponent = (function (_super) {
     }
     NewSpeechComponent.prototype.ngOnInit = function () {
         this.filterType = this.requestType;
+        this.activeSpeech = new speech_model_1.Speech();
         this.activeSpeech.createdOn = moment().format("YYYY-MM-DD");
         this.changedetector.detectChanges();
         // alert(this.valuedate);

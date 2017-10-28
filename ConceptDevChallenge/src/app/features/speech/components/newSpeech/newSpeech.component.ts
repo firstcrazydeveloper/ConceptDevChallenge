@@ -28,6 +28,7 @@ export class NewSpeechComponent extends SpeechComponentBase {
 
     ngOnInit() {
         this.filterType = this.requestType;
+        this.activeSpeech = new Speech();
         this.activeSpeech.createdOn = moment().format("YYYY-MM-DD");
         this.changedetector.detectChanges();
         // alert(this.valuedate);

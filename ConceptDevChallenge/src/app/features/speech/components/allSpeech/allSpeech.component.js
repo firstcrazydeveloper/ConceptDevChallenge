@@ -50,8 +50,11 @@ var AllSpeechComponent = (function (_super) {
         var _this = this;
         this.getSpeechListCollection(this.requestType);
         this.speechService.dispatcher.subscribe(function (val) {
-            if (val !== undefined) {
+            if (val.id !== undefined) {
                 _this.isActiveSpeech = true;
+            }
+            else {
+                _this.isActiveSpeech = false;
             }
             _this.activeSpeech = val;
             _this.isActiveSpeechLoading = false;

@@ -7,56 +7,11 @@
             </form>
             <router-outlet></router-outlet>
         </div>
-        <div class="col-md-9 padding-top-5" [ngClass]="(filterType !='new')?'col-md-9':'col-md-12'" *ngIf="isActiveSpeech && !isActiveSpeechLoading && activeSpeech !== undefined">
-            <div class="row">
-                <div class="col-md-12 padding-none">
-                    <textarea [(ngModel)]="activeSpeech.speechContent"></textarea>
-                </div>
-            </div>
-            <div class="row padding-none padding-top-20">
-                <div class="col-md-12  float-right padding-none">
-                    <div class="form-inline speech-content">
-                        <div class="input-group">
-                            <input class="form-control" type="text" name="Title" placeholder="Title" [(ngModel)]="activeSpeech.title" />
-                        </div>
-                        <div class="input-group">
-                            <input class="form-control" type="text" name="Author" placeholder="Author" [(ngModel)]="activeSpeech.author" />
-                        </div>
-                        <div class="input-group">
-                            <input class="form-control" type="text" name="keyword" placeholder="Subject area keywords" [(ngModel)]="activeSpeech.keywords" />
-                        </div>
-
-                        <div class="input-group">
-                            <input class="form-control" placeholder="{{valuedate | date: 'MM/dd/yyyy'}}" datepickerPopup="mm-dd-yyyy"
-                                   name="dp" [(ngModel)]="activeSpeech.createdOn" ngbDatepicker #d="ngbDatepicker">
-                            <button class="input-group-addon" (click)="d.toggle()" type="button">
-                                <img src="https://ng-bootstrap.github.io/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row command-container padding-none padding-top-20">
-                <div class="col-md-12 padding-none">
-                    <div class="commandButtonContainer">
-                        <div *ngFor="let screenCommand of screenCommands">
-                            <button type="button"
-                                    class="{{screenCommand.class}}"
-                                    (click)="screenCommand.handler()"
-                                    [hidden]="screenCommand.hidden"
-                                    [disabled]="screenCommand.disabled">
-                                {{screenCommand.title}}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
+        <div class="col-md-9 padding-top-5" [ngClass]="(filterType !='new')?'col-md-9':'col-md-12'" *ngIf="isActiveSpeech && !isActiveSpeechLoading">
+            <speech [screenCommands]="screenCommands" [activeSpeech]="activeSpeech"></speech>
         </div>
         <div class="col-md-9 padding-top-5" [ngClass]="(filterType !='new')?'col-md-9':'col-md-12'" *ngIf="!isActiveSpeech && !isActiveSpeechLoading">
-            <strong> You don't have any speech,  submit a new speech.</strong>
-
+            <strong> No any speech is submitted by any users,  submit a new speech.</strong>
         </div>
     </div>
 

@@ -39,7 +39,7 @@ var SpeechComponentBase = (function () {
                 _this.activeSpeech = _this.speechList[0];
             }
             else {
-                _this.activeSpeech = new speech_model_1.Speech();
+                _this.activeSpeech = undefined;
             }
             _this.speechService.dispatcher.next(_this.activeSpeech);
         });
@@ -53,7 +53,7 @@ var SpeechComponentBase = (function () {
                 _this.activeSpeech = _this.speechList[0];
             }
             else {
-                _this.activeSpeech = new speech_model_1.Speech();
+                _this.activeSpeech = undefined;
             }
             _this.speechService.dispatcher.next(_this.activeSpeech);
         });
