@@ -168,6 +168,23 @@ var routing = __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* RouterModule 
 
 /***/ }),
 
+/***/ "../../../../../src/app/appSettings.setting.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppSettings; });
+var AppSettings = (function () {
+    function AppSettings() {
+    }
+    return AppSettings;
+}());
+
+// public static BaseAPIUrl: string = 'http://localhost:48255/api/';
+AppSettings.BaseAPIUrl = 'http://devchallengewebapi.firstcrazydeveloper.com/api/';
+//# sourceMappingURL=appSettings.setting.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/common/components/login/login.component.html":
 /***/ (function(module, exports) {
 
@@ -228,15 +245,15 @@ var LoginComponent = (function () {
         this.vcr = vcr;
         this.busySpinnerService = busySpinnerService;
         this.user = new __WEBPACK_IMPORTED_MODULE_3__shared_model_user_model__["a" /* User */]();
-        this.loginError = false;
         this.toastr.setRootViewContainerRef(vcr);
     }
     LoginComponent.prototype.Login = function () {
         var _this = this;
         this.busySpinnerService.dispatcher.next(true);
-        this.authService.login(this.id, this.password).subscribe(function () {
-            if (_this.authService.isLoggedIn) {
-                _this.loginError = false;
+        this.authService.login(this.id, this.password).subscribe(function (user) {
+            if (user.isAunthenticate) {
+                _this.authService.isLoggedIn = true;
+                _this.authService.currentUser = user;
                 var redirect = _this.authService.redirectUrl ? _this.authService.redirectUrl : 'speechDashboard';
                 var navigationExtras = {
                     preserveQueryParams: true,
@@ -301,10 +318,11 @@ PageNotFoundComponent = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SpeechService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_service_webApiManager_service__ = __webpack_require__("../../../../../src/app/shared/service/webApiManager.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__("../../../../rxjs/Rx.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__ = __webpack_require__("../../../../rxjs/Subject.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_appSettings_setting__ = __webpack_require__("../../../../../src/app/appSettings.setting.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__ = __webpack_require__("../../../../rxjs/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__ = __webpack_require__("../../../../rxjs/Subject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -318,29 +336,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var SpeechService = SpeechService_1 = (function () {
+    //TODO -- remove this Test Data Section after Web API implementation
+    // Start TestData Section  
     // End TestData Section
     function SpeechService(webApiService) {
         this.webApiService = webApiService;
         this.speechCollection = null;
         this.speech = null;
         this.navigationMenu = null;
-        this.dispatcher = new __WEBPACK_IMPORTED_MODULE_3_rxjs_Subject__["Subject"]();
-        //TODO -- remove this Test Data Section after Web API implementation
-        // Start TestData Section  
-        this.testDataSpeechList = [{ id: this.generateUniqueId(), userId: 1, title: 'Speech 1', author: 'Abhishek', keywords: '', date: new Date(), content: 'Sample Data for Speech 1' },
-            { id: this.generateUniqueId(), userId: 2, title: 'Speech 2', author: 'Sahil', keywords: '', date: new Date(), content: 'Sample Data for Speech 2' },
-            { id: this.generateUniqueId(), userId: 3, title: 'Speech 3', author: 'Amit', keywords: '', date: new Date(), content: 'Sample Data for Speech 3' },
-            { id: this.generateUniqueId(), userId: 1, title: 'Speech 4', author: 'Deepak', keywords: '', date: new Date(), content: 'Sample Data for Speech 4' },
-            { id: this.generateUniqueId(), userId: 5, title: 'Speech 5', author: 'Sumit', keywords: '', date: new Date(), content: 'Sample Data for Speech 5' },
-            { id: this.generateUniqueId(), userId: 1, title: 'Speech 6', author: 'Vinod', keywords: '', date: new Date(), content: 'Sample Data for Speech 6' }];
+        this.dispatcher = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["Subject"]();
     }
+    //TODO -- remove this code after Web API implementation
+    //public static speechesUrl = 'src/assets/speechdata.json';
+    //public static navMenuUrl = 'src/assets/navigationdata.json';
+    //public static speechesUrl = 'assets/speechdata.json';
+    //public static navMenuUrl = 'assets/navigationdata.json';
     SpeechService.prototype.getSpeechCollection = function () {
         //TODO -- remove this code after Web API implementation
-        return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].of(this.testDataSpeechList).delay(10);
-        //TODO -- uncomment this code after Web API implementation
-        //this.speechCollection = this.webApiService.get(SpeechService.speechesUrl);
-        //return this.speechCollection;
+        // return Observable.of(this.testDataSpeechList).delay(10);
+        // TODO -- uncomment this code after Web API implementation
+        this.speechCollection = this.webApiService.get(SpeechService_1.speechesUrl);
+        return this.speechCollection;
     };
     SpeechService.prototype.getSpeech = function (speechId) {
         var modifiedUrl = SpeechService_1.speechesUrl + '/' + speechId;
@@ -349,27 +367,30 @@ var SpeechService = SpeechService_1 = (function () {
     };
     SpeechService.prototype.AddOrUpdateSpeech = function (speech) {
         //TODO -- remove this code after Web API implementation
-        if (speech.id === undefined) {
-            speech.id = this.generateUniqueId();
-        }
-        else {
-            this.testDataSpeechList = this.testDataSpeechList.filter(function (item) { return item.id !== speech.id; });
-        }
-        this.testDataSpeechList.push(speech);
-        return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].of(true).delay(10);
+        //if (speech.id === undefined) {
+        //    speech.id = this.generateUniqueId();
+        //}
+        //else {
+        //    this.testDataSpeechList = this.testDataSpeechList.filter(item => item.id !== speech.id);
+        //}
+        //this.testDataSpeechList.push(speech);
+        //return Observable.of(true).delay(10);
         //TODO -- uncomment this code after Web API implementation
-        // return this.webApiService.post(SpeechService.speechesUrl, speech);
+        return this.webApiService.post(SpeechService_1.speechesUrl, speech);
+    };
+    SpeechService.prototype.AddSpeech = function (speech) {
+        return this.webApiService.post(SpeechService_1.speechesUrl, speech);
     };
     SpeechService.prototype.DeleteSpeech = function (speech) {
-        this.testDataSpeechList = this.testDataSpeechList.filter(function (item) { return item.id !== speech.id; });
-        return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].of(true).delay(10);
+        // this.testDataSpeechList = this.testDataSpeechList.filter(item => item.id !== speech.id);
+        return __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__["Observable"].of(true).delay(10);
     };
     SpeechService.prototype.clearCache = function () {
         this.speechCollection = null;
         this.speech = null;
     };
     SpeechService.prototype.shareSpeech = function (userEmail, subject, content) {
-        return __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].of(true).delay(100);
+        return __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__["Observable"].of(true).delay(100);
     };
     SpeechService.prototype.getSpeechDashBoardNavigationMenu = function () {
         this.navigationMenu = this.webApiService.get(SpeechService_1.navMenuUrl);
@@ -385,13 +406,8 @@ var SpeechService = SpeechService_1 = (function () {
     return SpeechService;
 }());
 //TODO -- uncomment this code after Web API implementation
-//public static speechesUrl = AppSettings.BaseAPIUrl + 'speechlist';
-//public static navMenuUrl = AppSettings.BaseAPIUrl + 'navigationlist';
-//TODO -- remove this code after Web API implementation
-//public static speechesUrl = 'src/assets/speechdata.json';
-//public static navMenuUrl = 'src/assets/navigationdata.json';
-SpeechService.speechesUrl = 'assets/speechdata.json';
-SpeechService.navMenuUrl = 'assets/navigationdata.json';
+SpeechService.speechesUrl = __WEBPACK_IMPORTED_MODULE_2__app_appSettings_setting__["a" /* AppSettings */].BaseAPIUrl + 'speech';
+SpeechService.navMenuUrl = __WEBPACK_IMPORTED_MODULE_2__app_appSettings_setting__["a" /* AppSettings */].BaseAPIUrl + 'speechMenu';
 SpeechService = SpeechService_1 = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__shared_service_webApiManager_service__["a" /* WebApiManager */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__shared_service_webApiManager_service__["a" /* WebApiManager */]) === "function" && _a || Object])
@@ -448,7 +464,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var BusySpinnerComponent = (function () {
     function BusySpinnerComponent(busySpinnerService) {
         this.busySpinnerService = busySpinnerService;
-        this.busyIndicator = false;
     }
     BusySpinnerComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -456,6 +471,10 @@ var BusySpinnerComponent = (function () {
     };
     return BusySpinnerComponent;
 }());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], BusySpinnerComponent.prototype, "busyIndicator", void 0);
 BusySpinnerComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'busy-spinner',
@@ -798,14 +817,14 @@ var _a, _b;
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__("../../../../rxjs/Observable.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_of__ = __webpack_require__("../../../../rxjs/add/observable/of.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_of__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__("../../../../rxjs/add/operator/do.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_delay__ = __webpack_require__("../../../../rxjs/add/operator/delay.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_delay___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_delay__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_observable_of__ = __webpack_require__("../../../../rxjs/add/observable/of.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_observable_of__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_do__ = __webpack_require__("../../../../rxjs/add/operator/do.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_do__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_delay__ = __webpack_require__("../../../../rxjs/add/operator/delay.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_delay___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_delay__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__webApiManager_service__ = __webpack_require__("../../../../../src/app/shared/service/webApiManager.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__appSettings_setting__ = __webpack_require__("../../../../../src/app/appSettings.setting.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -820,44 +839,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var AuthService = (function () {
+
+var AuthService = AuthService_1 = (function () {
+    //TODO -- remove this Test Data Section after Web API implementation
+    // Start TestData Section  
+    // testUserData: Array<User> = [{ id: 1, userid: 'abhishek', password: 'sahil', email: 'abhishek.job@hotmail.com' },
+    // { id: 2, userid: 'josh', password: 'rosman', email: 'sample@hotmail.com' }];
     // End TestData Section  
-    function AuthService() {
+    function AuthService(webApiService) {
+        this.webApiService = webApiService;
         this.isLoggedIn = false;
-        //TODO -- remove this Test Data Section after Web API implementation
-        // Start TestData Section  
-        this.testUserData = [{ id: 1, userid: 'abhishek', password: 'sahil', email: 'abhishek.job@hotmail.com' },
-            { id: 2, userid: 'josh', password: 'rosman', email: 'sample@hotmail.com' }];
+        this.userData = null;
         console.log('start AuthService');
     }
+    //TODO -- remove this code after Web API implementation
+    // public static loginUrl = 'src/assets/userdata.json';
     // public static navMenuUrl = 'assets/userdata.json';
     AuthService.prototype.login = function (id, password) {
-        var _this = this;
         //TODO: Need to implement Actual login logic
-        return __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"].of(true).delay(1000).do(function (val) { return _this.verifuser(id, password); });
+        // return Observable.of(true).delay(1000).do(val => this.verifuser(id, password));
+        var param = {
+            userId: id,
+            password: password
+        };
+        this.userData = this.webApiService.post(AuthService_1.loginUrl, param);
+        return this.userData;
     };
     AuthService.prototype.logout = function () {
         this.isLoggedIn = false;
     };
-    AuthService.prototype.verifuser = function (id, password) {
-        var userList = this.testUserData.filter(function (user) { return user.userid === id && user.password === password; });
-        if (userList != undefined && userList.length > 0) {
-            this.currentUser = userList[0];
-            this.isLoggedIn = true;
-        }
-        else {
-            this.isLoggedIn = false;
-        }
-    };
     return AuthService;
 }());
-//TODO -- remove this code after Web API implementation
-AuthService.navMenuUrl = 'src/assets/userdata.json';
-AuthService = __decorate([
+//TODO -- uncomment this code after Web API implementation
+AuthService.loginUrl = __WEBPACK_IMPORTED_MODULE_5__appSettings_setting__["a" /* AppSettings */].BaseAPIUrl + 'login';
+AuthService = AuthService_1 = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_4__webApiManager_service__["a" /* WebApiManager */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__webApiManager_service__["a" /* WebApiManager */]) === "function" && _a || Object])
 ], AuthService);
 
+var AuthService_1, _a;
 //# sourceMappingURL=auth.service.js.map
 
 /***/ }),
@@ -901,7 +921,7 @@ var WebApiManager = (function () {
     }
     WebApiManager.prototype.post = function (url, dataToPost) {
         console.log("Angular2 - Making HTTP POST -> URL: " + url + ", with DATA: " + JSON.stringify(dataToPost));
-        return this.http.post(url, dataToPost)
+        return this.http.post(url, dataToPost, this.requestOptions)
             .map(this.extractData)
             .catch(this.handleError);
     };

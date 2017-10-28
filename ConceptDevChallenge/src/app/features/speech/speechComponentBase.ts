@@ -4,10 +4,14 @@ import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
 import { SpeechService } from './speech.service';
 import { Speech } from './model/speech.model';
 import { AuthService } from '../../shared/service/auth.service';
+declare var moment: any;
 
 import { BusySpinnerService } from '../../shared/components/busyspinner/busyspinner.service';
 export abstract class SpeechComponentBase {
-   
+    isActiveSpeech: Boolean = false;
+    isActiveSpeechLoading: Boolean = true;
+    dateFormat: string = 'MM/dd/yyyy';
+    valuedate: string = moment().format('MM/DD/YYYY');
     filterType: string;
     activeMenu: string;
     speechList: Array<Speech> = [];
@@ -20,7 +24,6 @@ export abstract class SpeechComponentBase {
     }
 
     getSpeechListCollection(requestType: string): void {
-        this.busySpinnerService.dispatcher.next(true);
         let currentUser = this.authService.currentUser;
         if (requestType == 'all') {
             this.getAllSpeechCollection();
@@ -36,9 +39,14 @@ export abstract class SpeechComponentBase {
     getUserSpecificSpeechCollection(id: number) {
         this.speechService.getSpeechCollection()
             .subscribe(speechlist => {
-                this.speechList = speechlist.filter(d => d.userId === id);
-                this.activeSpeech = this.speechList[0];
-                this.busySpinnerService.dispatcher.next(false);
+                this.speechList = speechlist.filter((d: Speech) => d.createdBy === id);
+                if (this.speechList !== undefined && this.speechList.length > 0) {
+                    this.activeSpeech = this.speechList[0];
+                }
+                else {
+                    this.activeSpeech = undefined;
+                }
+                this.speechService.dispatcher.next(this.activeSpeech);
             });
 
     }
@@ -47,8 +55,13 @@ export abstract class SpeechComponentBase {
         this.speechService.getSpeechCollection()
             .subscribe(speechlist => {
                 this.speechList = speechlist;
-                this.activeSpeech = this.speechList[0];
-                this.busySpinnerService.dispatcher.next(false);
+                if (this.speechList !== undefined && this.speechList.length > 0) {
+                    this.activeSpeech = this.speechList[0];
+                }
+                else {
+                    this.activeSpeech = undefined;
+                }
+                this.speechService.dispatcher.next(this.activeSpeech);
             });
 
     }

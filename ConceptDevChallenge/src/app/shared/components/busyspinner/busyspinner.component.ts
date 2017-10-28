@@ -7,7 +7,7 @@ import { BusySpinnerService } from './busyspinner.service';
     styleUrls: ['./busyspinner.component.min.css']
 })
 export class BusySpinnerComponent {
-    busyIndicator: Boolean = false;
+    @Input() busyIndicator: Boolean ;
 
     constructor(public busySpinnerService: BusySpinnerService) {
 

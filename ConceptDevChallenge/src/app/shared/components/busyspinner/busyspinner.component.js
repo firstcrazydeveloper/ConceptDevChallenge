@@ -14,12 +14,15 @@ var busyspinner_service_1 = require("./busyspinner.service");
 var BusySpinnerComponent = (function () {
     function BusySpinnerComponent(busySpinnerService) {
         this.busySpinnerService = busySpinnerService;
-        this.busyIndicator = false;
     }
     BusySpinnerComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.busySpinnerService.dispatcher.subscribe(function (val) { _this.busyIndicator = val; });
     };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Boolean)
+    ], BusySpinnerComponent.prototype, "busyIndicator", void 0);
     BusySpinnerComponent = __decorate([
         core_1.Component({
             selector: 'busy-spinner',

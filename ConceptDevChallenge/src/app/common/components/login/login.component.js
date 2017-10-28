@@ -23,15 +23,15 @@ var LoginComponent = (function () {
         this.vcr = vcr;
         this.busySpinnerService = busySpinnerService;
         this.user = new user_model_1.User();
-        this.loginError = false;
         this.toastr.setRootViewContainerRef(vcr);
     }
     LoginComponent.prototype.Login = function () {
         var _this = this;
         this.busySpinnerService.dispatcher.next(true);
-        this.authService.login(this.id, this.password).subscribe(function () {
-            if (_this.authService.isLoggedIn) {
-                _this.loginError = false;
+        this.authService.login(this.id, this.password).subscribe(function (user) {
+            if (user.isAunthenticate) {
+                _this.authService.isLoggedIn = true;
+                _this.authService.currentUser = user;
                 var redirect = _this.authService.redirectUrl ? _this.authService.redirectUrl : 'speechDashboard';
                 var navigationExtras = {
                     preserveQueryParams: true,

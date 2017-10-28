@@ -11,9 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var webApiManager_service_1 = require("../../shared/service/webApiManager.service");
+var appSettings_setting_1 = require("../../../app/appSettings.setting");
 var Rx_1 = require("rxjs/Rx");
 var Subject_1 = require("rxjs/Subject");
 var SpeechService = (function () {
+    //TODO -- remove this Test Data Section after Web API implementation
+    // Start TestData Section  
     // End TestData Section
     function SpeechService(webApiService) {
         this.webApiService = webApiService;
@@ -21,21 +24,19 @@ var SpeechService = (function () {
         this.speech = null;
         this.navigationMenu = null;
         this.dispatcher = new Subject_1.Subject();
-        // Start TestData Section  
-        this.testDataSpeechList = [{ id: this.generateUniqueId(), userId: 1, title: 'Speech 1', author: 'Abhishek', keywords: '', date: new Date(), content: 'Sample Data for Speech 1' },
-            { id: this.generateUniqueId(), userId: 2, title: 'Speech 2', author: 'Sahil', keywords: '', date: new Date(), content: 'Sample Data for Speech 2' },
-            { id: this.generateUniqueId(), userId: 3, title: 'Speech 3', author: 'Amit', keywords: '', date: new Date(), content: 'Sample Data for Speech 3' },
-            { id: this.generateUniqueId(), userId: 1, title: 'Speech 4', author: 'Deepak', keywords: '', date: new Date(), content: 'Sample Data for Speech 4' },
-            { id: this.generateUniqueId(), userId: 5, title: 'Speech 5', author: 'Sumit', keywords: '', date: new Date(), content: 'Sample Data for Speech 5' },
-            { id: this.generateUniqueId(), userId: 1, title: 'Speech 6', author: 'Vinod', keywords: '', date: new Date(), content: 'Sample Data for Speech 6' }];
     }
     SpeechService_1 = SpeechService;
+    //TODO -- remove this code after Web API implementation
+    //public static speechesUrl = 'src/assets/speechdata.json';
+    //public static navMenuUrl = 'src/assets/navigationdata.json';
     //public static speechesUrl = 'assets/speechdata.json';
     //public static navMenuUrl = 'assets/navigationdata.json';
     SpeechService.prototype.getSpeechCollection = function () {
-        return Rx_1.Observable.of(this.testDataSpeechList).delay(10);
-        //this.speechCollection = this.webApiService.get(SpeechService.speechesUrl);
-        //return this.speechCollection;
+        //TODO -- remove this code after Web API implementation
+        // return Observable.of(this.testDataSpeechList).delay(10);
+        // TODO -- uncomment this code after Web API implementation
+        this.speechCollection = this.webApiService.get(SpeechService_1.speechesUrl);
+        return this.speechCollection;
     };
     SpeechService.prototype.getSpeech = function (speechId) {
         var modifiedUrl = SpeechService_1.speechesUrl + '/' + speechId;
@@ -43,18 +44,23 @@ var SpeechService = (function () {
         return modifiedUrl;
     };
     SpeechService.prototype.AddOrUpdateSpeech = function (speech) {
-        if (speech.id === undefined) {
-            speech.id = this.generateUniqueId();
-        }
-        else {
-            this.testDataSpeechList = this.testDataSpeechList.filter(function (item) { return item.id !== speech.id; });
-        }
-        this.testDataSpeechList.push(speech);
-        return Rx_1.Observable.of(true).delay(10);
-        // return this.webApiService.post(SpeechService.speechesUrl, speech);
+        //TODO -- remove this code after Web API implementation
+        //if (speech.id === undefined) {
+        //    speech.id = this.generateUniqueId();
+        //}
+        //else {
+        //    this.testDataSpeechList = this.testDataSpeechList.filter(item => item.id !== speech.id);
+        //}
+        //this.testDataSpeechList.push(speech);
+        //return Observable.of(true).delay(10);
+        //TODO -- uncomment this code after Web API implementation
+        return this.webApiService.post(SpeechService_1.speechesUrl, speech);
+    };
+    SpeechService.prototype.AddSpeech = function (speech) {
+        return this.webApiService.post(SpeechService_1.speechesUrl, speech);
     };
     SpeechService.prototype.DeleteSpeech = function (speech) {
-        this.testDataSpeechList = this.testDataSpeechList.filter(function (item) { return item.id !== speech.id; });
+        // this.testDataSpeechList = this.testDataSpeechList.filter(item => item.id !== speech.id);
         return Rx_1.Observable.of(true).delay(10);
     };
     SpeechService.prototype.clearCache = function () {
@@ -65,20 +71,19 @@ var SpeechService = (function () {
         return Rx_1.Observable.of(true).delay(100);
     };
     SpeechService.prototype.getSpeechDashBoardNavigationMenu = function () {
-        // return Observable.of(this.testDataNavMenu).delay(100);
         this.navigationMenu = this.webApiService.get(SpeechService_1.navMenuUrl);
         return this.navigationMenu;
     };
+    //TODO -- remove this method after Web API implementation
     SpeechService.prototype.generateUniqueId = function () {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
             var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
     };
-    //public static speechesUrl = AppSettings.BaseAPIUrl + 'speechlist';
-    //public static navMenuUrl = AppSettings.BaseAPIUrl + 'navigationlist';
-    SpeechService.speechesUrl = 'src/assets/speechdata.json';
-    SpeechService.navMenuUrl = 'src/assets/navigationdata.json';
+    //TODO -- uncomment this code after Web API implementation
+    SpeechService.speechesUrl = appSettings_setting_1.AppSettings.BaseAPIUrl + 'speech';
+    SpeechService.navMenuUrl = appSettings_setting_1.AppSettings.BaseAPIUrl + 'speechMenu';
     SpeechService = SpeechService_1 = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [webApiManager_service_1.WebApiManager])

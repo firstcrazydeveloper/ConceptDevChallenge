@@ -41,11 +41,22 @@ var AllSpeechComponent = (function (_super) {
         return _this;
     }
     AllSpeechComponent.prototype.ngOnInit = function () {
-        var _this = this;
+        this.busySpinnerService.dispatcher.next(true);
+        this.isActiveSpeechLoading = true;
         this.filterType = this.requestType;
+        this.getSpeechCollection();
+    };
+    AllSpeechComponent.prototype.getSpeechCollection = function () {
+        var _this = this;
         this.getSpeechListCollection(this.requestType);
-        this.speechService.dispatcher.subscribe(function (val) { _this.activeSpeech = val; });
-        console.log(this.activeSpeech);
+        this.speechService.dispatcher.subscribe(function (val) {
+            if (val !== undefined) {
+                _this.isActiveSpeech = true;
+            }
+            _this.activeSpeech = val;
+            _this.isActiveSpeechLoading = false;
+            _this.busySpinnerService.dispatcher.next(false);
+        });
     };
     AllSpeechComponent.prototype.buildUICommand = function () {
         var _this = this;
@@ -55,7 +66,7 @@ var AllSpeechComponent = (function (_super) {
             }
         });
         this.screenCommands.push({
-            disabled: true, hidden: false, title: 'Save', class: 'btn btn-success  buttonSmall',
+            disabled: true, hidden: false, title: 'Update', class: 'btn btn-success  buttonSmall',
             handler: function () {
             }
         });

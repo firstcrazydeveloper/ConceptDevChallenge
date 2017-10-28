@@ -32,7 +32,8 @@
             '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
             '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
             '@ng-bootstrap/ng-bootstrap': 'npm:@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
-            'ng2-toastr': 'npm:ng2-toastr',
+            'ng2-toastr': 'npm:ng2-toastr',           
+            'moment': 'npm:moment',
 
 
             // other libraries
@@ -85,7 +86,12 @@
                     '*.css': { loader: 'css' }
                 }
             },
-            'ng2-toastr': { main: 'bundles/ng2-toastr.js', defaultExtension: 'js' }
+            'ng2-toastr': { main: 'bundles/ng2-toastr.js', defaultExtension: 'js' },
+           
+            'moment': {
+                main: 'moment.js',
+                defaultExtension: 'js'
+            }
         }
     });
 })(this);

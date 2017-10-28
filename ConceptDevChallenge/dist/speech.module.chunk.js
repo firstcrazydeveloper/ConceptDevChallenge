@@ -44,7 +44,7 @@ var _a;
 /***/ "../../../../../src/app/features/speech/components/allSpeech/allSpeech.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"speechContainer\">\r\n    <busy-spinner></busy-spinner>\r\n    <div class=\"row speechContainer-child\">\r\n        <div class=\"col-md-3 speechContainer-sidemenu\" id=\"sidemenu\" *ngIf=\"filterType !='new'\">\r\n            <form #f=\"ngForm\">\r\n                <side-menu [sideMenus]=\"speechList\" [activeSpeech]=\"activeSpeech\"></side-menu>\r\n            </form>\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n        <div class=\"col-md-9 padding-top-5\" [ngClass]=\"(filterType !='new')?'col-md-9':'col-md-12'\">\r\n            <div class=\"row\">\r\n                <div class=\"col-md-12 padding-none\">\r\n                    <textarea [(ngModel)]=\"activeSpeech.content\"></textarea>\r\n                </div>\r\n            </div>\r\n            <div class=\"row padding-none padding-top-20\">\r\n                <div class=\"col-md-12  float-right padding-none\">\r\n                    <div class=\"form-inline speech-content\">\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" type=\"text\" name=\"Title\" placeholder=\"Title\" [(ngModel)]=\"activeSpeech.title\" />\r\n                        </div>\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" type=\"text\" name=\"Author\" placeholder=\"Author\" [(ngModel)]=\"activeSpeech.author\" />\r\n                        </div>\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" type=\"text\" name=\"keyword\" placeholder=\"Subject area keywords\" [(ngModel)]=\"activeSpeech.keywords\" />\r\n                        </div>\r\n\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" placeholder=\"{{valuedate | date: 'MM/dd/yyyy'}}\" datepickerPopup=\"mm-dd-yyyy\"\r\n                                   name=\"dp\" [(ngModel)]=\"activeSpeech.date\" ngbDatepicker #d=\"ngbDatepicker\">\r\n                            <button class=\"input-group-addon\" (click)=\"d.toggle()\" type=\"button\">\r\n                                <img src=\"https://ng-bootstrap.github.io/img/calendar-icon.svg\" style=\"width: 1.2rem; height: 1rem; cursor: pointer;\" />\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"row command-container padding-none padding-top-20\">\r\n                <div class=\"col-md-12 padding-none\">\r\n                    <div class=\"commandButtonContainer\">\r\n                        <div *ngFor=\"let screenCommand of screenCommands\">\r\n                            <button type=\"button\"\r\n                                    class=\"{{screenCommand.class}}\"\r\n                                    (click)=\"screenCommand.handler()\"\r\n                                    [hidden]=\"screenCommand.hidden\"\r\n                                    [disabled]=\"screenCommand.disabled\">\r\n                                {{screenCommand.title}}\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n\r\n"
+module.exports = "<div id=\"speechContainer\">\r\n    <busy-spinner [busyIndicator]=\"isActiveSpeechLoading\"></busy-spinner>\r\n    <div class=\"row speechContainer-child\">\r\n        <div class=\"col-md-3 speechContainer-sidemenu\" id=\"sidemenu\" *ngIf=\"filterType !='new'\">\r\n            <form #f=\"ngForm\">\r\n                <side-menu [sideMenus]=\"speechList\" [activeSpeech]=\"activeSpeech\"></side-menu>\r\n            </form>\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n        <div class=\"col-md-9 padding-top-5\" [ngClass]=\"(filterType !='new')?'col-md-9':'col-md-12'\" *ngIf=\"isActiveSpeech && !isActiveSpeechLoading\">\r\n            <div class=\"row\">\r\n                <div class=\"col-md-12 padding-none\">\r\n                    <textarea [(ngModel)]=\"activeSpeech.speechContent\"></textarea>\r\n                </div>\r\n            </div>\r\n            <div class=\"row padding-none padding-top-20\">\r\n                <div class=\"col-md-12  float-right padding-none\">\r\n                    <div class=\"form-inline speech-content\">\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" type=\"text\" name=\"Title\" placeholder=\"Title\" [(ngModel)]=\"activeSpeech.title\" />\r\n                        </div>\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" type=\"text\" name=\"Author\" placeholder=\"Author\" [(ngModel)]=\"activeSpeech.author\" />\r\n                        </div>\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" type=\"text\" name=\"keyword\" placeholder=\"Subject area keywords\" [(ngModel)]=\"activeSpeech.keywords\" />\r\n                        </div>\r\n\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" placeholder=\"{{valuedate | date: 'MM/dd/yyyy'}}\" datepickerPopup=\"mm-dd-yyyy\"\r\n                                   name=\"dp\" [(ngModel)]=\"activeSpeech.createdOn\" ngbDatepicker #d=\"ngbDatepicker\">\r\n                            <button class=\"input-group-addon\" (click)=\"d.toggle()\" type=\"button\">\r\n                                <img src=\"https://ng-bootstrap.github.io/img/calendar-icon.svg\" style=\"width: 1.2rem; height: 1rem; cursor: pointer;\" />\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"row command-container padding-none padding-top-20\">\r\n                <div class=\"col-md-12 padding-none\">\r\n                    <div class=\"commandButtonContainer\">\r\n                        <div *ngFor=\"let screenCommand of screenCommands\">\r\n                            <button type=\"button\"\r\n                                    class=\"{{screenCommand.class}}\"\r\n                                    (click)=\"screenCommand.handler()\"\r\n                                    [hidden]=\"screenCommand.hidden\"\r\n                                    [disabled]=\"screenCommand.disabled\">\r\n                                {{screenCommand.title}}\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n\r\n        </div>\r\n        <div class=\"col-md-9 padding-top-5\" [ngClass]=\"(filterType !='new')?'col-md-9':'col-md-12'\" *ngIf=\"!isActiveSpeech && !isActiveSpeechLoading\">\r\n            <strong> No any speech is submitted by any users,  submit a new speech.</strong>\r\n\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -119,11 +119,25 @@ var AllSpeechComponent = (function (_super) {
         return _this;
     }
     AllSpeechComponent.prototype.ngOnInit = function () {
-        var _this = this;
+        this.busySpinnerService.dispatcher.next(true);
+        this.isActiveSpeechLoading = true;
         this.filterType = this.requestType;
+        this.getSpeechCollection();
+    };
+    AllSpeechComponent.prototype.getSpeechCollection = function () {
+        var _this = this;
         this.getSpeechListCollection(this.requestType);
-        this.speechService.dispatcher.subscribe(function (val) { _this.activeSpeech = val; });
-        console.log(this.activeSpeech);
+        this.speechService.dispatcher.subscribe(function (val) {
+            if (val.id !== undefined) {
+                _this.isActiveSpeech = true;
+            }
+            else {
+                _this.isActiveSpeech = false;
+            }
+            _this.activeSpeech = val;
+            _this.isActiveSpeechLoading = false;
+            _this.busySpinnerService.dispatcher.next(false);
+        });
     };
     AllSpeechComponent.prototype.buildUICommand = function () {
         var _this = this;
@@ -133,7 +147,7 @@ var AllSpeechComponent = (function (_super) {
             }
         });
         this.screenCommands.push({
-            disabled: true, hidden: false, title: 'Save', class: 'btn btn-success  buttonSmall',
+            disabled: true, hidden: false, title: 'Update', class: 'btn btn-success  buttonSmall',
             handler: function () {
             }
         });
@@ -163,7 +177,7 @@ var _a, _b, _c, _d, _e, _f;
 /***/ "../../../../../src/app/features/speech/components/newSpeech/newSpeech.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"speechContainer\">\r\n    <busy-spinner></busy-spinner>\r\n    <div class=\"row speechContainer-child\">\r\n        <div class=\"col-md-3 speechContainer-sidemenu\" id=\"sidemenu\" *ngIf=\"filterType !='new'\">\r\n            <form #f=\"ngForm\">\r\n                <side-menu [sideMenus]=\"speechList\" [activeSpeech]=\"activeSpeech\"></side-menu>\r\n            </form>\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n        <div class=\"col-md-9 padding-top-5\" [ngClass]=\"(filterType !='new')?'col-md-9':'col-md-12'\">\r\n            <div class=\"row\">\r\n                <div class=\"col-md-12 padding-none\">\r\n                    <textarea [(ngModel)]=\"activeSpeech.content\"></textarea>\r\n                </div>\r\n            </div>\r\n            <div class=\"row padding-none padding-top-20\">\r\n                <div class=\"col-md-12  float-right padding-none\">\r\n                    <div class=\"form-inline speech-content\">\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" type=\"text\" name=\"Title\" placeholder=\"Title\" [(ngModel)]=\"activeSpeech.title\" />\r\n                        </div>\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" type=\"text\" name=\"Author\" placeholder=\"Author\" [(ngModel)]=\"activeSpeech.author\" />\r\n                        </div>\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" type=\"text\" name=\"keyword\" placeholder=\"Subject area keywords\" [(ngModel)]=\"activeSpeech.keywords\" />\r\n                        </div>\r\n\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" placeholder=\"{{valuedate | date: 'MM/dd/yyyy'}}\" datepickerPopup=\"mm-dd-yyyy\"\r\n                                   name=\"dp\" [(ngModel)]=\"activeSpeech.date\" ngbDatepicker #d=\"ngbDatepicker\">\r\n                            <button class=\"input-group-addon\" (click)=\"d.toggle()\" type=\"button\">\r\n                                <img src=\"https://ng-bootstrap.github.io/img/calendar-icon.svg\" style=\"width: 1.2rem; height: 1rem; cursor: pointer;\" />\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"row command-container padding-none padding-top-20\">\r\n                <div class=\"col-md-12 padding-none\">\r\n                    <div class=\"commandButtonContainer\">\r\n                        <div *ngFor=\"let screenCommand of screenCommands\">\r\n                            <button type=\"button\"\r\n                                    class=\"{{screenCommand.class}}\"\r\n                                    (click)=\"screenCommand.handler()\"\r\n                                    [hidden]=\"screenCommand.hidden\"\r\n                                    [disabled]=\"screenCommand.disabled\">\r\n                                {{screenCommand.title}}\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n\r\n"
+module.exports = "<div id=\"speechContainer\">\r\n    <busy-spinner></busy-spinner>\r\n    <div class=\"row speechContainer-child\">\r\n        <div class=\"col-md-3 speechContainer-sidemenu\" id=\"sidemenu\" *ngIf=\"filterType !='new'\">\r\n            <form #f=\"ngForm\">\r\n                <side-menu [sideMenus]=\"speechList\" [activeSpeech]=\"activeSpeech\"></side-menu>\r\n            </form>\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n        <div class=\"col-md-9 padding-top-5\" [ngClass]=\"(filterType !='new')?'col-md-9':'col-md-12'\">\r\n            <div class=\"row\">\r\n                <div class=\"col-md-12 padding-none\">\r\n                    <textarea [(ngModel)]=\"activeSpeech.speechContent\"></textarea>\r\n                </div>\r\n            </div>\r\n            <div class=\"row padding-none padding-top-20\">\r\n                <div class=\"col-md-12  float-right padding-none\">\r\n                    <div class=\"form-inline speech-content\">\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" type=\"text\" name=\"Title\" placeholder=\"Title\" [(ngModel)]=\"activeSpeech.title\" />\r\n                        </div>\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" type=\"text\" name=\"Author\" placeholder=\"Author\" [(ngModel)]=\"activeSpeech.author\" />\r\n                        </div>\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" type=\"text\" name=\"keyword\" placeholder=\"Subject area keywords\" [(ngModel)]=\"activeSpeech.keywords\" />\r\n                        </div>\r\n\r\n                        <div class=\"input-group\">\r\n                            \r\n                            <input class=\"form-control\" placeholder=\"Date\" datepickerPopup=\"\"\r\n                                   name=\"dp\" [(ngModel)]=\"activeSpeech.createdOn\" ngbDatepicker #d=\"ngbDatepicker\">\r\n                            <button class=\"input-group-addon\" (click)=\"d.toggle()\" type=\"button\">\r\n                                <img src=\"https://ng-bootstrap.github.io/img/calendar-icon.svg\" style=\"width: 1.2rem; height: 1rem; cursor: pointer;\" />\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"row command-container padding-none padding-top-20\">\r\n                <div class=\"col-md-12 padding-none\">\r\n                    <div class=\"commandButtonContainer\">\r\n                        <div *ngFor=\"let screenCommand of screenCommands\">\r\n                            <button type=\"button\"\r\n                                    class=\"{{screenCommand.class}}\"\r\n                                    (click)=\"screenCommand.handler()\"\r\n                                    [hidden]=\"screenCommand.hidden\"\r\n                                    [disabled]=\"screenCommand.disabled\">\r\n                                {{screenCommand.title}}\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -232,9 +246,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var NewSpeechComponent = (function (_super) {
     __extends(NewSpeechComponent, _super);
-    function NewSpeechComponent(router, route, modalService, speechService, toastr, vcr, authService, navMenuService, busySpinnerService) {
+    function NewSpeechComponent(router, changedetectorref, route, modalService, speechService, toastr, vcr, authService, navMenuService, busySpinnerService) {
         var _this = _super.call(this, modalService, route, speechService, authService, busySpinnerService) || this;
         _this.router = router;
+        _this.changedetectorref = changedetectorref;
         _this.route = route;
         _this.modalService = modalService;
         _this.speechService = speechService;
@@ -246,10 +261,21 @@ var NewSpeechComponent = (function (_super) {
         _this.requestType = 'new';
         _this.toastr.setRootViewContainerRef(vcr);
         _this.buildUICommand();
+        _this.changedetector = changedetectorref;
         return _this;
     }
     NewSpeechComponent.prototype.ngOnInit = function () {
         this.filterType = this.requestType;
+        this.activeSpeech.createdOn = moment().format("YYYY-MM-DD");
+        this.changedetector.detectChanges();
+        // alert(this.valuedate);
+    };
+    NewSpeechComponent.prototype.ngOnChanges = function (changes) {
+        console.log('start change');
+        for (var propName in changes) {
+            var chng = changes[propName];
+            console.log(chng);
+        }
     };
     NewSpeechComponent.prototype.buildUICommand = function () {
         var _this = this;
@@ -261,9 +287,12 @@ var NewSpeechComponent = (function (_super) {
         this.screenCommands.push({
             disabled: false, hidden: false, title: 'Save', class: 'btn btn-success  buttonSmall',
             handler: function () {
-                _this.activeSpeech.userId = _this.authService.currentUser.id;
+                _this.activeSpeech.createdBy = _this.authService.currentUser.id;
+                _this.activeSpeech.createdOn = moment(_this.activeSpeech.createdOn).utc().format();
+                _this.activeSpeech.updatedOn = moment(_this.activeSpeech.updatedOn).utc().format();
+                _this.activeSpeech.isDeleted = false;
                 _this.busySpinnerService.dispatcher.next(true);
-                _this.speechService.AddOrUpdateSpeech(_this.activeSpeech).subscribe(function () {
+                _this.speechService.AddSpeech(_this.activeSpeech).subscribe(function () {
                     _this.toastr.success('Your speech saved successfully!', 'Success!');
                     _this.activeSpeech = new __WEBPACK_IMPORTED_MODULE_9__model_speech_model__["a" /* Speech */]();
                     //TODO -- If want to redirect default page after saved then uncomment this code
@@ -288,10 +317,10 @@ NewSpeechComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/features/speech/components/newSpeech/newSpeech.component.html"),
         styles: [__webpack_require__("../../../../../src/app/features/speech/components/newSpeech/newSpeech.component.min.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__speech_service__["a" /* SpeechService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__speech_service__["a" /* SpeechService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5_ng2_toastr_ng2_toastr__["ToastsManager"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ng2_toastr_ng2_toastr__["ToastsManager"]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_6__shared_service_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__shared_service_auth_service__["a" /* AuthService */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_7__shared_components_navmenu_navmenu_service__["a" /* NavMenuService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__shared_components_navmenu_navmenu_service__["a" /* NavMenuService */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_8__shared_components_busyspinner_busyspinner_service__["a" /* BusySpinnerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8__shared_components_busyspinner_busyspinner_service__["a" /* BusySpinnerService */]) === "function" && _j || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__speech_service__["a" /* SpeechService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__speech_service__["a" /* SpeechService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5_ng2_toastr_ng2_toastr__["ToastsManager"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ng2_toastr_ng2_toastr__["ToastsManager"]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_6__shared_service_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__shared_service_auth_service__["a" /* AuthService */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_7__shared_components_navmenu_navmenu_service__["a" /* NavMenuService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__shared_components_navmenu_navmenu_service__["a" /* NavMenuService */]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_8__shared_components_busyspinner_busyspinner_service__["a" /* BusySpinnerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8__shared_components_busyspinner_busyspinner_service__["a" /* BusySpinnerService */]) === "function" && _k || Object])
 ], NewSpeechComponent);
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
 //# sourceMappingURL=newSpeech.component.js.map
 
 /***/ }),
@@ -299,7 +328,7 @@ var _a, _b, _c, _d, _e, _f, _g, _h, _j;
 /***/ "../../../../../src/app/features/speech/components/selfSpeech/selfSpeech.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"speechContainer\">\r\n    <busy-spinner></busy-spinner>\r\n    <div class=\"row speechContainer-child\">\r\n        <div class=\"col-md-3 speechContainer-sidemenu\" id=\"sidemenu\" *ngIf=\"filterType !='new'\">\r\n            <form #f=\"ngForm\">\r\n                <side-menu [sideMenus]=\"speechList\" [activeSpeech]=\"activeSpeech\"></side-menu>\r\n            </form>\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n        <div class=\"col-md-9 padding-top-5\" [ngClass]=\"(filterType !='new')?'col-md-9':'col-md-12'\">\r\n            <div class=\"row\">\r\n                <div class=\"col-md-12 padding-none\">\r\n                    <textarea [(ngModel)]=\"activeSpeech.content\"></textarea>\r\n                </div>\r\n            </div>\r\n            <div class=\"row padding-none padding-top-20\">\r\n                <div class=\"col-md-12  float-right padding-none\">\r\n                    <div class=\"form-inline speech-content\">\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" type=\"text\" name=\"Title\" placeholder=\"Title\" [(ngModel)]=\"activeSpeech.title\" />\r\n                        </div>\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" type=\"text\" name=\"Author\" placeholder=\"Author\" [(ngModel)]=\"activeSpeech.author\" />\r\n                        </div>\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" type=\"text\" name=\"keyword\" placeholder=\"Subject area keywords\" [(ngModel)]=\"activeSpeech.keywords\" />\r\n                        </div>\r\n\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" placeholder=\"{{valuedate | date: 'MM/dd/yyyy'}}\" datepickerPopup=\"mm-dd-yyyy\"\r\n                                   name=\"dp\" [(ngModel)]=\"activeSpeech.date\" ngbDatepicker #d=\"ngbDatepicker\">\r\n                            <button class=\"input-group-addon\" (click)=\"d.toggle()\" type=\"button\">\r\n                                <img src=\"https://ng-bootstrap.github.io/img/calendar-icon.svg\" style=\"width: 1.2rem; height: 1rem; cursor: pointer;\" />\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"row command-container padding-none padding-top-20\">\r\n                <div class=\"col-md-12 padding-none\">\r\n                    <div class=\"commandButtonContainer\">\r\n                        <div *ngFor=\"let screenCommand of screenCommands\">\r\n                            <button type=\"button\"\r\n                                    class=\"{{screenCommand.class}}\"\r\n                                    (click)=\"screenCommand.handler()\"\r\n                                    [hidden]=\"screenCommand.hidden\"\r\n                                    [disabled]=\"screenCommand.disabled\">\r\n                                {{screenCommand.title}}\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n\r\n"
+module.exports = "<div id=\"speechContainer\">\r\n    <busy-spinner [busyIndicator]=\"isActiveSpeechLoading\"></busy-spinner>\r\n    <div class=\"row speechContainer-child\">\r\n        <div class=\"col-md-3 speechContainer-sidemenu\" id=\"sidemenu\" *ngIf=\"filterType !='new'\">\r\n            <form #f=\"ngForm\">\r\n                <side-menu [sideMenus]=\"speechList\" [activeSpeech]=\"activeSpeech\"></side-menu>\r\n            </form>\r\n            <router-outlet></router-outlet>\r\n        </div>\r\n        <div class=\"col-md-9 padding-top-5\" [ngClass]=\"(filterType !='new')?'col-md-9':'col-md-12'\" *ngIf=\"isActiveSpeech && !isActiveSpeechLoading && activeSpeech !== undefined\">\r\n            <div class=\"row\">\r\n                <div class=\"col-md-12 padding-none\">\r\n                    <textarea [(ngModel)]=\"activeSpeech.speechContent\"></textarea>\r\n                </div>\r\n            </div>\r\n            <div class=\"row padding-none padding-top-20\">\r\n                <div class=\"col-md-12  float-right padding-none\">\r\n                    <div class=\"form-inline speech-content\">\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" type=\"text\" name=\"Title\" placeholder=\"Title\" [(ngModel)]=\"activeSpeech.title\" />\r\n                        </div>\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" type=\"text\" name=\"Author\" placeholder=\"Author\" [(ngModel)]=\"activeSpeech.author\" />\r\n                        </div>\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" type=\"text\" name=\"keyword\" placeholder=\"Subject area keywords\" [(ngModel)]=\"activeSpeech.keywords\" />\r\n                        </div>\r\n\r\n                        <div class=\"input-group\">\r\n                            <input class=\"form-control\" placeholder=\"{{valuedate | date: 'MM/dd/yyyy'}}\" datepickerPopup=\"mm-dd-yyyy\"\r\n                                   name=\"dp\" [(ngModel)]=\"activeSpeech.createdOn\" ngbDatepicker #d=\"ngbDatepicker\">\r\n                            <button class=\"input-group-addon\" (click)=\"d.toggle()\" type=\"button\">\r\n                                <img src=\"https://ng-bootstrap.github.io/img/calendar-icon.svg\" style=\"width: 1.2rem; height: 1rem; cursor: pointer;\" />\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"row command-container padding-none padding-top-20\">\r\n                <div class=\"col-md-12 padding-none\">\r\n                    <div class=\"commandButtonContainer\">\r\n                        <div *ngFor=\"let screenCommand of screenCommands\">\r\n                            <button type=\"button\"\r\n                                    class=\"{{screenCommand.class}}\"\r\n                                    (click)=\"screenCommand.handler()\"\r\n                                    [hidden]=\"screenCommand.hidden\"\r\n                                    [disabled]=\"screenCommand.disabled\">\r\n                                {{screenCommand.title}}\r\n                            </button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n\r\n        </div>\r\n        <div class=\"col-md-9 padding-top-5\" [ngClass]=\"(filterType !='new')?'col-md-9':'col-md-12'\" *ngIf=\"!isActiveSpeech && !isActiveSpeechLoading\">\r\n            <strong> You don't have any speech,  submit a new speech.</strong>\r\n\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -335,6 +364,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng2_toastr_ng2_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_ng2_toastr_ng2_toastr__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__shared_service_auth_service__ = __webpack_require__("../../../../../src/app/shared/service/auth.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__shared_components_busyspinner_busyspinner_service__ = __webpack_require__("../../../../../src/app/shared/components/busyspinner/busyspinner.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__model_speech_model__ = __webpack_require__("../../../../../src/app/features/speech/model/speech.model.ts");
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -362,6 +392,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var SelfSpeechComponent = (function (_super) {
     __extends(SelfSpeechComponent, _super);
     function SelfSpeechComponent(router, modalService, route, speechService, toastr, vcr, authService, busySpinnerService) {
@@ -380,13 +411,29 @@ var SelfSpeechComponent = (function (_super) {
         return _this;
     }
     SelfSpeechComponent.prototype.ngOnInit = function () {
+        this.busySpinnerService.dispatcher.next(true);
+        this.isActiveSpeechLoading = true;
         this.filterType = this.requestType;
         this.getSpeechCollection();
     };
     SelfSpeechComponent.prototype.getSpeechCollection = function () {
         var _this = this;
         this.getSpeechListCollection(this.requestType);
-        this.speechService.dispatcher.subscribe(function (val) { _this.activeSpeech = val; });
+        this.speechService.dispatcher.subscribe(function (val) {
+            if (val !== undefined) {
+                _this.isActiveSpeech = true;
+                _this.setInitialValue(val);
+            }
+            else {
+                _this.isActiveSpeech = false;
+                _this.setInitialValue(val);
+            }
+        });
+    };
+    SelfSpeechComponent.prototype.setInitialValue = function (val) {
+        this.activeSpeech = val;
+        this.isActiveSpeechLoading = false;
+        this.busySpinnerService.dispatcher.next(false);
     };
     SelfSpeechComponent.prototype.buildUICommand = function () {
         var _this = this;
@@ -394,21 +441,30 @@ var SelfSpeechComponent = (function (_super) {
         this.screenCommands.push({
             disabled: false, hidden: false, title: 'Delete', class: 'btn btn-danger  buttonSmall',
             handler: function () {
+                _this.activeSpeech.isDeleted = true;
                 _this.busySpinnerService.dispatcher.next(true);
-                _this.speechService.DeleteSpeech(_this.activeSpeech).subscribe(function () {
+                _this.speechService.AddSpeech(_this.activeSpeech).subscribe(function () {
                     _this.toastr.success('Your speech deleted successfully!', 'Success!');
+                    _this.activeSpeech = new __WEBPACK_IMPORTED_MODULE_8__model_speech_model__["a" /* Speech */]();
+                    //TODO -- If want to redirect default page after saved then uncomment this code
+                    // this.navMenuService.dispatcher.next('userspeech');
+                    //  this.router.navigate(['speechDashboard/userspeech']);
                     _this.getSpeechCollection();
-                    _this.busySpinnerService.dispatcher.next(false);
                 });
             }
         });
         this.screenCommands.push({
-            disabled: false, hidden: false, title: 'Save', class: 'btn btn-success  buttonSmall',
+            disabled: false, hidden: false, title: 'Update', class: 'btn btn-success  buttonSmall',
             handler: function () {
                 _this.busySpinnerService.dispatcher.next(true);
-                _this.speechService.AddOrUpdateSpeech(_this.activeSpeech).subscribe(function () {
-                    _this.toastr.success('Your speech saved successfully!', 'Success!');
-                    _this.getSpeechCollection();
+                _this.activeSpeech.updatedOn = moment(_this.activeSpeech.updatedOn).utc().format();
+                _this.busySpinnerService.dispatcher.next(true);
+                _this.speechService.AddSpeech(_this.activeSpeech).subscribe(function () {
+                    _this.toastr.success('Your speech updated successfully!', 'Success!');
+                    // this.activeSpeech = new Speech();
+                    //TODO -- If want to redirect default page after saved then uncomment this code
+                    // this.navMenuService.dispatcher.next('userspeech');
+                    //  this.router.navigate(['speechDashboard/userspeech']);
                     _this.busySpinnerService.dispatcher.next(false);
                 });
             }
@@ -494,12 +550,10 @@ var SpeechDashboardComponent = (function () {
     };
     SpeechDashboardComponent.prototype.getNavMenusCollection = function () {
         var _this = this;
-        this.busySpinnerService.dispatcher.next(true);
         this.speechService.getSpeechDashBoardNavigationMenu()
             .subscribe(function (navmenus) {
             _this.navMenusCollection = navmenus;
             _this.activeMenu = _this.navMenusCollection[0].routeLink;
-            _this.busySpinnerService.dispatcher.next(false);
         });
     };
     return SpeechDashboardComponent;
@@ -651,6 +705,10 @@ var SpeechComponentBase = (function () {
         this.speechService = speechService;
         this.authService = authService;
         this.busySpinnerService = busySpinnerService;
+        this.isActiveSpeech = false;
+        this.isActiveSpeechLoading = true;
+        this.dateFormat = 'MM/dd/yyyy';
+        this.valuedate = moment().format('MM/DD/YYYY');
         this.speechList = [];
         this.activeSpeech = new __WEBPACK_IMPORTED_MODULE_1__model_speech_model__["a" /* Speech */]();
         this.screenCommands = [];
@@ -659,7 +717,6 @@ var SpeechComponentBase = (function () {
         });
     }
     SpeechComponentBase.prototype.getSpeechListCollection = function (requestType) {
-        this.busySpinnerService.dispatcher.next(true);
         var currentUser = this.authService.currentUser;
         if (requestType == 'all') {
             this.getAllSpeechCollection();
@@ -672,9 +729,14 @@ var SpeechComponentBase = (function () {
         var _this = this;
         this.speechService.getSpeechCollection()
             .subscribe(function (speechlist) {
-            _this.speechList = speechlist.filter(function (d) { return d.userId === id; });
-            _this.activeSpeech = _this.speechList[0];
-            _this.busySpinnerService.dispatcher.next(false);
+            _this.speechList = speechlist.filter(function (d) { return d.createdBy === id; });
+            if (_this.speechList !== undefined && _this.speechList.length > 0) {
+                _this.activeSpeech = _this.speechList[0];
+            }
+            else {
+                _this.activeSpeech = undefined;
+            }
+            _this.speechService.dispatcher.next(_this.activeSpeech);
         });
     };
     SpeechComponentBase.prototype.getAllSpeechCollection = function () {
@@ -682,8 +744,13 @@ var SpeechComponentBase = (function () {
         this.speechService.getSpeechCollection()
             .subscribe(function (speechlist) {
             _this.speechList = speechlist;
-            _this.activeSpeech = _this.speechList[0];
-            _this.busySpinnerService.dispatcher.next(false);
+            if (_this.speechList !== undefined && _this.speechList.length > 0) {
+                _this.activeSpeech = _this.speechList[0];
+            }
+            else {
+                _this.activeSpeech = undefined;
+            }
+            _this.speechService.dispatcher.next(_this.activeSpeech);
         });
     };
     SpeechComponentBase.prototype.openShareModel = function () {

@@ -20,7 +20,7 @@ export class WebApiManager {
 
     post(url: string, dataToPost: any) {
         console.log(`Angular2 - Making HTTP POST -> URL: ${url}, with DATA: ${JSON.stringify(dataToPost)}`);
-        return this.http.post(url, dataToPost)
+        return this.http.post(url, dataToPost, this.requestOptions)
             .map(this.extractData)
             .catch(this.handleError);
     }

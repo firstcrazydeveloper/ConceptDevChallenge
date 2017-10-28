@@ -16,7 +16,6 @@ export class LoginComponent {
     password: string;
     user: User = new User();
 
-    loginError: Boolean = false;
     constructor(public router: Router, public authService: AuthService, public toastr: ToastsManager,
         public vcr: ViewContainerRef, public busySpinnerService: BusySpinnerService) {
         this.toastr.setRootViewContainerRef(vcr);
@@ -24,20 +23,26 @@ export class LoginComponent {
 
     Login() {
         this.busySpinnerService.dispatcher.next(true);
-        this.authService.login(this.id, this.password).subscribe(() => {
-            if (this.authService.isLoggedIn) {
-                this.loginError = false;
+        this.authService.login(this.id, this.password).subscribe((user: User) => {
+            if (user.isAunthenticate) {
+                this.authService.isLoggedIn = true;
+                this.authService.currentUser = user;
                 let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'speechDashboard';
                 let navigationExtras: NavigationExtras = {
                     preserveQueryParams: true,
                     preserveFragment: true
                 };
                 this.router.navigate(['speechDashboard'], navigationExtras);
+
             }
             else {
                 this.busySpinnerService.dispatcher.next(false);
                 this.toastr.error('UserId and Password are not correct!', 'Oops!');
+
             }
+           
         });
+
+      
     }
 }

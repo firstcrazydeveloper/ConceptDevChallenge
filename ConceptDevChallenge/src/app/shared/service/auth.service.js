@@ -10,44 +10,48 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/observable/of");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/delay");
+var webApiManager_service_1 = require("./webApiManager.service");
+var appSettings_setting_1 = require("../../appSettings.setting");
 var AuthService = (function () {
+    //TODO -- remove this Test Data Section after Web API implementation
+    // Start TestData Section  
+    // testUserData: Array<User> = [{ id: 1, userid: 'abhishek', password: 'sahil', email: 'abhishek.job@hotmail.com' },
+    // { id: 2, userid: 'josh', password: 'rosman', email: 'sample@hotmail.com' }];
     // End TestData Section  
-    function AuthService() {
+    function AuthService(webApiService) {
+        this.webApiService = webApiService;
         this.isLoggedIn = false;
-        // Start TestData Section  
-        this.testUserData = [{ id: 1, userid: 'abhishek', password: 'sahil', email: 'abhishek.job@hotmail.com' },
-            { id: 2, userid: 'josh', password: 'rosman', email: 'sample@hotmail.com' }];
+        this.userData = null;
         console.log('start AuthService');
     }
+    AuthService_1 = AuthService;
+    //TODO -- remove this code after Web API implementation
+    // public static loginUrl = 'src/assets/userdata.json';
     // public static navMenuUrl = 'assets/userdata.json';
     AuthService.prototype.login = function (id, password) {
-        var _this = this;
         //TODO: Need to implement Actual login logic
-        return Observable_1.Observable.of(true).delay(1000).do(function (val) { return _this.verifuser(id, password); });
+        // return Observable.of(true).delay(1000).do(val => this.verifuser(id, password));
+        var param = {
+            userId: id,
+            password: password
+        };
+        this.userData = this.webApiService.post(AuthService_1.loginUrl, param);
+        return this.userData;
     };
     AuthService.prototype.logout = function () {
         this.isLoggedIn = false;
     };
-    AuthService.prototype.verifuser = function (id, password) {
-        var userList = this.testUserData.filter(function (user) { return user.userid === id && user.password === password; });
-        if (userList != undefined && userList.length > 0) {
-            this.currentUser = userList[0];
-            this.isLoggedIn = true;
-        }
-        else {
-            this.isLoggedIn = false;
-        }
-    };
-    AuthService.navMenuUrl = 'src/assets/userdata.json';
-    AuthService = __decorate([
+    //TODO -- uncomment this code after Web API implementation
+    AuthService.loginUrl = appSettings_setting_1.AppSettings.BaseAPIUrl + 'login';
+    AuthService = AuthService_1 = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [webApiManager_service_1.WebApiManager])
     ], AuthService);
     return AuthService;
+    var AuthService_1;
 }());
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map

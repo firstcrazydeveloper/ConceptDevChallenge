@@ -19,13 +19,28 @@ export class AllSpeechComponent extends SpeechComponentBase {
     }
 
     ngOnInit() {
+        this.busySpinnerService.dispatcher.next(true);
+        this.isActiveSpeechLoading = true;
         this.filterType = this.requestType;
-        this.getSpeechListCollection(this.requestType);
-        this.speechService.dispatcher.subscribe((val: any) => { this.activeSpeech = val });
-        console.log(this.activeSpeech);
+        this.getSpeechCollection();
     }
 
-   
+    getSpeechCollection() {
+        this.getSpeechListCollection(this.requestType);
+        this.speechService.dispatcher.subscribe((val: any) => {
+            if (val.id !== undefined) {
+                this.isActiveSpeech = true;
+            }
+            else {
+                this.isActiveSpeech = false;
+            }
+            this.activeSpeech = val;
+            this.isActiveSpeechLoading = false;
+            this.busySpinnerService.dispatcher.next(false);
+        });
+    }
+
+
 
     buildUICommand() {
         this.screenCommands.push({
@@ -35,7 +50,7 @@ export class AllSpeechComponent extends SpeechComponentBase {
         });
 
         this.screenCommands.push({
-            disabled: true, hidden: false, title: 'Save', class: 'btn btn-success  buttonSmall',
+            disabled: true, hidden: false, title: 'Update', class: 'btn btn-success  buttonSmall',
             handler: () => {
             }
         });

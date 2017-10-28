@@ -156,6 +156,7 @@
     <Content Include="src\app\shared\components\sidemenu\sidemenu.component.min.css">
       <DependentUpon>sidemenu.component.css</DependentUpon>
     </Content>
+    <Content Include="src\assets\moment.min.js" />
     <Content Include="src\fonts\font-awesome.min.css" />
     <Content Include="src\fonts\fontawesome-webfont.svg" />
     <Content Include="src\vendor\js\jquery-3.2.1.slim.min.js" />

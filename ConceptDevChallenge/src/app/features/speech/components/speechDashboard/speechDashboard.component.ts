@@ -20,12 +20,10 @@ export class SpeechDashboardComponent {
     }
 
     getNavMenusCollection(): void {
-        this.busySpinnerService.dispatcher.next(true);
         this.speechService.getSpeechDashBoardNavigationMenu()
             .subscribe(navmenus => {
                 this.navMenusCollection = navmenus;
                 this.activeMenu = this.navMenusCollection[0].routeLink;
-                this.busySpinnerService.dispatcher.next(false);
             });
     }
 }

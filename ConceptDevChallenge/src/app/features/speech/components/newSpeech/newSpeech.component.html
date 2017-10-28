@@ -10,7 +10,7 @@
         <div class="col-md-9 padding-top-5" [ngClass]="(filterType !='new')?'col-md-9':'col-md-12'">
             <div class="row">
                 <div class="col-md-12 padding-none">
-                    <textarea [(ngModel)]="activeSpeech.content"></textarea>
+                    <textarea [(ngModel)]="activeSpeech.speechContent"></textarea>
                 </div>
             </div>
             <div class="row padding-none padding-top-20">
@@ -27,8 +27,9 @@
                         </div>
 
                         <div class="input-group">
-                            <input class="form-control" placeholder="{{valuedate | date: 'MM/dd/yyyy'}}" datepickerPopup="mm-dd-yyyy"
-                                   name="dp" [(ngModel)]="activeSpeech.date" ngbDatepicker #d="ngbDatepicker">
+                            
+                            <input class="form-control" placeholder="Date" datepickerPopup=""
+                                   name="dp" [(ngModel)]="activeSpeech.createdOn" ngbDatepicker #d="ngbDatepicker">
                             <button class="input-group-addon" (click)="d.toggle()" type="button">
                                 <img src="https://ng-bootstrap.github.io/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
                             </button>

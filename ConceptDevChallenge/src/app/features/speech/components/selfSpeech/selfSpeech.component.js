@@ -27,6 +27,7 @@ var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var ng2_toastr_1 = require("ng2-toastr/ng2-toastr");
 var auth_service_1 = require("../../../../shared/service/auth.service");
 var busyspinner_service_1 = require("../../../../shared/components/busyspinner/busyspinner.service");
+var speech_model_1 = require("../../model/speech.model");
 var SelfSpeechComponent = (function (_super) {
     __extends(SelfSpeechComponent, _super);
     function SelfSpeechComponent(router, modalService, route, speechService, toastr, vcr, authService, busySpinnerService) {
@@ -45,13 +46,25 @@ var SelfSpeechComponent = (function (_super) {
         return _this;
     }
     SelfSpeechComponent.prototype.ngOnInit = function () {
+        this.busySpinnerService.dispatcher.next(true);
+        this.isActiveSpeechLoading = true;
         this.filterType = this.requestType;
         this.getSpeechCollection();
     };
     SelfSpeechComponent.prototype.getSpeechCollection = function () {
         var _this = this;
         this.getSpeechListCollection(this.requestType);
-        this.speechService.dispatcher.subscribe(function (val) { _this.activeSpeech = val; });
+        this.speechService.dispatcher.subscribe(function (val) {
+            if (val.id !== undefined) {
+                _this.isActiveSpeech = true;
+            }
+            else {
+                _this.isActiveSpeech = false;
+            }
+            _this.activeSpeech = val;
+            _this.isActiveSpeechLoading = false;
+            _this.busySpinnerService.dispatcher.next(false);
+        });
     };
     SelfSpeechComponent.prototype.buildUICommand = function () {
         var _this = this;
@@ -59,21 +72,30 @@ var SelfSpeechComponent = (function (_super) {
         this.screenCommands.push({
             disabled: false, hidden: false, title: 'Delete', class: 'btn btn-danger  buttonSmall',
             handler: function () {
+                _this.activeSpeech.isDeleted = true;
                 _this.busySpinnerService.dispatcher.next(true);
-                _this.speechService.DeleteSpeech(_this.activeSpeech).subscribe(function () {
+                _this.speechService.AddSpeech(_this.activeSpeech).subscribe(function () {
                     _this.toastr.success('Your speech deleted successfully!', 'Success!');
+                    _this.activeSpeech = new speech_model_1.Speech();
+                    //TODO -- If want to redirect default page after saved then uncomment this code
+                    // this.navMenuService.dispatcher.next('userspeech');
+                    //  this.router.navigate(['speechDashboard/userspeech']);
                     _this.getSpeechCollection();
-                    _this.busySpinnerService.dispatcher.next(false);
                 });
             }
         });
         this.screenCommands.push({
-            disabled: false, hidden: false, title: 'Save', class: 'btn btn-success  buttonSmall',
+            disabled: false, hidden: false, title: 'Update', class: 'btn btn-success  buttonSmall',
             handler: function () {
                 _this.busySpinnerService.dispatcher.next(true);
-                _this.speechService.AddOrUpdateSpeech(_this.activeSpeech).subscribe(function () {
-                    _this.toastr.success('Your speech saved successfully!', 'Success!');
-                    _this.getSpeechCollection();
+                _this.activeSpeech.updatedOn = moment(_this.activeSpeech.updatedOn).utc().format();
+                _this.busySpinnerService.dispatcher.next(true);
+                _this.speechService.AddSpeech(_this.activeSpeech).subscribe(function () {
+                    _this.toastr.success('Your speech updated successfully!', 'Success!');
+                    // this.activeSpeech = new Speech();
+                    //TODO -- If want to redirect default page after saved then uncomment this code
+                    // this.navMenuService.dispatcher.next('userspeech');
+                    //  this.router.navigate(['speechDashboard/userspeech']);
                     _this.busySpinnerService.dispatcher.next(false);
                 });
             }

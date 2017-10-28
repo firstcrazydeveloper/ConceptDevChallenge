@@ -1,4 +1,4 @@
-﻿import { Component, ViewContainerRef } from '@angular/core';
+﻿import { Component, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SpeechComponentBase } from '../../speechComponentBase';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -8,6 +8,7 @@ import { AuthService } from '../../../../shared/service/auth.service';
 import { NavMenuService } from '../../../../shared/components/navmenu/navmenu.service';
 import { BusySpinnerService } from '../../../../shared/components/busyspinner/busyspinner.service';
 import { Speech } from '../../model/speech.model';
+declare var moment: any;
 @Component({
     selector: 'speech-page',
     templateUrl: `./newSpeech.component.html`,
@@ -15,17 +16,31 @@ import { Speech } from '../../model/speech.model';
 })
 export class NewSpeechComponent extends SpeechComponentBase {
     requestType: string = 'new';
-    constructor(private router: Router, public route: ActivatedRoute, public modalService: NgbModal, public speechService: SpeechService,
+    private changedetector: ChangeDetectorRef;
+    constructor(private router: Router, private changedetectorref: ChangeDetectorRef, public route: ActivatedRoute, public modalService: NgbModal, public speechService: SpeechService,
         public toastr: ToastsManager, public vcr: ViewContainerRef, public authService: AuthService, public navMenuService: NavMenuService,
         public busySpinnerService: BusySpinnerService) {
         super(modalService, route, speechService, authService, busySpinnerService);
         this.toastr.setRootViewContainerRef(vcr);
         this.buildUICommand();
+        this.changedetector = changedetectorref;
     }
 
     ngOnInit() {
         this.filterType = this.requestType;
+        this.activeSpeech.createdOn = moment().format("YYYY-MM-DD");
+        this.changedetector.detectChanges();
+        // alert(this.valuedate);
     }
+
+    ngOnChanges(changes: any) {
+        console.log('start change');
+        for (let propName in changes) {
+            let chng = changes[propName];
+            console.log(chng);
+        }
+    }
+
     buildUICommand() {
         this.screenCommands.push({
             disabled: true, hidden: false, title: 'Delete', class: 'btn btn-danger  buttonSmall',
@@ -36,10 +51,13 @@ export class NewSpeechComponent extends SpeechComponentBase {
         this.screenCommands.push({
             disabled: false, hidden: false, title: 'Save', class: 'btn btn-success  buttonSmall',
             handler: () => {
-                this.activeSpeech.userId = this.authService.currentUser.id;
+                this.activeSpeech.createdBy = this.authService.currentUser.id;
+                this.activeSpeech.createdOn = moment(this.activeSpeech.createdOn).utc().format();
+                this.activeSpeech.updatedOn = moment(this.activeSpeech.updatedOn).utc().format();
+                this.activeSpeech.isDeleted = false; 
                 this.busySpinnerService.dispatcher.next(true);
-                this.speechService.AddOrUpdateSpeech(this.activeSpeech).subscribe(() => {
-                    this.toastr.success('Your speech saved successfully!', 'Success!');
+                this.speechService.AddSpeech(this.activeSpeech).subscribe(() => {
+                    this.toastr.success('Your speech saved successfully!', 'Success!');                    
                     this.activeSpeech = new Speech();
                      //TODO -- If want to redirect default page after saved then uncomment this code
                     // this.navMenuService.dispatcher.next('userspeech');

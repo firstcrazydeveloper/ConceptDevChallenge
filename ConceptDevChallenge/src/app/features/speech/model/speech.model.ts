@@ -1,9 +1,13 @@
 ﻿export class Speech {
-    public id: string;
+    public id: number;
     public title: string;
-    public userId: number;
+    public createdBy: number;
+    public updatedOn: Date;
+    public createdOn: Date;
+    public speechContent: string;
     public author: string;
     public keywords: string;
-    public date: Date;
-    public content: string;
+    public isDeleted: Boolean; 
+    
 }
+

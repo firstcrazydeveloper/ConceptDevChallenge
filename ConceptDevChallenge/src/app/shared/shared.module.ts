@@ -12,7 +12,6 @@ import { AuthService } from './service/auth.service';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { NavMenuService } from './components/navmenu/navmenu.service';
 import { BusySpinnerService } from './components/busyspinner/busyspinner.service';
-
 @NgModule({
     imports: [CommonModule, RouterModule, HttpModule, ToastModule.forRoot()],
     declarations: [NavMenuComponent, SideMenuComponent, BusySpinnerComponent],

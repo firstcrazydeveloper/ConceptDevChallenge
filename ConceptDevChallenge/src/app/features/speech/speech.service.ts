@@ -19,35 +19,30 @@ export class SpeechService {
     //TODO -- remove this Test Data Section after Web API implementation
     // Start TestData Section  
 
-    testDataSpeechList: Array<Speech> = [{ id: this.generateUniqueId(), userId: 1, title: 'Speech 1', author: 'Abhishek', keywords: '', date: new Date(), content: 'Sample Data for Speech 1' },
-    { id: this.generateUniqueId(), userId: 2, title: 'Speech 2', author: 'Sahil', keywords: '', date: new Date(), content: 'Sample Data for Speech 2' },
-    { id: this.generateUniqueId(), userId: 3, title: 'Speech 3', author: 'Amit', keywords: '', date: new Date(), content: 'Sample Data for Speech 3' },
-    { id: this.generateUniqueId(), userId: 1, title: 'Speech 4', author: 'Deepak', keywords: '', date: new Date(), content: 'Sample Data for Speech 4' },
-    { id: this.generateUniqueId(), userId: 5, title: 'Speech 5', author: 'Sumit', keywords: '', date: new Date(), content: 'Sample Data for Speech 5' },
-    { id: this.generateUniqueId(), userId: 1, title: 'Speech 6', author: 'Vinod', keywords: '', date: new Date(), content: 'Sample Data for Speech 6' }];
+
     // End TestData Section
 
     constructor(private webApiService: WebApiManager) {
     }
 
     //TODO -- uncomment this code after Web API implementation
-    //public static speechesUrl = AppSettings.BaseAPIUrl + 'speechlist';
-    //public static navMenuUrl = AppSettings.BaseAPIUrl + 'navigationlist';
+    public static speechesUrl = AppSettings.BaseAPIUrl + 'speech';
+    public static navMenuUrl = AppSettings.BaseAPIUrl + 'speechMenu';
 
 
     //TODO -- remove this code after Web API implementation
     //public static speechesUrl = 'src/assets/speechdata.json';
     //public static navMenuUrl = 'src/assets/navigationdata.json';
-    public static speechesUrl = 'assets/speechdata.json';
-    public static navMenuUrl = 'assets/navigationdata.json';
+    //public static speechesUrl = 'assets/speechdata.json';
+    //public static navMenuUrl = 'assets/navigationdata.json';
 
     getSpeechCollection() {
         //TODO -- remove this code after Web API implementation
-        return Observable.of(this.testDataSpeechList).delay(10);
+        // return Observable.of(this.testDataSpeechList).delay(10);
 
-        //TODO -- uncomment this code after Web API implementation
-        //this.speechCollection = this.webApiService.get(SpeechService.speechesUrl);
-        //return this.speechCollection;
+        // TODO -- uncomment this code after Web API implementation
+        this.speechCollection = this.webApiService.get(SpeechService.speechesUrl);
+        return this.speechCollection;
     }
 
 
@@ -61,22 +56,27 @@ export class SpeechService {
     AddOrUpdateSpeech(speech: Speech) {
 
         //TODO -- remove this code after Web API implementation
-        if (speech.id === undefined) {
-            speech.id = this.generateUniqueId();
-        }
-        else {
-            this.testDataSpeechList = this.testDataSpeechList.filter(item => item.id !== speech.id);
-        }
+        //if (speech.id === undefined) {
+        //    speech.id = this.generateUniqueId();
+        //}
+        //else {
+        //    this.testDataSpeechList = this.testDataSpeechList.filter(item => item.id !== speech.id);
+        //}
 
-        this.testDataSpeechList.push(speech);
-        return Observable.of(true).delay(10);
+        //this.testDataSpeechList.push(speech);
+        //return Observable.of(true).delay(10);
 
         //TODO -- uncomment this code after Web API implementation
-        // return this.webApiService.post(SpeechService.speechesUrl, speech);
+        return this.webApiService.post(SpeechService.speechesUrl, speech);
+    }
+
+    AddSpeech(speech: Speech) {
+        return this.webApiService.post(SpeechService.speechesUrl, speech);
+
     }
 
     DeleteSpeech(speech: Speech) {
-        this.testDataSpeechList = this.testDataSpeechList.filter(item => item.id !== speech.id);
+        // this.testDataSpeechList = this.testDataSpeechList.filter(item => item.id !== speech.id);
         return Observable.of(true).delay(10);
     }
 

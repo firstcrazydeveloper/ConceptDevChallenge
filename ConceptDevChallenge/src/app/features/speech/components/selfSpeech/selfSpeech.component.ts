@@ -6,6 +6,8 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { AuthService } from '../../../../shared/service/auth.service';
 import { BusySpinnerService } from '../../../../shared/components/busyspinner/busyspinner.service';
+import { Speech } from '../../model/speech.model';
+declare var moment: any;
 @Component({
     selector: 'speech-page',
     templateUrl: `./selfSpeech.component.html`,
@@ -23,6 +25,8 @@ export class SelfSpeechComponent extends SpeechComponentBase {
     }
 
     ngOnInit() {
+        this.busySpinnerService.dispatcher.next(true);
+        this.isActiveSpeechLoading = true;
         this.filterType = this.requestType;
         this.getSpeechCollection();
 
@@ -30,7 +34,24 @@ export class SelfSpeechComponent extends SpeechComponentBase {
 
     getSpeechCollection() {
         this.getSpeechListCollection(this.requestType);
-        this.speechService.dispatcher.subscribe((val: any) => { this.activeSpeech = val });
+        this.speechService.dispatcher.subscribe((val: any) => {
+            if (val !== undefined) {
+                this.isActiveSpeech = true;
+                this.setInitialValue(val);
+            }
+            else {
+                this.isActiveSpeech = false;
+                this.setInitialValue(val);
+            }
+            
+        });
+    }
+
+    setInitialValue(val:any) {
+        this.activeSpeech = val;
+        this.isActiveSpeechLoading = false;
+        this.busySpinnerService.dispatcher.next(false);
+
     }
 
 
@@ -40,22 +61,31 @@ export class SelfSpeechComponent extends SpeechComponentBase {
         this.screenCommands.push({
             disabled: false, hidden: false, title: 'Delete', class: 'btn btn-danger  buttonSmall',
             handler: () => {
+                this.activeSpeech.isDeleted = true;
                 this.busySpinnerService.dispatcher.next(true);
-                this.speechService.DeleteSpeech(this.activeSpeech).subscribe(() => {
+                this.speechService.AddSpeech(this.activeSpeech).subscribe(() => {
                     this.toastr.success('Your speech deleted successfully!', 'Success!');
+                    this.activeSpeech = new Speech();
+                    //TODO -- If want to redirect default page after saved then uncomment this code
+                    // this.navMenuService.dispatcher.next('userspeech');
+                    //  this.router.navigate(['speechDashboard/userspeech']);
                     this.getSpeechCollection();
-                    this.busySpinnerService.dispatcher.next(false);
                 });
             }
         });
 
         this.screenCommands.push({
-            disabled: false, hidden: false, title: 'Save', class: 'btn btn-success  buttonSmall',
+            disabled: false, hidden: false, title: 'Update', class: 'btn btn-success  buttonSmall',
             handler: () => {
                 this.busySpinnerService.dispatcher.next(true);
-                this.speechService.AddOrUpdateSpeech(this.activeSpeech).subscribe(() => {
-                    this.toastr.success('Your speech saved successfully!', 'Success!');
-                    this.getSpeechCollection();
+                this.activeSpeech.updatedOn = moment(this.activeSpeech.updatedOn).utc().format();
+                this.busySpinnerService.dispatcher.next(true);
+                this.speechService.AddSpeech(this.activeSpeech).subscribe(() => {
+                    this.toastr.success('Your speech updated successfully!', 'Success!');
+                    // this.activeSpeech = new Speech();
+                    //TODO -- If want to redirect default page after saved then uncomment this code
+                    // this.navMenuService.dispatcher.next('userspeech');
+                    //  this.router.navigate(['speechDashboard/userspeech']);
                     this.busySpinnerService.dispatcher.next(false);
                 });
             }

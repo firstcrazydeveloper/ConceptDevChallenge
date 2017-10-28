@@ -24,12 +24,10 @@ var SpeechDashboardComponent = (function () {
     };
     SpeechDashboardComponent.prototype.getNavMenusCollection = function () {
         var _this = this;
-        this.busySpinnerService.dispatcher.next(true);
         this.speechService.getSpeechDashBoardNavigationMenu()
             .subscribe(function (navmenus) {
             _this.navMenusCollection = navmenus;
             _this.activeMenu = _this.navMenusCollection[0].routeLink;
-            _this.busySpinnerService.dispatcher.next(false);
         });
     };
     SpeechDashboardComponent = __decorate([

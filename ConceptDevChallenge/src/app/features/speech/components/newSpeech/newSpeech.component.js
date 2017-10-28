@@ -31,9 +31,10 @@ var busyspinner_service_1 = require("../../../../shared/components/busyspinner/b
 var speech_model_1 = require("../../model/speech.model");
 var NewSpeechComponent = (function (_super) {
     __extends(NewSpeechComponent, _super);
-    function NewSpeechComponent(router, route, modalService, speechService, toastr, vcr, authService, navMenuService, busySpinnerService) {
+    function NewSpeechComponent(router, changedetectorref, route, modalService, speechService, toastr, vcr, authService, navMenuService, busySpinnerService) {
         var _this = _super.call(this, modalService, route, speechService, authService, busySpinnerService) || this;
         _this.router = router;
+        _this.changedetectorref = changedetectorref;
         _this.route = route;
         _this.modalService = modalService;
         _this.speechService = speechService;
@@ -45,10 +46,21 @@ var NewSpeechComponent = (function (_super) {
         _this.requestType = 'new';
         _this.toastr.setRootViewContainerRef(vcr);
         _this.buildUICommand();
+        _this.changedetector = changedetectorref;
         return _this;
     }
     NewSpeechComponent.prototype.ngOnInit = function () {
         this.filterType = this.requestType;
+        this.activeSpeech.createdOn = moment().format("YYYY-MM-DD");
+        this.changedetector.detectChanges();
+        // alert(this.valuedate);
+    };
+    NewSpeechComponent.prototype.ngOnChanges = function (changes) {
+        console.log('start change');
+        for (var propName in changes) {
+            var chng = changes[propName];
+            console.log(chng);
+        }
     };
     NewSpeechComponent.prototype.buildUICommand = function () {
         var _this = this;
@@ -60,11 +72,15 @@ var NewSpeechComponent = (function (_super) {
         this.screenCommands.push({
             disabled: false, hidden: false, title: 'Save', class: 'btn btn-success  buttonSmall',
             handler: function () {
-                _this.activeSpeech.userId = _this.authService.currentUser.id;
+                _this.activeSpeech.createdBy = _this.authService.currentUser.id;
+                _this.activeSpeech.createdOn = moment(_this.activeSpeech.createdOn).utc().format();
+                _this.activeSpeech.updatedOn = moment(_this.activeSpeech.updatedOn).utc().format();
+                _this.activeSpeech.isDeleted = false;
                 _this.busySpinnerService.dispatcher.next(true);
-                _this.speechService.AddOrUpdateSpeech(_this.activeSpeech).subscribe(function () {
+                _this.speechService.AddSpeech(_this.activeSpeech).subscribe(function () {
                     _this.toastr.success('Your speech saved successfully!', 'Success!');
                     _this.activeSpeech = new speech_model_1.Speech();
+                    //TODO -- If want to redirect default page after saved then uncomment this code
                     // this.navMenuService.dispatcher.next('userspeech');
                     //  this.router.navigate(['speechDashboard/userspeech']);
                     _this.busySpinnerService.dispatcher.next(false);
@@ -84,7 +100,7 @@ var NewSpeechComponent = (function (_super) {
             templateUrl: "./newSpeech.component.html",
             styleUrls: ['./newSpeech.component.min.css']
         }),
-        __metadata("design:paramtypes", [router_1.Router, router_1.ActivatedRoute, ng_bootstrap_1.NgbModal, speech_service_1.SpeechService,
+        __metadata("design:paramtypes", [router_1.Router, core_1.ChangeDetectorRef, router_1.ActivatedRoute, ng_bootstrap_1.NgbModal, speech_service_1.SpeechService,
             ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, auth_service_1.AuthService, navmenu_service_1.NavMenuService,
             busyspinner_service_1.BusySpinnerService])
     ], NewSpeechComponent);

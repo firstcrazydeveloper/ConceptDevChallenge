@@ -10,19 +10,18 @@ var SpeechComponentBase = (function () {
         this.speechService = speechService;
         this.authService = authService;
         this.busySpinnerService = busySpinnerService;
+        this.isActiveSpeech = false;
+        this.isActiveSpeechLoading = true;
+        this.dateFormat = 'MM/dd/yyyy';
+        this.valuedate = moment().format('MM/DD/YYYY');
         this.speechList = [];
         this.activeSpeech = new speech_model_1.Speech();
         this.screenCommands = [];
         this.route.url.forEach(function (segments) {
             _this.activeMenu = segments.join("/");
-            console.log('start');
-            console.log(_this.activeMenu);
-            // alert(this.activeMenu);
-            console.log('End');
         });
     }
     SpeechComponentBase.prototype.getSpeechListCollection = function (requestType) {
-        this.busySpinnerService.dispatcher.next(true);
         var currentUser = this.authService.currentUser;
         if (requestType == 'all') {
             this.getAllSpeechCollection();
@@ -35,9 +34,14 @@ var SpeechComponentBase = (function () {
         var _this = this;
         this.speechService.getSpeechCollection()
             .subscribe(function (speechlist) {
-            _this.speechList = speechlist.filter(function (d) { return d.userId === id; });
-            _this.activeSpeech = _this.speechList[0];
-            _this.busySpinnerService.dispatcher.next(false);
+            _this.speechList = speechlist.filter(function (d) { return d.createdBy === id; });
+            if (_this.speechList !== undefined && _this.speechList.length > 0) {
+                _this.activeSpeech = _this.speechList[0];
+            }
+            else {
+                _this.activeSpeech = new speech_model_1.Speech();
+            }
+            _this.speechService.dispatcher.next(_this.activeSpeech);
         });
     };
     SpeechComponentBase.prototype.getAllSpeechCollection = function () {
@@ -45,8 +49,13 @@ var SpeechComponentBase = (function () {
         this.speechService.getSpeechCollection()
             .subscribe(function (speechlist) {
             _this.speechList = speechlist;
-            _this.activeSpeech = _this.speechList[0];
-            _this.busySpinnerService.dispatcher.next(false);
+            if (_this.speechList !== undefined && _this.speechList.length > 0) {
+                _this.activeSpeech = _this.speechList[0];
+            }
+            else {
+                _this.activeSpeech = new speech_model_1.Speech();
+            }
+            _this.speechService.dispatcher.next(_this.activeSpeech);
         });
     };
     SpeechComponentBase.prototype.openShareModel = function () {
