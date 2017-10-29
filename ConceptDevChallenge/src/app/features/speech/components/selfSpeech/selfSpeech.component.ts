@@ -59,7 +59,7 @@ export class SelfSpeechComponent extends SpeechComponentBase {
     buildUICommand() {
         this.screenCommands = [];
         this.screenCommands.push({
-            disabled: false, hidden: false, title: 'Delete', class: 'btn btn-danger  buttonSmall',
+            disabled: false, hidden: false, title: 'Delete', class: 'btn btn-primary  buttonSmall',
             handler: () => {
                 this.activeSpeech.isDeleted = true;
                 this.busySpinnerService.dispatcher.next(true);
@@ -75,7 +75,7 @@ export class SelfSpeechComponent extends SpeechComponentBase {
         });
 
         this.screenCommands.push({
-            disabled: false, hidden: false, title: 'Update', class: 'btn btn-success  buttonSmall',
+            disabled: false, hidden: false, title: 'Update', class: 'btn btn-primary  buttonSmall',
             handler: () => {
                 this.busySpinnerService.dispatcher.next(true);
                 this.activeSpeech.updatedOn = moment(this.activeSpeech.updatedOn).utc().format();

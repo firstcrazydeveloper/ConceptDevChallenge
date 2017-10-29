@@ -11,6 +11,7 @@ var http_1 = require("@angular/http");
 var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
 var navmenu_component_1 = require("./components/navmenu/navmenu.component");
+var topmenu_component_1 = require("./components/topmenu/topmenu.component");
 var busyspinner_component_1 = require("./components/busyspinner/busyspinner.component");
 var sidemenu_component_1 = require("./components/sidemenu/sidemenu.component");
 var webApiManager_service_1 = require("./service/webApiManager.service");
@@ -32,8 +33,8 @@ var SharedModule = (function () {
     SharedModule = SharedModule_1 = __decorate([
         core_1.NgModule({
             imports: [common_1.CommonModule, router_1.RouterModule, http_1.HttpModule, ng2_toastr_1.ToastModule.forRoot()],
-            declarations: [navmenu_component_1.NavMenuComponent, sidemenu_component_1.SideMenuComponent, busyspinner_component_1.BusySpinnerComponent],
-            exports: [navmenu_component_1.NavMenuComponent, sidemenu_component_1.SideMenuComponent, busyspinner_component_1.BusySpinnerComponent],
+            declarations: [navmenu_component_1.NavMenuComponent, sidemenu_component_1.SideMenuComponent, busyspinner_component_1.BusySpinnerComponent, topmenu_component_1.TopMenuComponent],
+            exports: [navmenu_component_1.NavMenuComponent, sidemenu_component_1.SideMenuComponent, busyspinner_component_1.BusySpinnerComponent, topmenu_component_1.TopMenuComponent],
             providers: [webApiManager_service_1.WebApiManager, navmenu_service_1.NavMenuService, busyspinner_service_1.BusySpinnerService]
         })
     ], SharedModule);

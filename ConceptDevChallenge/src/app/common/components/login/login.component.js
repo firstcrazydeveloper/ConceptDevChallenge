@@ -32,6 +32,7 @@ var LoginComponent = (function () {
             if (user.isAunthenticate) {
                 _this.authService.isLoggedIn = true;
                 _this.authService.currentUser = user;
+                _this.authService.userName = user.firstName;
                 var redirect = _this.authService.redirectUrl ? _this.authService.redirectUrl : 'speechDashboard';
                 var navigationExtras = {
                     preserveQueryParams: true,

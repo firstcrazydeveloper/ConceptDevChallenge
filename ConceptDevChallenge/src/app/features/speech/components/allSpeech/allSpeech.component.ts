@@ -44,13 +44,13 @@ export class AllSpeechComponent extends SpeechComponentBase {
 
     buildUICommand() {
         this.screenCommands.push({
-            disabled: true, hidden: false, title: 'Delete', class: 'btn btn-danger  buttonSmall',
+            disabled: true, hidden: false, title: 'Delete', class: 'btn btn-primary  buttonSmall',
             handler: () => {
             }
         });
 
         this.screenCommands.push({
-            disabled: true, hidden: false, title: 'Update', class: 'btn btn-success  buttonSmall',
+            disabled: true, hidden: false, title: 'Update', class: 'btn btn-primary  buttonSmall',
             handler: () => {
             }
         });

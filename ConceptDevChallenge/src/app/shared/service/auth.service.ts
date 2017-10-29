@@ -13,6 +13,7 @@ export class AuthService {
     userData: Observable<any> = null;
     currentUser: User;
     redirectUrl: string;
+    userName: string = 'Guest';
 
     //TODO -- remove this Test Data Section after Web API implementation
     // Start TestData Section  
@@ -47,10 +48,10 @@ export class AuthService {
         return this.userData;
     }
 
-    logout(): void {
-        this.isLoggedIn = false;
+   
+    logout(): Observable<boolean> {
+        return Observable.of(true).delay(1000).do(val => this.isLoggedIn = false);
     }
-
     //verifuser(id: string, password: string) {
 
     //    let userList = this.testUserData.filter(user => user.userid === id && user.password === password);

@@ -74,7 +74,7 @@ var SelfSpeechComponent = (function (_super) {
         var _this = this;
         this.screenCommands = [];
         this.screenCommands.push({
-            disabled: false, hidden: false, title: 'Delete', class: 'btn btn-danger  buttonSmall',
+            disabled: false, hidden: false, title: 'Delete', class: 'btn btn-primary  buttonSmall',
             handler: function () {
                 _this.activeSpeech.isDeleted = true;
                 _this.busySpinnerService.dispatcher.next(true);
@@ -89,7 +89,7 @@ var SelfSpeechComponent = (function (_super) {
             }
         });
         this.screenCommands.push({
-            disabled: false, hidden: false, title: 'Update', class: 'btn btn-success  buttonSmall',
+            disabled: false, hidden: false, title: 'Update', class: 'btn btn-primary  buttonSmall',
             handler: function () {
                 _this.busySpinnerService.dispatcher.next(true);
                 _this.activeSpeech.updatedOn = moment(_this.activeSpeech.updatedOn).utc().format();

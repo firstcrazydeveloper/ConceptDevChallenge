@@ -44,13 +44,13 @@ export class NewSpeechComponent extends SpeechComponentBase {
 
     buildUICommand() {
         this.screenCommands.push({
-            disabled: true, hidden: false, title: 'Delete', class: 'btn btn-danger  buttonSmall',
+            disabled: true, hidden: false, title: 'Delete', class: 'btn btn-primary  buttonSmall',
             handler: () => {
             }
         });
 
         this.screenCommands.push({
-            disabled: false, hidden: false, title: 'Save', class: 'btn btn-success  buttonSmall',
+            disabled: false, hidden: false, title: 'Save', class: 'btn btn-primary  buttonSmall',
             handler: () => {
                 this.activeSpeech.createdBy = this.authService.currentUser.id;
                 this.activeSpeech.createdOn = moment(this.activeSpeech.createdOn).utc().format();

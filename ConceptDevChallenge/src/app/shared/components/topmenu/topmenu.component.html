@@ -1,0 +1,9 @@
+﻿<div class="top-menu" >    
+    <div class="navbar-header top-menu-title">
+        <a class="navbar-brand" > Developer Challenge</a>
+    </div>
+    <ul class="nav top-menu-nav">
+        <li><a>Welcome {{authService.userName}}</a></li>
+        <li *ngIf="authService.isLoggedIn"><a (click)="logout()">Logout</a></li>
+    </ul>
+</div>

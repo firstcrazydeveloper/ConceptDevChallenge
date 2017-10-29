@@ -163,6 +163,13 @@
     <Content Include="src\app\shared\components\sidemenu\sidemenu.component.min.css">
       <DependentUpon>sidemenu.component.css</DependentUpon>
     </Content>
+    <Content Include="src\app\shared\components\topmenu\topmenu.component.css">
+      <DependentUpon>topmenu.component.less</DependentUpon>
+    </Content>
+    <Content Include="src\app\shared\components\topmenu\topmenu.component.html" />
+    <Content Include="src\app\shared\components\topmenu\topmenu.component.min.css">
+      <DependentUpon>topmenu.component.css</DependentUpon>
+    </Content>
     <Content Include="src\assets\moment.min.js" />
     <Content Include="src\fonts\font-awesome.min.css" />
     <Content Include="src\fonts\fontawesome-webfont.svg" />
@@ -194,6 +201,7 @@
     <Content Include="src\assets\navigationdata.json" />
     <Content Include="src\app\shared\components\busyspinner\busyspinner.component.less" />
     <Content Include="src\app\features\speech\components\speech\speech.component.less" />
+    <Content Include="src\app\shared\components\topmenu\topmenu.component.less" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -271,6 +279,7 @@
     <TypeScriptCompile Include="src\app\shared\components\navmenu\navmenu.component.ts" />
     <TypeScriptCompile Include="src\app\shared\components\navmenu\navmenu.service.ts" />
     <TypeScriptCompile Include="src\app\shared\components\sidemenu\sidemenu.component.ts" />
+    <TypeScriptCompile Include="src\app\shared\components\topmenu\topmenu.component.ts" />
     <TypeScriptCompile Include="src\app\shared\model\user.model.ts" />
     <TypeScriptCompile Include="src\app\shared\service\auth.guard.service.ts" />
     <TypeScriptCompile Include="src\app\shared\service\auth.service.ts" />

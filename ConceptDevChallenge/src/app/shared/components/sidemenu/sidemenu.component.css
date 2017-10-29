@@ -3,6 +3,10 @@
   margin-right: 2%;
   padding: 5px;
 }
+#navigation .list-group-item-success {
+  background-color: #4c5f72;
+  color: white;
+}
 #navigation ul {
   margin: 0px;
   padding: 0px;

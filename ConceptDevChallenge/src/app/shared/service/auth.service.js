@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/observable/of");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/delay");
@@ -25,6 +26,7 @@ var AuthService = (function () {
         this.webApiService = webApiService;
         this.isLoggedIn = false;
         this.userData = null;
+        this.userName = 'Guest';
         console.log('start AuthService');
     }
     AuthService_1 = AuthService;
@@ -42,7 +44,8 @@ var AuthService = (function () {
         return this.userData;
     };
     AuthService.prototype.logout = function () {
-        this.isLoggedIn = false;
+        var _this = this;
+        return Observable_1.Observable.of(true).delay(1000).do(function (val) { return _this.isLoggedIn = false; });
     };
     //TODO -- uncomment this code after Web API implementation
     AuthService.loginUrl = appSettings_setting_1.AppSettings.BaseAPIUrl + 'login';

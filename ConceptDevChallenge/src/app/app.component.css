@@ -3,7 +3,7 @@ html {
 }
 
 body {
-    background-color: #5d1760;
+    background-color: #ecf0f5;
     color: #84878d;
     font-family: "Roboto", "Open Sans", sans-serif;
     font-size: 15px;
@@ -30,7 +30,6 @@ body {
 }
 
 .container {
-    /*background: #d5cfcf;*/
     background: white;
     border-radius: 5px;
     overflow:hidden;
@@ -41,20 +40,21 @@ nav-menu ul {
 }
 
 ul li {
-    background: #462556;
+    background: none;
     list-style: none;
     height: 35px;
     float: left;
     padding: 0 5px;
-    border-right: 2px solid #d5cfcf;
+    border-right: 1px solid #1e2830;
     margin-bottom: 5px;
     margin-top: 5px;
+    font-weight: bold;
 }
 
 .active {
-    border-bottom: 4px solid #ffaa3c;
+    border-bottom: 4px solid #2b3843;
     padding: 0 15px;
-    color: #ffaa3c;
+    color: #2b3843;
     font-weight: bold;
 }
 
@@ -64,7 +64,7 @@ ul li a {
     padding: 0 15px;
     color: #fff;
     font-size: 0.8em;
-    font-weight: 400;
+    font-weight: bold;
     line-height: 2.5;
     text-align: center;
     text-decoration: none;
@@ -77,13 +77,14 @@ ul li a {
 
     ul li a:focus {
         text-decoration: none;
-        color: #ffaa3c;
+        color: #2b3843;
         outline: none;
+        font-weight: bold;
     }
 
 ul li.active a {
     text-decoration: none;
-    color: #ffaa3c;
+    color: #2b3843;
     outline: none;
     font-weight: bold;
 }
@@ -93,11 +94,28 @@ ul:hover > li:not(:hover) {
 }
 
 ul li a:hover {
-    border-bottom: 4px solid #ffaa3c;
-    color: #fff;
+    border-bottom: 4px solid #2b3843;
+    color: #2b3843;
     text-decoration: none;
+    font-weight: bold;
 }
 
 ul:hover > li {
-    background-color: #6a3787;
+    background-color: #b4bcc6;
+}
+
+
+.btn-primary:not([disabled]):not(.disabled).active, .btn-primary:not([disabled]):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #2c3842;
+    border-color: #2c3842;
+    box-shadow: 0 0 0 0.2rem #1b242b);
+}
+
+.btn-primary{
+     color: #fff;
+    background-color: #2c3842;
+    border-color: #2c3842;
+    box-shadow: 0 0 0 0.2rem #1b242b);
+
 }

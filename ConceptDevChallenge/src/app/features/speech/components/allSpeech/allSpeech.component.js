@@ -64,12 +64,12 @@ var AllSpeechComponent = (function (_super) {
     AllSpeechComponent.prototype.buildUICommand = function () {
         var _this = this;
         this.screenCommands.push({
-            disabled: true, hidden: false, title: 'Delete', class: 'btn btn-danger  buttonSmall',
+            disabled: true, hidden: false, title: 'Delete', class: 'btn btn-primary  buttonSmall',
             handler: function () {
             }
         });
         this.screenCommands.push({
-            disabled: true, hidden: false, title: 'Update', class: 'btn btn-success  buttonSmall',
+            disabled: true, hidden: false, title: 'Update', class: 'btn btn-primary  buttonSmall',
             handler: function () {
             }
         });

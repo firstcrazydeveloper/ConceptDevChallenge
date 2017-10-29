@@ -50,5 +50,9 @@
   {
     "outputFile": "src/app/features/speech/components/speech/speech.component.css",
     "inputFile": "src/app/features/speech/components/speech/speech.component.less"
+  },
+  {
+    "outputFile": "src/app/shared/components/topmenu/topmenu.component.css",
+    "inputFile": "src/app/shared/components/topmenu/topmenu.component.less"
   }
 ]

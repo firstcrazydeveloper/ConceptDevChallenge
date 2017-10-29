@@ -12,6 +12,32 @@
     background: white;
     border-radius: 5px;
     height: 100vh;
+
+    .btn-primary:not([disabled]):not(.disabled).active, .btn-primary:not([disabled]):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+        color: #fff;
+        background-color: #2c3842;
+        border-color: #2c3842;
+        box-shadow: 0 0 0 0.2rem #1b242b);
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #2c3842;
+        border-color: #2c3842;
+        box-shadow: 0 0 0 0.2rem #1b242b);
+    }
+
+    .btn-primary.disabled, .btn-primary:disabled {
+        background-color: #b1b3b5;
+        border-color: #b1b3b5;
+        cursor: none;
+    }
+
+    .btn-primary.disabled:hover, .btn-primary:disabled:hover {
+        background-color: #b1b3b5;
+        border-color: #b1b3b5;
+        cursor: none;
+    }
     /*
     Note: It is best to use a less version of this file ( see http://css2less.cc
     For the media queries use @screen-sm-min instead of 768px.
@@ -97,8 +123,8 @@
     }
 }
 
-.omb_loginForm{
-    div{
-        margin-top:10px;
+.omb_loginForm {
+    div {
+        margin-top: 10px;
     }
 }

@@ -66,12 +66,12 @@ var NewSpeechComponent = (function (_super) {
     NewSpeechComponent.prototype.buildUICommand = function () {
         var _this = this;
         this.screenCommands.push({
-            disabled: true, hidden: false, title: 'Delete', class: 'btn btn-danger  buttonSmall',
+            disabled: true, hidden: false, title: 'Delete', class: 'btn btn-primary  buttonSmall',
             handler: function () {
             }
         });
         this.screenCommands.push({
-            disabled: false, hidden: false, title: 'Save', class: 'btn btn-success  buttonSmall',
+            disabled: false, hidden: false, title: 'Save', class: 'btn btn-primary  buttonSmall',
             handler: function () {
                 _this.activeSpeech.createdBy = _this.authService.currentUser.id;
                 _this.activeSpeech.createdOn = moment(_this.activeSpeech.createdOn).utc().format();

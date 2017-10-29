@@ -27,6 +27,7 @@ export class LoginComponent {
             if (user.isAunthenticate) {
                 this.authService.isLoggedIn = true;
                 this.authService.currentUser = user;
+                this.authService.userName = user.firstName;
                 let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'speechDashboard';
                 let navigationExtras: NavigationExtras = {
                     preserveQueryParams: true,
