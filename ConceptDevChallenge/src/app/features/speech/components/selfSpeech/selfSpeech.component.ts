@@ -18,7 +18,7 @@ export class SelfSpeechComponent extends SpeechComponentBase {
     constructor(private router: Router, public modalService: NgbModal, public route: ActivatedRoute,
         public speechService: SpeechService, public toastr: ToastsManager, public vcr: ViewContainerRef, public authService: AuthService,
         public busySpinnerService: BusySpinnerService) {
-        super(modalService, route, speechService, authService, busySpinnerService);
+        super(modalService, route, speechService, authService, busySpinnerService, toastr);
         this.toastr.setRootViewContainerRef(vcr);
         this.buildUICommand();
 
@@ -43,11 +43,11 @@ export class SelfSpeechComponent extends SpeechComponentBase {
                 this.isActiveSpeech = false;
                 this.setInitialValue(val);
             }
-            
+
         });
     }
 
-    setInitialValue(val:any) {
+    setInitialValue(val: any) {
         this.activeSpeech = val;
         this.isActiveSpeechLoading = false;
         this.busySpinnerService.dispatcher.next(false);
@@ -81,7 +81,7 @@ export class SelfSpeechComponent extends SpeechComponentBase {
                 this.activeSpeech.updatedOn = moment(this.activeSpeech.updatedOn).utc().format();
                 this.busySpinnerService.dispatcher.next(true);
                 this.speechService.AddSpeech(this.activeSpeech).subscribe(() => {
-                    this.toastr.success('Your speech updated successfully!', 'Success!');
+                    this.successToaster('Your speech updated successfully!');
                     // this.activeSpeech = new Speech();
                     //TODO -- If want to redirect default page after saved then uncomment this code
                     // this.navMenuService.dispatcher.next('userspeech');
@@ -97,5 +97,9 @@ export class SelfSpeechComponent extends SpeechComponentBase {
                 this.openShareModel();
             }
         });
+    }
+
+    successToaster(msg: string) {
+        this.toastr.success(msg, 'Success!');
     }
 }

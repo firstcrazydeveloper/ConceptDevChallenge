@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
 import { SpeechService } from './speech.service';
 import { Speech } from './model/speech.model';
 import { AuthService } from '../../shared/service/auth.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 declare var moment: any;
 
 import { BusySpinnerService } from '../../shared/components/busyspinner/busyspinner.service';
@@ -17,7 +18,8 @@ export abstract class SpeechComponentBase {
     speechList: Array<Speech> = [];
     activeSpeech: Speech = new Speech();
     protected screenCommands: Array<any> = [];
-    constructor(public modalService: NgbModal, public route: ActivatedRoute, public speechService: SpeechService, public authService: AuthService, public busySpinnerService: BusySpinnerService) {
+    constructor(public modalService: NgbModal, public route: ActivatedRoute, public speechService: SpeechService,
+        public authService: AuthService, public busySpinnerService: BusySpinnerService, public toastr: ToastsManager) {
         this.route.url.forEach((segments: UrlSegment[]) => {
             this.activeMenu = segments.join("/");
         });
@@ -68,9 +70,16 @@ export abstract class SpeechComponentBase {
 
     openShareModel() {
         const modalRef = this.modalService.open(ShareSpeechContent);
-        modalRef.componentInstance.name = 'World';
+        modalRef.componentInstance.content = this.activeSpeech.speechContent;
+        modalRef.componentInstance.handler = (callback: any) => {
+            setTimeout(function () {
+                callback.close('Close click');
+            }, 1000)
+            
+        }
     }
 
     abstract buildUICommand(): void;
+    abstract successToaster(msg: string): void;
 
 }

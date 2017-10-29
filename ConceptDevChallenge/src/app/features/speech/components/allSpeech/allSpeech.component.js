@@ -23,19 +23,21 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var speechComponentBase_1 = require("../../speechComponentBase");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var ng2_toastr_1 = require("ng2-toastr/ng2-toastr");
 var speech_service_1 = require("../../speech.service");
 var auth_service_1 = require("../../../../shared/service/auth.service");
 var busyspinner_service_1 = require("../../../../shared/components/busyspinner/busyspinner.service");
 var AllSpeechComponent = (function (_super) {
     __extends(AllSpeechComponent, _super);
-    function AllSpeechComponent(router, route, modalService, speechService, authService, busySpinnerService) {
-        var _this = _super.call(this, modalService, route, speechService, authService, busySpinnerService) || this;
+    function AllSpeechComponent(router, route, modalService, speechService, authService, busySpinnerService, toastr) {
+        var _this = _super.call(this, modalService, route, speechService, authService, busySpinnerService, toastr) || this;
         _this.router = router;
         _this.route = route;
         _this.modalService = modalService;
         _this.speechService = speechService;
         _this.authService = authService;
         _this.busySpinnerService = busySpinnerService;
+        _this.toastr = toastr;
         _this.requestType = 'all';
         _this.buildUICommand();
         return _this;
@@ -80,6 +82,9 @@ var AllSpeechComponent = (function (_super) {
             }
         });
     };
+    AllSpeechComponent.prototype.successToaster = function (msg) {
+        this.toastr.success(msg, 'Success!');
+    };
     AllSpeechComponent = __decorate([
         core_1.Component({
             selector: 'speech-page',
@@ -87,7 +92,7 @@ var AllSpeechComponent = (function (_super) {
             styleUrls: ['./allSpeech.component.min.css']
         }),
         __metadata("design:paramtypes", [router_1.Router, router_1.ActivatedRoute, ng_bootstrap_1.NgbModal, speech_service_1.SpeechService,
-            auth_service_1.AuthService, busyspinner_service_1.BusySpinnerService])
+            auth_service_1.AuthService, busyspinner_service_1.BusySpinnerService, ng2_toastr_1.ToastsManager])
     ], AllSpeechComponent);
     return AllSpeechComponent;
 }(speechComponentBase_1.SpeechComponentBase));

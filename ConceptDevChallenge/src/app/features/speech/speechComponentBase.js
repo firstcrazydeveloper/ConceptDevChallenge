@@ -3,13 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var sharespeech_component_1 = require("../../common/components/sharepeech/sharespeech.component");
 var speech_model_1 = require("./model/speech.model");
 var SpeechComponentBase = (function () {
-    function SpeechComponentBase(modalService, route, speechService, authService, busySpinnerService) {
+    function SpeechComponentBase(modalService, route, speechService, authService, busySpinnerService, toastr) {
         var _this = this;
         this.modalService = modalService;
         this.route = route;
         this.speechService = speechService;
         this.authService = authService;
         this.busySpinnerService = busySpinnerService;
+        this.toastr = toastr;
         this.isActiveSpeech = false;
         this.isActiveSpeechLoading = true;
         this.dateFormat = 'MM/dd/yyyy';
@@ -60,7 +61,12 @@ var SpeechComponentBase = (function () {
     };
     SpeechComponentBase.prototype.openShareModel = function () {
         var modalRef = this.modalService.open(sharespeech_component_1.ShareSpeechContent);
-        modalRef.componentInstance.name = 'World';
+        modalRef.componentInstance.content = this.activeSpeech.speechContent;
+        modalRef.componentInstance.handler = function (callback) {
+            setTimeout(function () {
+                callback.close('Close click');
+            }, 1000);
+        };
     };
     return SpeechComponentBase;
 }());

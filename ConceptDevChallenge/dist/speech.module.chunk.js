@@ -6,7 +6,12 @@ webpackJsonp(["speech.module"],{
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ShareSpeechContent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_toastr_ng2_toastr__ = __webpack_require__("../../../../ng2-toastr/ng2-toastr.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ng2_toastr_ng2_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_ng2_toastr_ng2_toastr__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_service_mail_service__ = __webpack_require__("../../../../../src/app/shared/service/mail.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_model_mail_model__ = __webpack_require__("../../../../../src/app/shared/model/mail.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_components_busyspinner_busyspinner_service__ = __webpack_require__("../../../../../src/app/shared/components/busyspinner/busyspinner.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,25 +23,52 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
+
+
+
 var ShareSpeechContent = (function () {
-    function ShareSpeechContent(activeModal) {
+    function ShareSpeechContent(activeModal, mailService, toastr, vcr, busySpinnerService) {
         this.activeModal = activeModal;
+        this.mailService = mailService;
+        this.toastr = toastr;
+        this.vcr = vcr;
+        this.busySpinnerService = busySpinnerService;
+        this.isMailSending = false;
+        this.toastr.setRootViewContainerRef(vcr);
     }
+    ShareSpeechContent.prototype.shareSpeech = function () {
+        var _this = this;
+        this.isMailSending = true;
+        var mailData = new __WEBPACK_IMPORTED_MODULE_4__shared_model_mail_model__["a" /* Mail */]();
+        mailData.content = this.content;
+        mailData.email = this.userEmail;
+        mailData.subject = this.subject;
+        this.mailService.sendMail(mailData).subscribe(function () {
+            _this.isMailSending = false;
+            _this.toastr.success('Your speech shared successfully!', 'Success!');
+            _this.handler(_this.activeModal);
+        });
+    };
     return ShareSpeechContent;
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", String)
-], ShareSpeechContent.prototype, "name", void 0);
+], ShareSpeechContent.prototype, "content", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], ShareSpeechContent.prototype, "handler", void 0);
 ShareSpeechContent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'share-speech-modal-content',
-        template: "\n    <div class=\"modal-header\">\n      <h4 class=\"modal-title\">Share Speech</h4>\n      <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"activeModal.dismiss('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n    <form class=\"omb_loginForm\"  autocomplete=\"off\" #f=\"ngForm\" (ngSubmit)=\"shareSpeech()\">\n                    <div class=\"input-group\">\n                        <span class=\"input-group-addon\"><i class=\"fa fa-envelope\" aria-hidden=\"true\"></i></span>\n                        <input type=\"text\" class=\"form-control\" name=\"subject\" [(ngModel)]=\"subject\" required placeholder=\"mail subject\">\n                    </div>\n                    <div class=\"input-group\" style=\"margin-top:20px;\">\n                        <span class=\"input-group-addon\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i></span>\n                        <input type=\"text\" class=\"form-control\" name=\"useremail\" [(ngModel)]=\"userEmail\" required placeholder=\"user email\">\n                    </div>\n                    <span class=\"help-block\"></span>\n                   \n                </form>\n     \n    </div>\n    <div class=\"modal-footer\">\n    <button class=\"btn btn-sm btn-primary\" type=\"button\" [disabled]=\"!f.valid\" (click)=\"shareSpeech()\">Share</button>\n      <button type=\"button\" class=\"btn btn-sm btn-primary\" (click)=\"activeModal.close('Close click')\">Cancel</button>\n    </div>\n  "
+        template: " <busy-spinner [busyIndicator]=\"isMailSending\"></busy-spinner>\n    <div class=\"modal-header\">\n      <h4 class=\"modal-title\">Share Speech</h4>\n      <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"activeModal.dismiss('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n    <form class=\"omb_loginForm\"  autocomplete=\"off\" #f=\"ngForm\" (ngSubmit)=\"shareSpeech()\">\n                    <div class=\"input-group\">\n                        <span class=\"input-group-addon\"><i class=\"fa fa-envelope\" aria-hidden=\"true\"></i></span>\n                        <input type=\"text\" class=\"form-control\" name=\"subject\" [(ngModel)]=\"subject\" required placeholder=\"mail subject\">\n                    </div>\n                    <div class=\"input-group\" style=\"margin-top:20px;\">\n                        <span class=\"input-group-addon\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i></span>\n                        <input type=\"text\" class=\"form-control\" name=\"useremail\" [(ngModel)]=\"userEmail\" required placeholder=\"user email\">\n                    </div>\n                    <span class=\"help-block\"></span>\n                   \n                </form>\n     \n    </div>\n    <div class=\"modal-footer\">\n    <button class=\"btn btn-sm btn-primary\" type=\"button\" [disabled]=\"!f.valid\" (click)=\"shareSpeech()\">Share</button>\n      <button type=\"button\" class=\"btn btn-sm btn-primary\" (click)=\"activeModal.close('Close click')\">Cancel</button>\n    </div>\n  "
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__["a" /* NgbActiveModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__["a" /* NgbActiveModal */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__["a" /* NgbActiveModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__["a" /* NgbActiveModal */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__shared_service_mail_service__["a" /* MailService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__shared_service_mail_service__["a" /* MailService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ng2_toastr_ng2_toastr__["ToastsManager"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ng2_toastr_ng2_toastr__["ToastsManager"]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__shared_components_busyspinner_busyspinner_service__["a" /* BusySpinnerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__shared_components_busyspinner_busyspinner_service__["a" /* BusySpinnerService */]) === "function" && _e || Object])
 ], ShareSpeechContent);
 
-var _a;
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=sharespeech.component.js.map
 
 /***/ }),
@@ -75,9 +107,11 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__speechComponentBase__ = __webpack_require__("../../../../../src/app/features/speech/speechComponentBase.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__speech_service__ = __webpack_require__("../../../../../src/app/features/speech/speech.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_service_auth_service__ = __webpack_require__("../../../../../src/app/shared/service/auth.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__shared_components_busyspinner_busyspinner_service__ = __webpack_require__("../../../../../src/app/shared/components/busyspinner/busyspinner.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng2_toastr_ng2_toastr__ = __webpack_require__("../../../../ng2-toastr/ng2-toastr.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng2_toastr_ng2_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_ng2_toastr_ng2_toastr__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__speech_service__ = __webpack_require__("../../../../../src/app/features/speech/speech.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__shared_service_auth_service__ = __webpack_require__("../../../../../src/app/shared/service/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__shared_components_busyspinner_busyspinner_service__ = __webpack_require__("../../../../../src/app/shared/components/busyspinner/busyspinner.service.ts");
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -104,16 +138,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AllSpeechComponent = (function (_super) {
     __extends(AllSpeechComponent, _super);
-    function AllSpeechComponent(router, route, modalService, speechService, authService, busySpinnerService) {
-        var _this = _super.call(this, modalService, route, speechService, authService, busySpinnerService) || this;
+    function AllSpeechComponent(router, route, modalService, speechService, authService, busySpinnerService, toastr) {
+        var _this = _super.call(this, modalService, route, speechService, authService, busySpinnerService, toastr) || this;
         _this.router = router;
         _this.route = route;
         _this.modalService = modalService;
         _this.speechService = speechService;
         _this.authService = authService;
         _this.busySpinnerService = busySpinnerService;
+        _this.toastr = toastr;
         _this.requestType = 'all';
         _this.buildUICommand();
         return _this;
@@ -158,6 +194,9 @@ var AllSpeechComponent = (function (_super) {
             }
         });
     };
+    AllSpeechComponent.prototype.successToaster = function (msg) {
+        this.toastr.success(msg, 'Success!');
+    };
     return AllSpeechComponent;
 }(__WEBPACK_IMPORTED_MODULE_2__speechComponentBase__["a" /* SpeechComponentBase */]));
 AllSpeechComponent = __decorate([
@@ -166,10 +205,10 @@ AllSpeechComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/features/speech/components/allSpeech/allSpeech.component.html"),
         styles: [__webpack_require__("../../../../../src/app/features/speech/components/allSpeech/allSpeech.component.min.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__speech_service__["a" /* SpeechService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__speech_service__["a" /* SpeechService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__shared_service_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__shared_service_auth_service__["a" /* AuthService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_6__shared_components_busyspinner_busyspinner_service__["a" /* BusySpinnerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__shared_components_busyspinner_busyspinner_service__["a" /* BusySpinnerService */]) === "function" && _f || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__speech_service__["a" /* SpeechService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__speech_service__["a" /* SpeechService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_6__shared_service_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__shared_service_auth_service__["a" /* AuthService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_7__shared_components_busyspinner_busyspinner_service__["a" /* BusySpinnerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__shared_components_busyspinner_busyspinner_service__["a" /* BusySpinnerService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_4_ng2_toastr_ng2_toastr__["ToastsManager"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ng2_toastr_ng2_toastr__["ToastsManager"]) === "function" && _g || Object])
 ], AllSpeechComponent);
 
-var _a, _b, _c, _d, _e, _f;
+var _a, _b, _c, _d, _e, _f, _g;
 //# sourceMappingURL=allSpeech.component.js.map
 
 /***/ }),
@@ -247,7 +286,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var NewSpeechComponent = (function (_super) {
     __extends(NewSpeechComponent, _super);
     function NewSpeechComponent(router, changedetectorref, route, modalService, speechService, toastr, vcr, authService, navMenuService, busySpinnerService) {
-        var _this = _super.call(this, modalService, route, speechService, authService, busySpinnerService) || this;
+        var _this = _super.call(this, modalService, route, speechService, authService, busySpinnerService, toastr) || this;
         _this.router = router;
         _this.changedetectorref = changedetectorref;
         _this.route = route;
@@ -294,7 +333,7 @@ var NewSpeechComponent = (function (_super) {
                 _this.activeSpeech.isDeleted = false;
                 _this.busySpinnerService.dispatcher.next(true);
                 _this.speechService.AddSpeech(_this.activeSpeech).subscribe(function () {
-                    _this.toastr.success('Your speech saved successfully!', 'Success!');
+                    _this.successToaster('Your speech saved successfully!');
                     _this.activeSpeech = new __WEBPACK_IMPORTED_MODULE_9__model_speech_model__["a" /* Speech */]();
                     //TODO -- If want to redirect default page after saved then uncomment this code
                     // this.navMenuService.dispatcher.next('userspeech');
@@ -309,6 +348,9 @@ var NewSpeechComponent = (function (_super) {
                 _this.openShareModel();
             }
         });
+    };
+    NewSpeechComponent.prototype.successToaster = function (msg) {
+        this.toastr.success(msg, 'Success!');
     };
     return NewSpeechComponent;
 }(__WEBPACK_IMPORTED_MODULE_2__speechComponentBase__["a" /* SpeechComponentBase */]));
@@ -397,7 +439,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var SelfSpeechComponent = (function (_super) {
     __extends(SelfSpeechComponent, _super);
     function SelfSpeechComponent(router, modalService, route, speechService, toastr, vcr, authService, busySpinnerService) {
-        var _this = _super.call(this, modalService, route, speechService, authService, busySpinnerService) || this;
+        var _this = _super.call(this, modalService, route, speechService, authService, busySpinnerService, toastr) || this;
         _this.router = router;
         _this.modalService = modalService;
         _this.route = route;
@@ -461,7 +503,7 @@ var SelfSpeechComponent = (function (_super) {
                 _this.activeSpeech.updatedOn = moment(_this.activeSpeech.updatedOn).utc().format();
                 _this.busySpinnerService.dispatcher.next(true);
                 _this.speechService.AddSpeech(_this.activeSpeech).subscribe(function () {
-                    _this.toastr.success('Your speech updated successfully!', 'Success!');
+                    _this.successToaster('Your speech updated successfully!');
                     // this.activeSpeech = new Speech();
                     //TODO -- If want to redirect default page after saved then uncomment this code
                     // this.navMenuService.dispatcher.next('userspeech');
@@ -476,6 +518,9 @@ var SelfSpeechComponent = (function (_super) {
                 _this.openShareModel();
             }
         });
+    };
+    SelfSpeechComponent.prototype.successToaster = function (msg) {
+        this.toastr.success(msg, 'Success!');
     };
     return SelfSpeechComponent;
 }(__WEBPACK_IMPORTED_MODULE_2__speechComponentBase__["a" /* SpeechComponentBase */]));
@@ -772,13 +817,14 @@ var speechRouting = __WEBPACK_IMPORTED_MODULE_0__angular_router__["c" /* RouterM
 
 
 var SpeechComponentBase = (function () {
-    function SpeechComponentBase(modalService, route, speechService, authService, busySpinnerService) {
+    function SpeechComponentBase(modalService, route, speechService, authService, busySpinnerService, toastr) {
         var _this = this;
         this.modalService = modalService;
         this.route = route;
         this.speechService = speechService;
         this.authService = authService;
         this.busySpinnerService = busySpinnerService;
+        this.toastr = toastr;
         this.isActiveSpeech = false;
         this.isActiveSpeechLoading = true;
         this.dateFormat = 'MM/dd/yyyy';
@@ -829,12 +875,32 @@ var SpeechComponentBase = (function () {
     };
     SpeechComponentBase.prototype.openShareModel = function () {
         var modalRef = this.modalService.open(__WEBPACK_IMPORTED_MODULE_0__common_components_sharepeech_sharespeech_component__["a" /* ShareSpeechContent */]);
-        modalRef.componentInstance.name = 'World';
+        modalRef.componentInstance.content = this.activeSpeech.speechContent;
+        modalRef.componentInstance.handler = function (callback) {
+            setTimeout(function () {
+                callback.close('Close click');
+            }, 1000);
+        };
     };
     return SpeechComponentBase;
 }());
 
 //# sourceMappingURL=speechComponentBase.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/shared/model/mail.model.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Mail; });
+var Mail = (function () {
+    function Mail() {
+    }
+    return Mail;
+}());
+
+//# sourceMappingURL=mail.model.js.map
 
 /***/ })
 

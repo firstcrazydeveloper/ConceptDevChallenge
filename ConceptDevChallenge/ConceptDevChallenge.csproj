@@ -280,9 +280,11 @@
     <TypeScriptCompile Include="src\app\shared\components\navmenu\navmenu.service.ts" />
     <TypeScriptCompile Include="src\app\shared\components\sidemenu\sidemenu.component.ts" />
     <TypeScriptCompile Include="src\app\shared\components\topmenu\topmenu.component.ts" />
+    <TypeScriptCompile Include="src\app\shared\model\mail.model.ts" />
     <TypeScriptCompile Include="src\app\shared\model\user.model.ts" />
     <TypeScriptCompile Include="src\app\shared\service\auth.guard.service.ts" />
     <TypeScriptCompile Include="src\app\shared\service\auth.service.ts" />
+    <TypeScriptCompile Include="src\app\shared\service\mail.service.ts" />
     <TypeScriptCompile Include="src\app\shared\service\webApiManager.service.ts" />
     <TypeScriptCompile Include="src\app\shared\shared.module.ts" />
     <TypeScriptCompile Include="src\environments\environment.prod.ts" />

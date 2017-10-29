@@ -31,7 +31,7 @@ var speech_model_1 = require("../../model/speech.model");
 var SelfSpeechComponent = (function (_super) {
     __extends(SelfSpeechComponent, _super);
     function SelfSpeechComponent(router, modalService, route, speechService, toastr, vcr, authService, busySpinnerService) {
-        var _this = _super.call(this, modalService, route, speechService, authService, busySpinnerService) || this;
+        var _this = _super.call(this, modalService, route, speechService, authService, busySpinnerService, toastr) || this;
         _this.router = router;
         _this.modalService = modalService;
         _this.route = route;
@@ -95,7 +95,7 @@ var SelfSpeechComponent = (function (_super) {
                 _this.activeSpeech.updatedOn = moment(_this.activeSpeech.updatedOn).utc().format();
                 _this.busySpinnerService.dispatcher.next(true);
                 _this.speechService.AddSpeech(_this.activeSpeech).subscribe(function () {
-                    _this.toastr.success('Your speech updated successfully!', 'Success!');
+                    _this.successToaster('Your speech updated successfully!');
                     // this.activeSpeech = new Speech();
                     //TODO -- If want to redirect default page after saved then uncomment this code
                     // this.navMenuService.dispatcher.next('userspeech');
@@ -110,6 +110,9 @@ var SelfSpeechComponent = (function (_super) {
                 _this.openShareModel();
             }
         });
+    };
+    SelfSpeechComponent.prototype.successToaster = function (msg) {
+        this.toastr.success(msg, 'Success!');
     };
     SelfSpeechComponent = __decorate([
         core_1.Component({

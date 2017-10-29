@@ -32,7 +32,7 @@ var speech_model_1 = require("../../model/speech.model");
 var NewSpeechComponent = (function (_super) {
     __extends(NewSpeechComponent, _super);
     function NewSpeechComponent(router, changedetectorref, route, modalService, speechService, toastr, vcr, authService, navMenuService, busySpinnerService) {
-        var _this = _super.call(this, modalService, route, speechService, authService, busySpinnerService) || this;
+        var _this = _super.call(this, modalService, route, speechService, authService, busySpinnerService, toastr) || this;
         _this.router = router;
         _this.changedetectorref = changedetectorref;
         _this.route = route;
@@ -79,7 +79,7 @@ var NewSpeechComponent = (function (_super) {
                 _this.activeSpeech.isDeleted = false;
                 _this.busySpinnerService.dispatcher.next(true);
                 _this.speechService.AddSpeech(_this.activeSpeech).subscribe(function () {
-                    _this.toastr.success('Your speech saved successfully!', 'Success!');
+                    _this.successToaster('Your speech saved successfully!');
                     _this.activeSpeech = new speech_model_1.Speech();
                     //TODO -- If want to redirect default page after saved then uncomment this code
                     // this.navMenuService.dispatcher.next('userspeech');
@@ -94,6 +94,9 @@ var NewSpeechComponent = (function (_super) {
                 _this.openShareModel();
             }
         });
+    };
+    NewSpeechComponent.prototype.successToaster = function (msg) {
+        this.toastr.success(msg, 'Success!');
     };
     NewSpeechComponent = __decorate([
         core_1.Component({

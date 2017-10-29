@@ -2,6 +2,7 @@
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SpeechComponentBase } from '../../speechComponentBase';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { SpeechService } from '../../speech.service';
 import { AuthService } from '../../../../shared/service/auth.service';
 import { BusySpinnerService } from '../../../../shared/components/busyspinner/busyspinner.service';
@@ -13,8 +14,8 @@ import { BusySpinnerService } from '../../../../shared/components/busyspinner/bu
 export class AllSpeechComponent extends SpeechComponentBase {
     requestType: string = 'all';
     constructor(private router: Router, public route: ActivatedRoute, public modalService: NgbModal, public speechService: SpeechService,
-        public authService: AuthService, public busySpinnerService: BusySpinnerService) {
-        super(modalService, route, speechService, authService, busySpinnerService);
+        public authService: AuthService, public busySpinnerService: BusySpinnerService, public toastr: ToastsManager) {
+        super(modalService, route, speechService, authService, busySpinnerService, toastr);
         this.buildUICommand();
     }
 
@@ -61,5 +62,9 @@ export class AllSpeechComponent extends SpeechComponentBase {
                 this.openShareModel();
             }
         });
+    }
+
+    successToaster(msg: string) {
+        this.toastr.success(msg, 'Success!');
     }
 }

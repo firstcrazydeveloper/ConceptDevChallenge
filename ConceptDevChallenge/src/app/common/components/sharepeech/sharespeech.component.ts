@@ -1,9 +1,13 @@
-﻿import { Component, Input } from '@angular/core';
+﻿import { Component, ViewContainerRef, Input } from '@angular/core';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { MailService } from '../../../shared/service/mail.service';
+import { Mail } from '../../../shared/model/mail.model';
+import { BusySpinnerService } from '../../../shared/components/busyspinner/busyspinner.service';
 
 @Component({
     selector: 'share-speech-modal-content',
-    template: `
+    template: ` <busy-spinner [busyIndicator]="isMailSending"></busy-spinner>
     <div class="modal-header">
       <h4 class="modal-title">Share Speech</h4>
       <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -32,7 +36,27 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   `
 })
 export class ShareSpeechContent {
-    @Input() name: string;
+    @Input() content: string;
+    @Input() handler: any;
+    userEmail: string;
+    subject: string;
+    isMailSending: Boolean = false;
 
-    constructor(public activeModal: NgbActiveModal) { }
+    constructor(public activeModal: NgbActiveModal, public mailService: MailService, public toastr: ToastsManager,
+        public vcr: ViewContainerRef, public busySpinnerService: BusySpinnerService) {
+        this.toastr.setRootViewContainerRef(vcr);
+    }
+
+    shareSpeech() {
+        this.isMailSending = true;
+        let mailData = new Mail();
+        mailData.content = this.content;
+        mailData.email = this.userEmail;
+        mailData.subject = this.subject;
+        this.mailService.sendMail(mailData).subscribe(() => {
+            this.isMailSending = false;
+            this.toastr.success('Your speech shared successfully!', 'Success!');
+            this.handler(this.activeModal);
+        });
+    }
 }

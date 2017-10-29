@@ -8,6 +8,7 @@ import { TopMenuComponent } from './components/topmenu/topmenu.component';
 import { BusySpinnerComponent } from './components/busyspinner/busyspinner.component';
 import { SideMenuComponent } from './components/sidemenu/sidemenu.component';
 import { WebApiManager } from './service/webApiManager.service';
+import { MailService } from './service/mail.service';
 import { AuthGuard } from './service/auth.guard.service';
 import { AuthService } from './service/auth.service';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
@@ -17,7 +18,7 @@ import { BusySpinnerService } from './components/busyspinner/busyspinner.service
     imports: [CommonModule, RouterModule, HttpModule, ToastModule.forRoot()],
     declarations: [NavMenuComponent, SideMenuComponent, BusySpinnerComponent, TopMenuComponent],
     exports: [NavMenuComponent, SideMenuComponent, BusySpinnerComponent, TopMenuComponent],
-    providers: [WebApiManager, NavMenuService, BusySpinnerService]
+    providers: [WebApiManager, NavMenuService, BusySpinnerService, MailService]
 })
 export class SharedModule {
     static forRoot(): ModuleWithProviders {

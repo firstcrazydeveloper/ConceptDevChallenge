@@ -179,7 +179,7 @@ var AppSettings = (function () {
     return AppSettings;
 }());
 
-// public static BaseAPIUrl: string = 'http://localhost:48255/api/';
+//public static BaseAPIUrl: string = 'http://localhost:48255/api/';
 AppSettings.BaseAPIUrl = 'http://devchallengewebapi.firstcrazydeveloper.com/api/';
 //# sourceMappingURL=appSettings.setting.js.map
 
@@ -978,6 +978,61 @@ var AuthService_1, _a;
 
 /***/ }),
 
+/***/ "../../../../../src/app/shared/service/mail.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MailService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_observable_of__ = __webpack_require__("../../../../rxjs/add/observable/of.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_observable_of__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_do__ = __webpack_require__("../../../../rxjs/add/operator/do.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_do__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_delay__ = __webpack_require__("../../../../rxjs/add/operator/delay.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_delay___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_delay__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__webApiManager_service__ = __webpack_require__("../../../../../src/app/shared/service/webApiManager.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__appSettings_setting__ = __webpack_require__("../../../../../src/app/appSettings.setting.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var MailService = MailService_1 = (function () {
+    //TODO -- remove this Test Data Section after Web API implementation
+    // Start TestData Section  
+    // testUserData: Array<User> = [{ id: 1, userid: 'abhishek', password: 'sahil', email: 'abhishek.job@hotmail.com' },
+    // { id: 2, userid: 'josh', password: 'rosman', email: 'sample@hotmail.com' }];
+    // End TestData Section  
+    function MailService(webApiService) {
+        this.webApiService = webApiService;
+        console.log('start Mail Service');
+    }
+    MailService.prototype.sendMail = function (mail) {
+        return this.webApiService.post(MailService_1.mailUrl, mail);
+    };
+    return MailService;
+}());
+MailService.mailUrl = __WEBPACK_IMPORTED_MODULE_5__appSettings_setting__["a" /* AppSettings */].BaseAPIUrl + 'mail';
+MailService = MailService_1 = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_4__webApiManager_service__["a" /* WebApiManager */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__webApiManager_service__["a" /* WebApiManager */]) === "function" && _a || Object])
+], MailService);
+
+var MailService_1, _a;
+//# sourceMappingURL=mail.service.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/shared/service/webApiManager.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1066,12 +1121,13 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_busyspinner_busyspinner_component__ = __webpack_require__("../../../../../src/app/shared/components/busyspinner/busyspinner.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_sidemenu_sidemenu_component__ = __webpack_require__("../../../../../src/app/shared/components/sidemenu/sidemenu.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__service_webApiManager_service__ = __webpack_require__("../../../../../src/app/shared/service/webApiManager.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__service_auth_guard_service__ = __webpack_require__("../../../../../src/app/shared/service/auth.guard.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__service_auth_service__ = __webpack_require__("../../../../../src/app/shared/service/auth.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_ng2_toastr_ng2_toastr__ = __webpack_require__("../../../../ng2-toastr/ng2-toastr.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_ng2_toastr_ng2_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_ng2_toastr_ng2_toastr__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_navmenu_navmenu_service__ = __webpack_require__("../../../../../src/app/shared/components/navmenu/navmenu.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_busyspinner_busyspinner_service__ = __webpack_require__("../../../../../src/app/shared/components/busyspinner/busyspinner.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__service_mail_service__ = __webpack_require__("../../../../../src/app/shared/service/mail.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__service_auth_guard_service__ = __webpack_require__("../../../../../src/app/shared/service/auth.guard.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__service_auth_service__ = __webpack_require__("../../../../../src/app/shared/service/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_ng2_toastr_ng2_toastr__ = __webpack_require__("../../../../ng2-toastr/ng2-toastr.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_ng2_toastr_ng2_toastr___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_ng2_toastr_ng2_toastr__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_navmenu_navmenu_service__ = __webpack_require__("../../../../../src/app/shared/components/navmenu/navmenu.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_busyspinner_busyspinner_service__ = __webpack_require__("../../../../../src/app/shared/components/busyspinner/busyspinner.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1092,23 +1148,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var SharedModule = SharedModule_1 = (function () {
     function SharedModule() {
     }
     SharedModule.forRoot = function () {
         return {
             ngModule: SharedModule_1,
-            providers: [__WEBPACK_IMPORTED_MODULE_9__service_auth_guard_service__["a" /* AuthGuard */], __WEBPACK_IMPORTED_MODULE_10__service_auth_service__["a" /* AuthService */]]
+            providers: [__WEBPACK_IMPORTED_MODULE_10__service_auth_guard_service__["a" /* AuthGuard */], __WEBPACK_IMPORTED_MODULE_11__service_auth_service__["a" /* AuthService */]]
         };
     };
     return SharedModule;
 }());
 SharedModule = SharedModule_1 = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
-        imports: [__WEBPACK_IMPORTED_MODULE_2__angular_common__["CommonModule"], __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* RouterModule */], __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* HttpModule */], __WEBPACK_IMPORTED_MODULE_11_ng2_toastr_ng2_toastr__["ToastModule"].forRoot()],
+        imports: [__WEBPACK_IMPORTED_MODULE_2__angular_common__["CommonModule"], __WEBPACK_IMPORTED_MODULE_3__angular_router__["c" /* RouterModule */], __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* HttpModule */], __WEBPACK_IMPORTED_MODULE_12_ng2_toastr_ng2_toastr__["ToastModule"].forRoot()],
         declarations: [__WEBPACK_IMPORTED_MODULE_4__components_navmenu_navmenu_component__["a" /* NavMenuComponent */], __WEBPACK_IMPORTED_MODULE_7__components_sidemenu_sidemenu_component__["a" /* SideMenuComponent */], __WEBPACK_IMPORTED_MODULE_6__components_busyspinner_busyspinner_component__["a" /* BusySpinnerComponent */], __WEBPACK_IMPORTED_MODULE_5__components_topmenu_topmenu_component__["a" /* TopMenuComponent */]],
         exports: [__WEBPACK_IMPORTED_MODULE_4__components_navmenu_navmenu_component__["a" /* NavMenuComponent */], __WEBPACK_IMPORTED_MODULE_7__components_sidemenu_sidemenu_component__["a" /* SideMenuComponent */], __WEBPACK_IMPORTED_MODULE_6__components_busyspinner_busyspinner_component__["a" /* BusySpinnerComponent */], __WEBPACK_IMPORTED_MODULE_5__components_topmenu_topmenu_component__["a" /* TopMenuComponent */]],
-        providers: [__WEBPACK_IMPORTED_MODULE_8__service_webApiManager_service__["a" /* WebApiManager */], __WEBPACK_IMPORTED_MODULE_12__components_navmenu_navmenu_service__["a" /* NavMenuService */], __WEBPACK_IMPORTED_MODULE_13__components_busyspinner_busyspinner_service__["a" /* BusySpinnerService */]]
+        providers: [__WEBPACK_IMPORTED_MODULE_8__service_webApiManager_service__["a" /* WebApiManager */], __WEBPACK_IMPORTED_MODULE_13__components_navmenu_navmenu_service__["a" /* NavMenuService */], __WEBPACK_IMPORTED_MODULE_14__components_busyspinner_busyspinner_service__["a" /* BusySpinnerService */], __WEBPACK_IMPORTED_MODULE_9__service_mail_service__["a" /* MailService */]]
     })
 ], SharedModule);
 

@@ -20,7 +20,7 @@ export class NewSpeechComponent extends SpeechComponentBase {
     constructor(private router: Router, private changedetectorref: ChangeDetectorRef, public route: ActivatedRoute, public modalService: NgbModal, public speechService: SpeechService,
         public toastr: ToastsManager, public vcr: ViewContainerRef, public authService: AuthService, public navMenuService: NavMenuService,
         public busySpinnerService: BusySpinnerService) {
-        super(modalService, route, speechService, authService, busySpinnerService);
+        super(modalService, route, speechService, authService, busySpinnerService, toastr);
         this.toastr.setRootViewContainerRef(vcr);
         this.buildUICommand();
         this.changedetector = changedetectorref;
@@ -55,14 +55,14 @@ export class NewSpeechComponent extends SpeechComponentBase {
                 this.activeSpeech.createdBy = this.authService.currentUser.id;
                 this.activeSpeech.createdOn = moment(this.activeSpeech.createdOn).utc().format();
                 this.activeSpeech.updatedOn = moment(this.activeSpeech.updatedOn).utc().format();
-                this.activeSpeech.isDeleted = false; 
+                this.activeSpeech.isDeleted = false;
                 this.busySpinnerService.dispatcher.next(true);
                 this.speechService.AddSpeech(this.activeSpeech).subscribe(() => {
-                    this.toastr.success('Your speech saved successfully!', 'Success!');                    
+                    this.successToaster('Your speech saved successfully!');
                     this.activeSpeech = new Speech();
-                     //TODO -- If want to redirect default page after saved then uncomment this code
+                    //TODO -- If want to redirect default page after saved then uncomment this code
                     // this.navMenuService.dispatcher.next('userspeech');
-                   //  this.router.navigate(['speechDashboard/userspeech']);
+                    //  this.router.navigate(['speechDashboard/userspeech']);
                     this.busySpinnerService.dispatcher.next(false);
                 });
             }
@@ -74,5 +74,9 @@ export class NewSpeechComponent extends SpeechComponentBase {
                 this.openShareModel();
             }
         });
+    }
+
+    successToaster(msg: string) {
+        this.toastr.success(msg, 'Success!');
     }
 }
