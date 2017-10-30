@@ -1,0 +1,30 @@
+﻿<div class="flexbox-parent">
+    <div class="flexbox-item header">
+
+    </div>
+
+    <div class="flexbox-item fill-area content flexbox-item-grow">
+        <div class="fill-area-content " style="position:relative;padding:0;">
+            <div class="flexbox-parent" style="position:absolute;">
+                <div class="flexbox-item" style="padding:0;flex: 0 0 10%;">
+                    <div>
+                        <form class="form-inline mt-2 mt-md-0" #f="ngForm" (ngSubmit)="Search()">
+                            <input class="form-control mr-sm-2" type="text" name="isbn" [(ngModel)]="isbn" placeholder="Enter ISBN Number" required>
+                            <button class="btn btn-primary my-2 my-sm-0" type="submit" [disabled]="!f.valid">Search</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="flexbox-item fill-area content flexbox-item-grow" style="padding:0;">
+                    <div class="fill-area-content flexbox-item-grow">
+                        <textarea [(ngModel)]="bookdetails" style="width:100%;height:100%"></textarea>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flexbox-item footer">
+        Powered by Abhishek @firstcrazydeveloper.com
+    </div>
+</div>

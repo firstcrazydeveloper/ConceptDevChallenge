@@ -10,6 +10,10 @@ var appRoutes = [
         path: 'speechDashboard',
         loadChildren: 'app/features/speech/speech.module#SpeechModule'
     },
+    {
+        path: 'bookDashboard',
+        loadChildren: 'app/features/book/book.module#BookModule'
+    },
     { path: '**', component: pagenotfound_component_1.PageNotFoundComponent }
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes, { useHash: true });

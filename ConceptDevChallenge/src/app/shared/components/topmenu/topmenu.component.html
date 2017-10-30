@@ -1,6 +1,12 @@
-﻿<div class="top-menu" >    
+﻿<div class="top-menu">
     <div class="navbar-header top-menu-title">
-        <a class="navbar-brand" > Developer Challenge</a>
+        <a class="navbar-brand"> Developer Challenge</a>
+    </div>
+    <div style="float:left;" *ngIf="authService.isLoggedIn">
+        <ul class="nav">
+            <li><a (click)="redirect('speechDashboard')">Speech</a></li>
+            <li><a (click)="redirect('bookDashboard')">Books</a></li>
+        </ul>
     </div>
     <ul class="nav top-menu-nav">
         <li><a>Welcome {{authService.userName}}</a></li>

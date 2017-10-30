@@ -4,6 +4,10 @@ webpackJsonp(["main"],{
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"app/features/book/book.module": [
+		"../../../../../src/app/features/book/book.module.ts",
+		"book.module"
+	],
 	"app/features/speech/speech.module": [
 		"../../../../../src/app/features/speech/speech.module.ts",
 		"speech.module"
@@ -160,6 +164,10 @@ var appRoutes = [
     {
         path: 'speechDashboard',
         loadChildren: 'app/features/speech/speech.module#SpeechModule'
+    },
+    {
+        path: 'bookDashboard',
+        loadChildren: 'app/features/book/book.module#BookModule'
     },
     { path: '**', component: __WEBPACK_IMPORTED_MODULE_2__common_components_pagenotfound_pagenotfound_component__["a" /* PageNotFoundComponent */] }
 ];
@@ -729,7 +737,7 @@ var _a;
 /***/ "../../../../../src/app/shared/components/topmenu/topmenu.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"top-menu\" >    \r\n    <div class=\"navbar-header top-menu-title\">\r\n        <a class=\"navbar-brand\" > Developer Challenge</a>\r\n    </div>\r\n    <ul class=\"nav top-menu-nav\">\r\n        <li><a>Welcome {{authService.userName}}</a></li>\r\n        <li *ngIf=\"authService.isLoggedIn\"><a (click)=\"logout()\">Logout</a></li>\r\n    </ul>\r\n</div>\r\n"
+module.exports = "<div class=\"top-menu\">\r\n    <div class=\"navbar-header top-menu-title\">\r\n        <a class=\"navbar-brand\"> Developer Challenge</a>\r\n    </div>\r\n    <div style=\"float:left;\" *ngIf=\"authService.isLoggedIn\">\r\n        <ul class=\"nav\">\r\n            <li><a (click)=\"redirect('speechDashboard')\">Speech</a></li>\r\n            <li><a (click)=\"redirect('bookDashboard')\">Books</a></li>\r\n        </ul>\r\n    </div>\r\n    <ul class=\"nav top-menu-nav\">\r\n        <li><a>Welcome {{authService.userName}}</a></li>\r\n        <li *ngIf=\"authService.isLoggedIn\"><a (click)=\"logout()\">Logout</a></li>\r\n    </ul>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -741,7 +749,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".top-menu{width:100%;color:#b1b3b5;}.top-menu .top-menu-title{float:left;}.top-menu .top-menu-nav{float:right;padding-right:20px;color:#b1b3b5;}ul li{background:none;list-style:none;height:35px;float:left;padding:0 5px;border-right:1px solid #1e2830;margin-bottom:5px;margin-top:5px;font-weight:bold;cursor:pointer;}.active{border-bottom:4px solid #2b3843;padding:0 15px;color:#2b3843;font-weight:bold;}ul li a{min-width:100px;height:35px;padding:0 15px;color:#ecf0f5;font-size:.8em;font-weight:bold;line-height:2.5;text-align:center;text-decoration:none;display:block;transition:.2s all linear;}ul li a:focus{text-decoration:none;color:#2b3843;outline:none;font-weight:bold;}ul li.active a{text-decoration:none;color:#2b3843;outline:none;font-weight:bold;}ul:hover>li:not(:hover){opacity:.5;}ul li a:hover{border-bottom:4px solid #2b3843;color:#2b3843;text-decoration:none;font-weight:bold;}ul:hover>li{background-color:#b4bcc6;}", ""]);
+exports.push([module.i, ".top-menu{width:100%;color:#b1b3b5;}.top-menu .top-menu-title{float:left;}.top-menu .top-menu-nav{float:right;padding-right:20px;color:#b1b3b5;}ul li{background:none;list-style:none;height:35px;float:left;padding:0 5px;border-right:1px solid #1e2830;margin-bottom:5px;margin-top:5px;font-weight:bold;cursor:pointer;}.active{border-bottom:4px solid #2b3843;padding:0 15px;color:#ecf0f5;font-weight:bold;}ul li a{min-width:100px;height:35px;padding:0 15px;color:#ecf0f5;font-size:.8em;font-weight:bold;line-height:2.5;text-align:center;text-decoration:none;display:block;transition:.2s all linear;}ul li a:focus{text-decoration:none;color:#ecf0f5;outline:none;font-weight:bold;}ul li.active a{text-decoration:none;color:#2b3843;outline:none;font-weight:bold;}ul:hover>li:not(:hover){opacity:.5;}ul li a:hover{border-bottom:4px solid #2b3843;color:#2b3843;text-decoration:none;font-weight:bold;}ul:hover>li{background-color:#b4bcc6;}ul li.active a:link{color:#b1b3b5;}ul li.active a:visited{color:#b1b3b5;}ul li.active a:hover{color:#2b3843;}ul li.active a:active{color:#b1b3b5;}", ""]);
 
 // exports
 
@@ -784,6 +792,10 @@ var TopMenuComponent = (function () {
         this.vcr = vcr;
         this.busySpinnerService = busySpinnerService;
         this.userName = 'Guest';
+        this.navigationExtras = {
+            preserveQueryParams: true,
+            preserveFragment: true
+        };
         this.toastr.setRootViewContainerRef(vcr);
     }
     TopMenuComponent.prototype.logout = function () {
@@ -793,12 +805,11 @@ var TopMenuComponent = (function () {
             _this.authService.isLoggedIn = false;
             _this.authService.userName = 'Guest';
             _this.authService.currentUser = undefined;
-            var navigationExtras = {
-                preserveQueryParams: true,
-                preserveFragment: true
-            };
-            _this.router.navigate(['login'], navigationExtras);
+            _this.router.navigate(['login'], _this.navigationExtras);
         });
+    };
+    TopMenuComponent.prototype.redirect = function (url) {
+        this.router.navigate([url], this.navigationExtras);
     };
     return TopMenuComponent;
 }());

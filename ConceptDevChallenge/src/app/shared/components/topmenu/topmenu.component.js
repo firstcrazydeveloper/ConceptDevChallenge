@@ -22,6 +22,10 @@ var TopMenuComponent = (function () {
         this.vcr = vcr;
         this.busySpinnerService = busySpinnerService;
         this.userName = 'Guest';
+        this.navigationExtras = {
+            preserveQueryParams: true,
+            preserveFragment: true
+        };
         this.toastr.setRootViewContainerRef(vcr);
     }
     TopMenuComponent.prototype.logout = function () {
@@ -31,12 +35,11 @@ var TopMenuComponent = (function () {
             _this.authService.isLoggedIn = false;
             _this.authService.userName = 'Guest';
             _this.authService.currentUser = undefined;
-            var navigationExtras = {
-                preserveQueryParams: true,
-                preserveFragment: true
-            };
-            _this.router.navigate(['login'], navigationExtras);
+            _this.router.navigate(['login'], _this.navigationExtras);
         });
+    };
+    TopMenuComponent.prototype.redirect = function (url) {
+        this.router.navigate([url], this.navigationExtras);
     };
     TopMenuComponent = __decorate([
         core_1.Component({

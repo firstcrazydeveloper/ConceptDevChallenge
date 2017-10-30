@@ -12,6 +12,10 @@ import { BusySpinnerService } from '../../../shared/components/busyspinner/busys
 })
 export class TopMenuComponent {
     userName: string = 'Guest';
+    navigationExtras: NavigationExtras = {
+        preserveQueryParams: true,
+        preserveFragment: true
+    };
 
     constructor(public router: Router, public authService: AuthService, public toastr: ToastsManager,
         public vcr: ViewContainerRef, public busySpinnerService: BusySpinnerService) {
@@ -24,11 +28,12 @@ export class TopMenuComponent {
             this.authService.isLoggedIn = false;
             this.authService.userName = 'Guest';
             this.authService.currentUser = undefined;
-            let navigationExtras: NavigationExtras = {
-                preserveQueryParams: true,
-                preserveFragment: true
-            };
-            this.router.navigate(['login'], navigationExtras);
+            this.router.navigate(['login'], this.navigationExtras);
         });
+    }
+
+    redirect(url: string) {
+        this.router.navigate([url], this.navigationExtras);
+
     }
 }

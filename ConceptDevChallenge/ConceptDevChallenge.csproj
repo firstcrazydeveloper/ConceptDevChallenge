@@ -114,6 +114,13 @@
     <Content Include="src\app\common\components\login\login.component.min.css">
       <DependentUpon>login.component.css</DependentUpon>
     </Content>
+    <Content Include="src\app\features\book\components\bookdashboard\bookDashboard.component.css">
+      <DependentUpon>bookDashboard.component.less</DependentUpon>
+    </Content>
+    <Content Include="src\app\features\book\components\bookdashboard\bookDashboard.component.html" />
+    <Content Include="src\app\features\book\components\bookdashboard\bookDashboard.component.min.css">
+      <DependentUpon>bookDashboard.component.css</DependentUpon>
+    </Content>
     <Content Include="src\app\features\speech\components\allSpeech\allSpeech.component.css">
       <DependentUpon>allSpeech.component.less</DependentUpon>
     </Content>
@@ -202,6 +209,7 @@
     <Content Include="src\app\shared\components\busyspinner\busyspinner.component.less" />
     <Content Include="src\app\features\speech\components\speech\speech.component.less" />
     <Content Include="src\app\shared\components\topmenu\topmenu.component.less" />
+    <Content Include="src\app\features\book\components\bookdashboard\bookDashboard.component.less" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -250,6 +258,7 @@
   <ItemGroup>
     <Folder Include="dist\" />
     <Folder Include="e2e\" />
+    <Folder Include="src\app\features\book\model\" />
     <Folder Include="src\app\shared\directives\" />
     <Folder Include="src\app\shared\pipes\" />
   </ItemGroup>
@@ -262,6 +271,11 @@
     <TypeScriptCompile Include="src\app\common\components\login\login.component.ts" />
     <TypeScriptCompile Include="src\app\common\components\pagenotfound\pagenotfound.component.ts" />
     <TypeScriptCompile Include="src\app\common\components\sharepeech\sharespeech.component.ts" />
+    <TypeScriptCompile Include="src\app\features\book\book.module.ts" />
+    <TypeScriptCompile Include="src\app\features\book\book.routing.ts" />
+    <TypeScriptCompile Include="src\app\features\book\book.service.ts" />
+    <TypeScriptCompile Include="src\app\features\book\bookComponentBase.ts" />
+    <TypeScriptCompile Include="src\app\features\book\components\bookdashboard\bookDashboard.component.ts" />
     <TypeScriptCompile Include="src\app\features\speech\components\allSpeech\allSpeech.component.ts" />
     <TypeScriptCompile Include="src\app\features\speech\components\speech\speech.component.ts" />
     <TypeScriptCompile Include="src\app\features\speech\model\navMenu.model.ts" />

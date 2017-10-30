@@ -10,6 +10,10 @@ const appRoutes: Routes = [
         path: 'speechDashboard',
         loadChildren: 'app/features/speech/speech.module#SpeechModule'
     },
+    {
+        path: 'bookDashboard',
+        loadChildren: 'app/features/book/book.module#BookModule'
+    },
     { path: '**', component: PageNotFoundComponent }
 
 ];
