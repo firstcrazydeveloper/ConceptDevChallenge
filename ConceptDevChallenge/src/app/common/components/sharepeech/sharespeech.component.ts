@@ -22,7 +22,7 @@ import { BusySpinnerService } from '../../../shared/components/busyspinner/busys
                     </div>
                     <div class="input-group" style="margin-top:20px;">
                         <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="useremail" [(ngModel)]="userEmail" required placeholder="user email">
+                        <input type="email" class="form-control" name="useremail" [(ngModel)]="userEmail"  pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" email required placeholder="user email">
                     </div>
                     <span class="help-block"></span>
                    
