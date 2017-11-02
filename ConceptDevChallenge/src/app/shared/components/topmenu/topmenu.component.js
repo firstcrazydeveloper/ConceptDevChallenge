@@ -15,13 +15,15 @@ var auth_service_1 = require("../../../shared/service/auth.service");
 var ng2_toastr_1 = require("ng2-toastr/ng2-toastr");
 var busyspinner_service_1 = require("../../../shared/components/busyspinner/busyspinner.service");
 var TopMenuComponent = (function () {
-    function TopMenuComponent(router, authService, toastr, vcr, busySpinnerService) {
+    function TopMenuComponent(route, router, authService, toastr, vcr, busySpinnerService) {
+        this.route = route;
         this.router = router;
         this.authService = authService;
         this.toastr = toastr;
         this.vcr = vcr;
         this.busySpinnerService = busySpinnerService;
         this.userName = 'Guest';
+        this.currentModule = 'speechDashboard';
         this.navigationExtras = {
             preserveQueryParams: true,
             preserveFragment: true
@@ -39,6 +41,7 @@ var TopMenuComponent = (function () {
         });
     };
     TopMenuComponent.prototype.redirect = function (url) {
+        this.currentModule = url;
         this.router.navigate([url], this.navigationExtras);
     };
     TopMenuComponent = __decorate([
@@ -47,7 +50,7 @@ var TopMenuComponent = (function () {
             templateUrl: "./topmenu.component.html",
             styleUrls: ['./topmenu.component.min.css']
         }),
-        __metadata("design:paramtypes", [router_1.Router, auth_service_1.AuthService, ng2_toastr_1.ToastsManager,
+        __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router, auth_service_1.AuthService, ng2_toastr_1.ToastsManager,
             core_1.ViewContainerRef, busyspinner_service_1.BusySpinnerService])
     ], TopMenuComponent);
     return TopMenuComponent;

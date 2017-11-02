@@ -18,7 +18,16 @@ export class SpeechComponent {
     @Input() activeSpeech: Speech;
     constructor() { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        if (this.activeSpeech.createdOn === undefined) {
+            this.activeSpeech.createdOn = moment().format("YYYY-MM-DD");
+            console.log(this.activeSpeech.createdOn);
+        } else {
+            this.activeSpeech.createdOn = moment(this.activeSpeech.createdOn).format("YYYY-MM-DD");
+            console.log(this.activeSpeech.createdOn);
+        }
+
+    }
 }
 
 

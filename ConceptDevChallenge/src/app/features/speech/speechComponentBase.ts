@@ -17,11 +17,13 @@ export abstract class SpeechComponentBase {
     activeMenu: string;
     speechList: Array<Speech> = [];
     activeSpeech: Speech = new Speech();
-    protected screenCommands: Array<any> = [];
+    screenCommands: Array<any> = [];
     constructor(public modalService: NgbModal, public route: ActivatedRoute, public speechService: SpeechService,
         public authService: AuthService, public busySpinnerService: BusySpinnerService, public toastr: ToastsManager) {
         this.route.url.forEach((segments: UrlSegment[]) => {
             this.activeMenu = segments.join("/");
+            console.log('Menu');
+            console.log(this.activeMenu);
         });
     }
 

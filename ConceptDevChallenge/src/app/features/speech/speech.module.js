@@ -20,6 +20,7 @@ var allSpeech_component_1 = require("./components/allSpeech/allSpeech.component"
 var speech_component_1 = require("./components/speech/speech.component");
 var sharespeech_component_1 = require("../../common/components/sharepeech/sharespeech.component");
 var speech_service_1 = require("./speech.service");
+var canDeactivateGuard_service_1 = require("./canDeactivateGuard.service");
 var SpeechModule = (function () {
     function SpeechModule() {
     }
@@ -29,7 +30,7 @@ var SpeechModule = (function () {
             declarations: [speechDashboard_component_1.SpeechDashboardComponent, selfSpeech_component_1.SelfSpeechComponent, newSpeech_component_1.NewSpeechComponent, allSpeech_component_1.AllSpeechComponent, sharespeech_component_1.ShareSpeechContent, speech_component_1.SpeechComponent],
             exports: [speechDashboard_component_1.SpeechDashboardComponent, selfSpeech_component_1.SelfSpeechComponent, newSpeech_component_1.NewSpeechComponent, allSpeech_component_1.AllSpeechComponent, sharespeech_component_1.ShareSpeechContent, speech_component_1.SpeechComponent],
             entryComponents: [sharespeech_component_1.ShareSpeechContent],
-            providers: [speech_service_1.SpeechService]
+            providers: [speech_service_1.SpeechService, canDeactivateGuard_service_1.CanDeactivateService]
         })
     ], SpeechModule);
     return SpeechModule;

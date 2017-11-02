@@ -5,6 +5,7 @@ import { SelfSpeechComponent } from './components/selfSpeech/selfSpeech.componen
 import { NewSpeechComponent } from './components/newSpeech/newSpeech.component';
 import { AllSpeechComponent } from './components/allSpeech/allSpeech.component';
 import { AuthGuard } from '../../shared/service/auth.guard.service';
+import { CanDeactivateService } from './canDeactivateGuard.service';
 
 const speechRoutes: Routes = [
     {
@@ -21,7 +22,7 @@ const speechRoutes: Routes = [
                         component: SelfSpeechComponent
                     },
                     { path: 'allspeech', component: AllSpeechComponent },
-                    { path: 'newspeech', component: NewSpeechComponent },
+                    { path: 'newspeech', component: NewSpeechComponent, canDeactivate: [CanDeactivateService] },
                     { path: 'userspeech', component: SelfSpeechComponent }
                 ]   
             }

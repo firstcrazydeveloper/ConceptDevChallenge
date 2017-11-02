@@ -13,12 +13,13 @@ import { AllSpeechComponent } from './components/allSpeech/allSpeech.component';
 import { SpeechComponent } from './components/speech/speech.component';
 import { ShareSpeechContent } from '../../common/components/sharepeech/sharespeech.component';
 import { SpeechService } from './speech.service';
+import { CanDeactivateService } from './canDeactivateGuard.service';
 
 @NgModule({
     imports: [CommonModule, FormsModule, SharedModule, NgbModule, RouterModule, speechRouting],
     declarations: [SpeechDashboardComponent, SelfSpeechComponent, NewSpeechComponent, AllSpeechComponent, ShareSpeechContent, SpeechComponent],
     exports: [SpeechDashboardComponent, SelfSpeechComponent, NewSpeechComponent, AllSpeechComponent, ShareSpeechContent, SpeechComponent],
     entryComponents: [ShareSpeechContent],
-    providers: [SpeechService]
+    providers: [SpeechService, CanDeactivateService]
 })
 export class SpeechModule { }

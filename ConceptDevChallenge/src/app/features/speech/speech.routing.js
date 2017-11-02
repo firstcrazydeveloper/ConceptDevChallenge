@@ -6,6 +6,7 @@ var selfSpeech_component_1 = require("./components/selfSpeech/selfSpeech.compone
 var newSpeech_component_1 = require("./components/newSpeech/newSpeech.component");
 var allSpeech_component_1 = require("./components/allSpeech/allSpeech.component");
 var auth_guard_service_1 = require("../../shared/service/auth.guard.service");
+var canDeactivateGuard_service_1 = require("./canDeactivateGuard.service");
 var speechRoutes = [
     {
         path: '',
@@ -21,7 +22,7 @@ var speechRoutes = [
                         component: selfSpeech_component_1.SelfSpeechComponent
                     },
                     { path: 'allspeech', component: allSpeech_component_1.AllSpeechComponent },
-                    { path: 'newspeech', component: newSpeech_component_1.NewSpeechComponent },
+                    { path: 'newspeech', component: newSpeech_component_1.NewSpeechComponent, canDeactivate: [canDeactivateGuard_service_1.CanDeactivateService] },
                     { path: 'userspeech', component: selfSpeech_component_1.SelfSpeechComponent }
                 ]
             }

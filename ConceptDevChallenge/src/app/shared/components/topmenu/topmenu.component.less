@@ -19,7 +19,7 @@ ul li {
     height: 35px;
     float: left;
     padding: 0 5px;
-    border-right: 1px solid #1e2830;
+    /*border: 1px solid #233042;*/
     margin-bottom: 5px;
     margin-top: 5px;
     font-weight: bold;
@@ -27,7 +27,7 @@ ul li {
 }
 
 .active {
-    border-bottom: 4px solid #2b3843;
+    /*border-bottom: 4px solid #2b3843;*/
     padding: 0 15px;
     color: #ecf0f5;
     font-weight: bold;
@@ -58,6 +58,7 @@ ul li a:focus {
 }
 
 ul li.active a {
+     border-bottom: 4px solid #2b3843;
     text-decoration: none;
     color: #2b3843;
     outline: none;
@@ -68,7 +69,7 @@ ul:hover > li:not(:hover) {
     opacity: 0.5;
 }
 
-ul li a:hover {
+ul li a:hover, ul li .active a {
     border-bottom: 4px solid #2b3843;
     color: #2b3843;
     text-decoration: none;
@@ -76,6 +77,10 @@ ul li a:hover {
 }
 
 ul:hover > li {
+    background-color: #b4bcc6;
+}
+
+ul li.active {
     background-color: #b4bcc6;
 }
 

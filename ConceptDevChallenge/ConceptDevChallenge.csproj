@@ -258,7 +258,6 @@
   <ItemGroup>
     <Folder Include="dist\" />
     <Folder Include="e2e\" />
-    <Folder Include="src\app\features\book\model\" />
     <Folder Include="src\app\shared\directives\" />
     <Folder Include="src\app\shared\pipes\" />
   </ItemGroup>
@@ -276,6 +275,13 @@
     <TypeScriptCompile Include="src\app\features\book\book.service.ts" />
     <TypeScriptCompile Include="src\app\features\book\bookComponentBase.ts" />
     <TypeScriptCompile Include="src\app\features\book\components\bookdashboard\bookDashboard.component.ts" />
+    <TypeScriptCompile Include="src\app\features\book\model\accessInfo.model.ts" />
+    <TypeScriptCompile Include="src\app\features\book\model\bookDetail.model.ts" />
+    <TypeScriptCompile Include="src\app\features\book\model\bookItem.model.ts" />
+    <TypeScriptCompile Include="src\app\features\book\model\saleInfo.model.ts" />
+    <TypeScriptCompile Include="src\app\features\book\model\searchInfo.model.ts" />
+    <TypeScriptCompile Include="src\app\features\book\model\volumeInfo.model.ts" />
+    <TypeScriptCompile Include="src\app\features\speech\canDeactivateGuard.service.ts" />
     <TypeScriptCompile Include="src\app\features\speech\components\allSpeech\allSpeech.component.ts" />
     <TypeScriptCompile Include="src\app\features\speech\components\speech\speech.component.ts" />
     <TypeScriptCompile Include="src\app\features\speech\model\navMenu.model.ts" />

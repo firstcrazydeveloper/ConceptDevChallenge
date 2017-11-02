@@ -1,5 +1,5 @@
 ﻿import { Component, ViewContainerRef } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, UrlSegment, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../shared/service/auth.service';
 import { User } from '../../../shared/model/user.model';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
@@ -12,14 +12,16 @@ import { BusySpinnerService } from '../../../shared/components/busyspinner/busys
 })
 export class TopMenuComponent {
     userName: string = 'Guest';
+    currentModule: string = 'speechDashboard';
     navigationExtras: NavigationExtras = {
         preserveQueryParams: true,
         preserveFragment: true
     };
 
-    constructor(public router: Router, public authService: AuthService, public toastr: ToastsManager,
+    constructor(private route: ActivatedRoute, public router: Router, public authService: AuthService, public toastr: ToastsManager,
         public vcr: ViewContainerRef, public busySpinnerService: BusySpinnerService) {
         this.toastr.setRootViewContainerRef(vcr);
+
     }
 
     logout() {
@@ -33,6 +35,7 @@ export class TopMenuComponent {
     }
 
     redirect(url: string) {
+        this.currentModule = url;
         this.router.navigate([url], this.navigationExtras);
 
     }

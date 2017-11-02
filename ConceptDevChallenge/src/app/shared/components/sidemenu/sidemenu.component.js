@@ -21,6 +21,12 @@ var SideMenuComponent = (function () {
     SideMenuComponent.prototype.ngOnChanges = function (changes) {
     };
     SideMenuComponent.prototype.loadContent = function (speech) {
+        if (speech.createdOn === undefined) {
+            speech.createdOn = moment().format("YYYY-MM-DD");
+        }
+        else {
+            speech.createdOn = moment(speech.createdOn).format("YYYY-MM-DD");
+        }
         this.speechService.dispatcher.next(speech);
         this.activeSpeech = speech;
     };

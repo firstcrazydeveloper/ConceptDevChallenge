@@ -18,13 +18,18 @@ var BookDashboardComponent = (function () {
         this.modalService = modalService;
         this.bookService = bookService;
         this.busySpinnerService = busySpinnerService;
+        this.isBookDataLoading = false;
     }
     BookDashboardComponent.prototype.ngOnInit = function () { };
     BookDashboardComponent.prototype.Search = function () {
         var _this = this;
+        this.isBookDataLoading = true;
         this.bookService.getBookDetails(this.isbn)
-            .subscribe(function (bookdetails) {
-            _this.bookdetails = JSON.stringify(bookdetails);
+            .subscribe(function (bookdetail) {
+            _this.bookdetail = bookdetail;
+            _this.bookItem = _this.bookdetail.items[0];
+            _this.isBookDataLoading = false;
+            console.log(_this.bookdetail);
         });
     };
     BookDashboardComponent = __decorate([

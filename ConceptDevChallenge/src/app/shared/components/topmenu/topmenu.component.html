@@ -4,12 +4,14 @@
     </div>
     <div style="float:left;" *ngIf="authService.isLoggedIn">
         <ul class="nav">
-            <li><a (click)="redirect('speechDashboard')">Speech</a></li>
-            <li><a (click)="redirect('bookDashboard')">Books</a></li>
+            <li [ngClass]="{'active': 'speechDashboard'==currentModule}"><a (click)="redirect('speechDashboard')">Speech</a></li>
+            <li [ngClass]="{'active': 'bookDashboard'==currentModule}"><a (click)="redirect('bookDashboard')">Books</a></li>
         </ul>
     </div>
-    <ul class="nav top-menu-nav">
-        <li><a>Welcome {{authService.userName}}</a></li>
-        <li *ngIf="authService.isLoggedIn"><a (click)="logout()">Logout</a></li>
-    </ul>
+    <div style="float:right">
+        <ul class="nav top-menu-nav">
+            <li><a>Welcome {{authService.userName}}</a></li>
+            <li *ngIf="authService.isLoggedIn"><a (click)="logout()">Logout</a></li>
+        </ul>
+    </div>
 </div>

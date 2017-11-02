@@ -20,6 +20,8 @@ var SpeechComponentBase = (function () {
         this.screenCommands = [];
         this.route.url.forEach(function (segments) {
             _this.activeMenu = segments.join("/");
+            console.log('Menu');
+            console.log(_this.activeMenu);
         });
     }
     SpeechComponentBase.prototype.getSpeechListCollection = function (requestType) {
