@@ -4,42 +4,25 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { MailService } from '../../../shared/service/mail.service';
 import { Mail } from '../../../shared/model/mail.model';
 import { BusySpinnerService } from '../../../shared/components/busyspinner/busyspinner.service';
+import {
+    ReactiveFormsModule,
+    FormsModule,
+    FormGroup,
+    FormControl,
+    Validators,
+    FormBuilder
+} from '@angular/forms';
 
 @Component({
     selector: 'share-speech-modal-content',
-    template: ` <busy-spinner [busyIndicator]="isMailSending"></busy-spinner>
-    <div class="modal-header">
-      <h4 class="modal-title">Share Speech</h4>
-      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-    <form class="omb_loginForm"  autocomplete="off" #f="ngForm" (ngSubmit)="shareSpeech()">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="subject" [(ngModel)]="subject" required placeholder="mail subject">
-                    </div>
-                    <div class="input-group" style="margin-top:20px;">
-                        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                        <input type="email" class="form-control" name="useremail" [(ngModel)]="userEmail"  pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" email required placeholder="user email">
-                    </div>
-                    <span class="help-block"></span>
-                   
-                </form>
-     
-    </div>
-    <div class="modal-footer">
-    <button class="btn btn-sm btn-primary" type="button" [disabled]="!f.valid" (click)="shareSpeech()">Share</button>
-      <button type="button" class="btn btn-sm btn-primary" (click)="activeModal.close('Close click')">Cancel</button>
-    </div>
-  `
+    templateUrl: `./sharespeech.component.html`
 })
 export class ShareSpeechContent {
     @Input() content: string;
     @Input() handler: any;
-    userEmail: string;
-    subject: string;
+    sharespeechform: FormGroup;
+    subject: FormControl;
+    useremail: FormControl;
     isMailSending: Boolean = false;
 
     constructor(public activeModal: NgbActiveModal, public mailService: MailService, public toastr: ToastsManager,
@@ -47,16 +30,40 @@ export class ShareSpeechContent {
         this.toastr.setRootViewContainerRef(vcr);
     }
 
+    ngOnInit() {
+        this.createFormControls();
+        this.createForm();
+    }
+
+    createFormControls() {
+        this.subject = new FormControl('', Validators.required);
+        this.useremail = new FormControl('', [
+            Validators.required,
+            Validators.pattern("[^ @]*@[^ @]*")
+        ]);
+    }
+
+    createForm() {
+        this.sharespeechform = new FormGroup({
+            useremail: this.useremail,
+            subject: this.subject
+        });
+    }
+
     shareSpeech() {
         this.isMailSending = true;
         let mailData = new Mail();
         mailData.content = this.content;
-        mailData.email = this.userEmail;
-        mailData.subject = this.subject;
+        mailData.email = this.Email;
+        mailData.subject = this.Subject;
         this.mailService.sendMail(mailData).subscribe(() => {
             this.isMailSending = false;
             this.toastr.success('Your speech shared successfully!', 'Success!');
             this.handler(this.activeModal);
         });
     }
+
+    get Email() { return this.sharespeechform.get('useremail').value; }
+
+    get Subject() { return this.sharespeechform.get('subject').value; }
 }

@@ -58,5 +58,17 @@
   {
     "outputFile": "src/app/features/book/components/bookdashboard/bookDashboard.component.css",
     "inputFile": "src/app/features/book/components/bookdashboard/bookDashboard.component.less"
+  },
+  {
+    "outputFile": "src/app/features/speech/components/speechDashboard/speechDashboard.component.css",
+    "inputFile": "src/app/features/speech/components/speechDashboard/speechDashboard.component.less"
+  },
+  {
+    "outputFile": "src/app/features/speech/components/searchSpeech/searchSpeech.component.css",
+    "inputFile": "src/app/features/speech/components/searchSpeech/searchSpeech.component.less"
+  },
+  {
+    "outputFile": "src/app/features/speech/components/searchResultSpeech/searchResultSpeech.component.css",
+    "inputFile": "src/app/features/speech/components/searchResultSpeech/searchResultSpeech.component.less"
   }
 ]

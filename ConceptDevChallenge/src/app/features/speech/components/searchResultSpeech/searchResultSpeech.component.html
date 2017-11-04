@@ -1,0 +1,20 @@
+﻿<div id="speechContainer">
+    <busy-spinner [busyIndicator]="isActiveSpeechLoading"></busy-spinner>
+    <div class="row speechContainer-child">
+        <div class="col-md-3 speechContainer-sidemenu" id="sidemenu" *ngIf="filterType !='new'">
+            <form #f="ngForm">
+                <side-menu [sideMenus]="speechList" [activeSpeech]="activeSpeech"></side-menu>
+            </form>
+            <router-outlet></router-outlet>
+        </div>
+        <div class="col-md-9 padding-top-5" [ngClass]="(filterType !='new')?'col-md-9':'col-md-12'" *ngIf="isActiveSpeech && !isActiveSpeechLoading">
+            <speech [screenCommands]="screenCommands" [activeSpeech]="activeSpeech"></speech>
+        </div>
+        <div class="col-md-9 padding-top-5" [ngClass]="(filterType !='new')?'col-md-9':'col-md-12'" *ngIf="!isActiveSpeech && !isActiveSpeechLoading">
+            <strong> No result found.</strong>
+        </div>
+    </div>
+
+</div>
+
+

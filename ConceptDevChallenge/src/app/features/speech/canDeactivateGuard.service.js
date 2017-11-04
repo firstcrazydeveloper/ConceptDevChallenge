@@ -11,6 +11,7 @@ var CanDeactivateService = (function () {
     function CanDeactivateService() {
     }
     CanDeactivateService.prototype.canDeactivate = function (component, currentRoute, currentState, nextState) {
+        //TODO -- Need to get form state so  we can disply alert message to user if state is dirty.
         return true;
     };
     CanDeactivateService = __decorate([

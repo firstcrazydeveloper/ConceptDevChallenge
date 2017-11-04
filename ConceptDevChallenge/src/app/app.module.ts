@@ -1,4 +1,5 @@
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,7 +20,7 @@ import { routing } from './app.routing'
         AppComponent, LoginComponent, PageNotFoundComponent
     ],
     imports: [
-        BrowserModule, BrowserAnimationsModule, CommonModule, FormsModule, NgbModule.forRoot(), routing, SharedModule.forRoot()
+        BrowserModule, BrowserAnimationsModule, CommonModule, FormsModule, ReactiveFormsModule, NgbModule.forRoot(), routing, SharedModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent]

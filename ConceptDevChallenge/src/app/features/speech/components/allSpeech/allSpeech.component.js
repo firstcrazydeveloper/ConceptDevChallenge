@@ -25,65 +25,40 @@ var speechComponentBase_1 = require("../../speechComponentBase");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var ng2_toastr_1 = require("ng2-toastr/ng2-toastr");
 var speech_service_1 = require("../../speech.service");
+var navmenu_service_1 = require("../../../../shared/components/navmenu/navmenu.service");
 var auth_service_1 = require("../../../../shared/service/auth.service");
 var busyspinner_service_1 = require("../../../../shared/components/busyspinner/busyspinner.service");
+var speechConstants_1 = require("../../speechConstants");
 var AllSpeechComponent = (function (_super) {
     __extends(AllSpeechComponent, _super);
-    function AllSpeechComponent(router, route, modalService, speechService, authService, busySpinnerService, toastr) {
+    function AllSpeechComponent(navMenuService, route, modalService, speechService, authService, busySpinnerService, toastr, vcr) {
         var _this = _super.call(this, modalService, route, speechService, authService, busySpinnerService, toastr) || this;
-        _this.router = router;
+        _this.navMenuService = navMenuService;
         _this.route = route;
         _this.modalService = modalService;
         _this.speechService = speechService;
         _this.authService = authService;
         _this.busySpinnerService = busySpinnerService;
         _this.toastr = toastr;
-        _this.requestType = 'all';
+        _this.vcr = vcr;
+        _this.toastr.setRootViewContainerRef(vcr);
         _this.buildUICommand();
         return _this;
     }
     AllSpeechComponent.prototype.ngOnInit = function () {
-        this.busySpinnerService.dispatcher.next(true);
-        this.isActiveSpeechLoading = true;
-        this.filterType = this.requestType;
-        this.getSpeechCollection();
-    };
-    AllSpeechComponent.prototype.getSpeechCollection = function () {
-        var _this = this;
-        this.getSpeechListCollection(this.requestType);
-        this.speechService.dispatcher.subscribe(function (val) {
-            if (val.id !== undefined) {
-                _this.isActiveSpeech = true;
-            }
-            else {
-                _this.isActiveSpeech = false;
-            }
-            _this.activeSpeech = val;
-            _this.isActiveSpeechLoading = false;
-            _this.busySpinnerService.dispatcher.next(false);
-        });
+        this.setOnInItData(speechConstants_1.SpeechConstant.AllSpeech_RequestType);
     };
     AllSpeechComponent.prototype.buildUICommand = function () {
         var _this = this;
         this.screenCommands.push({
-            disabled: true, hidden: false, title: 'Delete', class: 'btn btn-primary  buttonSmall',
-            handler: function () {
-            }
-        });
-        this.screenCommands.push({
-            disabled: true, hidden: false, title: 'Update', class: 'btn btn-primary  buttonSmall',
-            handler: function () {
-            }
-        });
-        this.screenCommands.push({
-            disabled: false, hidden: false, title: 'Share', class: 'btn btn-primary  buttonSmall',
+            disabled: false, hidden: false, title: speechConstants_1.SpeechConstant.AllSpeech_ShareButton_Title, class: 'btn btn-primary  buttonSmall',
             handler: function () {
                 _this.openShareModel();
             }
         });
     };
     AllSpeechComponent.prototype.successToaster = function (msg) {
-        this.toastr.success(msg, 'Success!');
+        this.toastr.success(msg, speechConstants_1.SpeechConstant.AllSpeech_SucessMsg);
     };
     AllSpeechComponent = __decorate([
         core_1.Component({
@@ -91,8 +66,8 @@ var AllSpeechComponent = (function (_super) {
             templateUrl: "./allSpeech.component.html",
             styleUrls: ['./allSpeech.component.min.css']
         }),
-        __metadata("design:paramtypes", [router_1.Router, router_1.ActivatedRoute, ng_bootstrap_1.NgbModal, speech_service_1.SpeechService,
-            auth_service_1.AuthService, busyspinner_service_1.BusySpinnerService, ng2_toastr_1.ToastsManager])
+        __metadata("design:paramtypes", [navmenu_service_1.NavMenuService, router_1.ActivatedRoute, ng_bootstrap_1.NgbModal, speech_service_1.SpeechService,
+            auth_service_1.AuthService, busyspinner_service_1.BusySpinnerService, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef])
     ], AllSpeechComponent);
     return AllSpeechComponent;
 }(speechComponentBase_1.SpeechComponentBase));

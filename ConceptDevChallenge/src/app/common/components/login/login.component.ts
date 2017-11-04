@@ -27,6 +27,8 @@ export class LoginComponent {
             if (user.isAunthenticate) {
                 this.authService.isLoggedIn = true;
                 this.authService.currentUser = user;
+                this.authService.setUserDetails(user);
+                this.authService.token = user.token;
                 this.authService.userName = user.firstName;
                 let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'speechDashboard';
                 let navigationExtras: NavigationExtras = {
@@ -41,9 +43,13 @@ export class LoginComponent {
                 this.toastr.error('UserId and Password are not correct!', 'Oops!');
 
             }
-           
-        });
 
-      
+        },
+            err => {
+                this.toastr.error('We are getting error to connect with server! Try again', 'Oops!'); console.log(err)
+                this.busySpinnerService.dispatcher.next(false);
+            });
+
+
     }
 }

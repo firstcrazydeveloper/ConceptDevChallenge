@@ -3,7 +3,9 @@ import { WebApiManager } from '../../shared/service/webApiManager.service';
 import { AppSettings } from '../../../app/appSettings.setting';
 import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject';
+import { AuthService } from '../../shared/service/auth.service';
 import { Speech } from './model/speech.model';
+import { SpeechSearch } from './model/speechSearch.model';
 
 import { Navigation } from './model/navMenu.model';
 
@@ -15,6 +17,9 @@ export class SpeechService {
     navigationMenu: Observable<any> = null;
     currentSpeech: Speech;
     dispatcher = new Subject();
+    isSearch: Boolean = false;
+    speechSearch: SpeechSearch = new SpeechSearch();
+  
 
     //TODO -- remove this Test Data Section after Web API implementation
     // Start TestData Section  
@@ -22,12 +27,14 @@ export class SpeechService {
 
     // End TestData Section
 
-    constructor(private webApiService: WebApiManager) {
+    constructor(private webApiService: WebApiManager, public authService: AuthService) {
     }
 
     //TODO -- uncomment this code after Web API implementation
     public static speechesUrl = AppSettings.BaseAPIUrl + 'speech';
     public static navMenuUrl = AppSettings.BaseAPIUrl + 'speechMenu';
+
+    public static searchSpeechUrl = AppSettings.BaseAPIUrl + 'searchSpeech';
 
 
     //TODO -- remove this code after Web API implementation
@@ -36,12 +43,29 @@ export class SpeechService {
     //public static speechesUrl = 'assets/speechdata.json';
     //public static navMenuUrl = 'assets/navigationdata.json';
 
+
+    getGlobalSearchSpeechCollection(searchKey: string) {
+
+        let param = {
+            searchKey: searchKey
+        };
+        this.speechCollection = this.webApiService.get(SpeechService.searchSpeechUrl, searchKey);
+        return this.speechCollection;
+
+    }
+
+    getAdvanceSearchSpeechCollection(speechSearch: SpeechSearch) {
+        this.speechCollection = this.webApiService.post(SpeechService.searchSpeechUrl, speechSearch, this.authService.token);
+        return this.speechCollection;
+
+    }
+
     getSpeechCollection() {
         //TODO -- remove this code after Web API implementation
         // return Observable.of(this.testDataSpeechList).delay(10);
 
         // TODO -- uncomment this code after Web API implementation
-        this.speechCollection = this.webApiService.get(SpeechService.speechesUrl);
+        this.speechCollection = this.webApiService.get(SpeechService.speechesUrl, this.authService.token);
         return this.speechCollection;
     }
 
@@ -49,7 +73,7 @@ export class SpeechService {
 
     getSpeech(speechId: number) {
         let modifiedUrl = SpeechService.speechesUrl + '/' + speechId;
-        this.speech = this.webApiService.get(modifiedUrl);
+        this.speech = this.webApiService.get(modifiedUrl, this.authService.token);
         return modifiedUrl;
     }
 
@@ -67,11 +91,11 @@ export class SpeechService {
         //return Observable.of(true).delay(10);
 
         //TODO -- uncomment this code after Web API implementation
-        return this.webApiService.post(SpeechService.speechesUrl, speech);
+        return this.webApiService.post(SpeechService.speechesUrl, speech, this.authService.token);
     }
 
     AddSpeech(speech: Speech) {
-        return this.webApiService.post(SpeechService.speechesUrl, speech);
+        return this.webApiService.post(SpeechService.speechesUrl, speech, this.authService.token);
 
     }
 
@@ -91,7 +115,7 @@ export class SpeechService {
 
     getSpeechDashBoardNavigationMenu() {
 
-        this.navigationMenu = this.webApiService.get(SpeechService.navMenuUrl);
+        this.navigationMenu = this.webApiService.get(SpeechService.navMenuUrl, this.authService.token);
         return this.navigationMenu;
     }
 

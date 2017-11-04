@@ -14,7 +14,6 @@ var Subject_1 = require("rxjs/Subject");
 var BusySpinnerService = (function () {
     function BusySpinnerService() {
         this.dispatcher = new Subject_1.Subject();
-        console.log('start BusySpinnerService');
     }
     BusySpinnerService = __decorate([
         core_1.Injectable(),

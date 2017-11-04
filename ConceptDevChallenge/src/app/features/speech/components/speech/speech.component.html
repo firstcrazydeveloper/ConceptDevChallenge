@@ -62,14 +62,14 @@
                 <div class="col-md-12 padding-none">
                     <div class="commandButtonContainer">
                         <div *ngFor="let screenCommand of screenCommands">
-                            <button type="submit" *ngIf="screenCommand.title== 'Save' || screenCommand.title== 'Update' "
+                            <button type="submit" *ngIf="screenCommand.title=== 'Save' || screenCommand.title=== 'Update' "
                                     class="{{screenCommand.class}}"
                                     (click)="screenCommand.handler()"
                                     [hidden]="screenCommand.hidden"
-                                    [disabled]="!speechForm.valid">
+                                    [disabled]="!speechForm.valid || screenCommand.disabled">
                                 {{screenCommand.title}}
                             </button>
-                            <button type="button" *ngIf="screenCommand.title!= 'Save'"
+                            <button type="button" *ngIf="screenCommand.title!== 'Save' && screenCommand.title !== 'Update'"
                                     class="{{screenCommand.class}}"
                                     (click)="screenCommand.handler()"
                                     [hidden]="screenCommand.hidden"
@@ -79,6 +79,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div>
+
             </div>
         </form>
     </div>

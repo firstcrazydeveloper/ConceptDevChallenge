@@ -114,6 +114,7 @@
     <Content Include="src\app\common\components\login\login.component.min.css">
       <DependentUpon>login.component.css</DependentUpon>
     </Content>
+    <Content Include="src\app\common\components\sharepeech\sharespeech.component.html" />
     <Content Include="src\app\features\book\components\bookdashboard\bookDashboard.component.css">
       <DependentUpon>bookDashboard.component.less</DependentUpon>
     </Content>
@@ -134,6 +135,20 @@
     <Content Include="src\app\features\speech\components\newSpeech\newSpeech.component.html" />
     <Content Include="src\app\features\speech\components\newSpeech\newSpeech.component.min.css">
       <DependentUpon>newSpeech.component.css</DependentUpon>
+    </Content>
+    <Content Include="src\app\features\speech\components\searchResultSpeech\searchResultSpeech.component.css">
+      <DependentUpon>searchResultSpeech.component.less</DependentUpon>
+    </Content>
+    <Content Include="src\app\features\speech\components\searchResultSpeech\searchResultSpeech.component.html" />
+    <Content Include="src\app\features\speech\components\searchResultSpeech\searchResultSpeech.component.min.css">
+      <DependentUpon>searchResultSpeech.component.css</DependentUpon>
+    </Content>
+    <Content Include="src\app\features\speech\components\searchSpeech\searchSpeech.component.css">
+      <DependentUpon>searchSpeech.component.less</DependentUpon>
+    </Content>
+    <Content Include="src\app\features\speech\components\searchSpeech\searchSpeech.component.html" />
+    <Content Include="src\app\features\speech\components\searchSpeech\searchSpeech.component.min.css">
+      <DependentUpon>searchSpeech.component.css</DependentUpon>
     </Content>
     <Content Include="src\app\features\speech\components\selfSpeech\selfSpeech.component.css">
       <DependentUpon>selfSpeech.component.less</DependentUpon>
@@ -210,6 +225,8 @@
     <Content Include="src\app\features\speech\components\speech\speech.component.less" />
     <Content Include="src\app\shared\components\topmenu\topmenu.component.less" />
     <Content Include="src\app\features\book\components\bookdashboard\bookDashboard.component.less" />
+    <Content Include="src\app\features\speech\components\searchSpeech\searchSpeech.component.less" />
+    <Content Include="src\app\features\speech\components\searchResultSpeech\searchResultSpeech.component.less" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -283,21 +300,26 @@
     <TypeScriptCompile Include="src\app\features\book\model\volumeInfo.model.ts" />
     <TypeScriptCompile Include="src\app\features\speech\canDeactivateGuard.service.ts" />
     <TypeScriptCompile Include="src\app\features\speech\components\allSpeech\allSpeech.component.ts" />
+    <TypeScriptCompile Include="src\app\features\speech\components\searchResultSpeech\searchResultSpeech.component.ts" />
+    <TypeScriptCompile Include="src\app\features\speech\components\searchSpeech\searchSpeech.component.ts" />
     <TypeScriptCompile Include="src\app\features\speech\components\speech\speech.component.ts" />
     <TypeScriptCompile Include="src\app\features\speech\model\navMenu.model.ts" />
     <TypeScriptCompile Include="src\app\features\speech\model\shareSpeech.model.ts" />
     <TypeScriptCompile Include="src\app\features\speech\model\speech.model.ts" />
     <TypeScriptCompile Include="src\app\features\speech\components\newSpeech\newSpeech.component.ts" />
+    <TypeScriptCompile Include="src\app\features\speech\model\speechSearch.model.ts" />
     <TypeScriptCompile Include="src\app\features\speech\speech.service.ts" />
     <TypeScriptCompile Include="src\app\features\speech\speechComponentBase.ts" />
     <TypeScriptCompile Include="src\app\features\speech\components\selfSpeech\selfSpeech.component.ts" />
     <TypeScriptCompile Include="src\app\features\speech\speech.module.ts" />
     <TypeScriptCompile Include="src\app\features\speech\speech.routing.ts" />
     <TypeScriptCompile Include="src\app\features\speech\components\speechDashboard\speechDashboard.component.ts" />
+    <TypeScriptCompile Include="src\app\features\speech\speechConstants.ts" />
     <TypeScriptCompile Include="src\app\shared\components\busyspinner\busyspinner.component.ts" />
     <TypeScriptCompile Include="src\app\shared\components\busyspinner\busyspinner.service.ts" />
     <TypeScriptCompile Include="src\app\shared\components\navmenu\navmenu.component.ts" />
     <TypeScriptCompile Include="src\app\shared\components\navmenu\navmenu.service.ts" />
+    <TypeScriptCompile Include="src\app\shared\components\sidemenu\sidemenu.service.ts" />
     <TypeScriptCompile Include="src\app\shared\components\sidemenu\sidemenu.component.ts" />
     <TypeScriptCompile Include="src\app\shared\components\topmenu\topmenu.component.ts" />
     <TypeScriptCompile Include="src\app\shared\model\mail.model.ts" />
@@ -307,6 +329,7 @@
     <TypeScriptCompile Include="src\app\shared\service\mail.service.ts" />
     <TypeScriptCompile Include="src\app\shared\service\webApiManager.service.ts" />
     <TypeScriptCompile Include="src\app\shared\shared.module.ts" />
+    <TypeScriptCompile Include="src\app\shared\shareData.settings.ts" />
     <TypeScriptCompile Include="src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="src\environments\environment.ts" />
     <TypeScriptCompile Include="src\main.ts" />

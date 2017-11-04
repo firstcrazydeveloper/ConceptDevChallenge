@@ -27,9 +27,6 @@ export class TopMenuComponent {
     logout() {
         this.busySpinnerService.dispatcher.next(true);
         this.authService.logout().subscribe(() => {
-            this.authService.isLoggedIn = false;
-            this.authService.userName = 'Guest';
-            this.authService.currentUser = undefined;
             this.router.navigate(['login'], this.navigationExtras);
         });
     }

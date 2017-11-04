@@ -1,8 +1,16 @@
 ﻿<div class="flexbox-parent">
-    <div class="flexbox-item header">
-        <nav-menu [navMenus]="navMenusCollection" [activeMenu]="activeMenu"></nav-menu>
+    <div class="row margin-top-5">
+        <div class="col-md-8">
+            <nav-menu [navMenus]="navMenusCollection" [activeMenu]="activeMenu"></nav-menu>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <search-speech></search-speech>
+                </div>
+            </div>
+        </div>
     </div>
-
     <div class="flexbox-item fill-area content flexbox-item-grow">
         <div class="fill-area-content flexbox-item-grow" style="position:relative;padding:0;">
             <div class="flexbox-parent" style="position:absolute;">

@@ -14,6 +14,7 @@ var Subject_1 = require("rxjs/Subject");
 var NavMenuService = (function () {
     function NavMenuService() {
         this.dispatcher = new Subject_1.Subject();
+        this.navMenuDispatcher = new Subject_1.Subject();
     }
     NavMenuService = __decorate([
         core_1.Injectable(),

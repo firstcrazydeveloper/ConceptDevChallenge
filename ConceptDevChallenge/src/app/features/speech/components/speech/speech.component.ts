@@ -1,12 +1,7 @@
-﻿import { Component, ViewContainerRef, Input } from '@angular/core';
-import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
+﻿import { Component, Input } from '@angular/core';
 import { SpeechComponentBase } from '../../speechComponentBase';
-import { SpeechService } from '../../speech.service';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { AuthService } from '../../../../shared/service/auth.service';
-import { BusySpinnerService } from '../../../../shared/components/busyspinner/busyspinner.service';
 import { Speech } from '../../model/speech.model';
+import { ShareDataSettings } from '../../../../shared/shareData.settings';
 declare var moment: any;
 @Component({
     selector: 'speech',
@@ -20,11 +15,9 @@ export class SpeechComponent {
 
     ngOnInit() {
         if (this.activeSpeech.createdOn === undefined) {
-            this.activeSpeech.createdOn = moment().format("YYYY-MM-DD");
-            console.log(this.activeSpeech.createdOn);
+            this.activeSpeech.createdOn = moment().format(ShareDataSettings.DateFormat);
         } else {
-            this.activeSpeech.createdOn = moment(this.activeSpeech.createdOn).format("YYYY-MM-DD");
-            console.log(this.activeSpeech.createdOn);
+            this.activeSpeech.createdOn = moment(this.activeSpeech.createdOn).format(ShareDataSettings.DateFormat);
         }
 
     }

@@ -17,22 +17,46 @@ require("rxjs/add/operator/toPromise");
 var WebApiManager = (function () {
     function WebApiManager(http) {
         this.http = http;
-        var headerObj = new http_1.Headers({
-            'Content-Type': 'application/json',
-            'Accept': 'q=0.8;application/json;q=0.9'
-        });
-        var headers = new http_1.Headers(headerObj);
-        this.requestOptions = new http_1.RequestOptions({ headers: headers });
     }
-    WebApiManager.prototype.post = function (url, dataToPost) {
+    WebApiManager.prototype.post = function (url, dataToPost, token) {
         console.log("Angular2 - Making HTTP POST -> URL: " + url + ", with DATA: " + JSON.stringify(dataToPost));
-        return this.http.post(url, dataToPost, this.requestOptions)
+        this.headerObj = new http_1.Headers({
+            'Content-Type': 'application/json',
+            'Accept': 'q=0.8;application/json;q=0.9',
+            'Authorization': 'Bearer ' + token
+        });
+        var headers = new http_1.Headers(this.headerObj);
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this.http.post(url, dataToPost, options)
             .map(this.extractData)
             .catch(this.handleError);
     };
-    WebApiManager.prototype.get = function (url, getParameters) {
-        if (getParameters === void 0) { getParameters = undefined; }
+    WebApiManager.prototype.get = function (url, token) {
         console.log("Angular2 - Making HTTP GET -> URL: " + url);
+        if (token !== undefined) {
+            return this.httpGetWithParameters(url, token);
+        }
+        else {
+            return this.httpGet(url);
+        }
+    };
+    WebApiManager.prototype.httpGetWithParameters = function (url, token) {
+        if (token === void 0) { token = undefined; }
+        this.headerObj = new http_1.Headers({
+            'Content-Type': 'application/json',
+            'Accept': 'q=0.8;application/json;q=0.9',
+            'Authorization': 'Bearer ' + token
+        });
+        var headers = new http_1.Headers(this.headerObj);
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this.http.get(url, options)
+            .map(function (res) { return res.json(); })
+            .do(function (response) { return console.log('fetched ' + url); })
+            .publishReplay(1)
+            .refCount()
+            .catch(this.handleError);
+    };
+    WebApiManager.prototype.httpGet = function (url) {
         return this.http.get(url)
             .map(function (res) { return res.json(); })
             .do(function (response) { return console.log('fetched ' + url); })

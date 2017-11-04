@@ -28,6 +28,6 @@ D:\Projects\ConceptDevChallenge\ConceptDevChallenge\bin\Microsoft.AI.Web.xml
 D:\Projects\ConceptDevChallenge\ConceptDevChallenge\bin\Microsoft.AI.WindowsServer.xml
 D:\Projects\ConceptDevChallenge\ConceptDevChallenge\bin\Microsoft.ApplicationInsights.xml
 D:\Projects\ConceptDevChallenge\ConceptDevChallenge\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\Projects\ConceptDevChallenge\ConceptDevChallenge\obj\Debug\ConceptDevChallenge.csprojResolveAssemblyReference.cache
 D:\Projects\ConceptDevChallenge\ConceptDevChallenge\obj\Debug\ConceptDevChallenge.dll
 D:\Projects\ConceptDevChallenge\ConceptDevChallenge\obj\Debug\ConceptDevChallenge.pdb
+D:\Projects\ConceptDevChallenge\ConceptDevChallenge\obj\Debug\ConceptDevChallenge.csprojResolveAssemblyReference.cache

@@ -125,3 +125,12 @@ margin-top-15 {
   border-color: #b1b3b5;
   cursor: none;
 }
+.has-danger .form-control {
+  border-color: #d9534f;
+}
+.has-success .form-control {
+  border-color: #5cb85c;
+}
+.form-control-feedback {
+  color: #d9534f;
+}

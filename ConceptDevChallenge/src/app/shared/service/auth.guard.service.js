@@ -33,7 +33,12 @@ var AuthGuard = (function () {
     };
     AuthGuard.prototype.checkLogin = function (url) {
         var data = url;
-        if (this.authService.isLoggedIn) {
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser !== null && currentUser !== undefined) {
+            this.authService.currentUser = currentUser;
+            this.authService.token = currentUser.token;
+            this.authService.userName = currentUser.firstName;
+            this.authService.isLoggedIn = true;
             return true;
         }
         // Store the attempted URL for redirecting

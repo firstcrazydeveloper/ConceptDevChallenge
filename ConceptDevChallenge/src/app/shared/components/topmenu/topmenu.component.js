@@ -34,9 +34,6 @@ var TopMenuComponent = (function () {
         var _this = this;
         this.busySpinnerService.dispatcher.next(true);
         this.authService.logout().subscribe(function () {
-            _this.authService.isLoggedIn = false;
-            _this.authService.userName = 'Guest';
-            _this.authService.currentUser = undefined;
             _this.router.navigate(['login'], _this.navigationExtras);
         });
     };

@@ -14,6 +14,7 @@ require("rxjs/add/observable/of");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/delay");
 var webApiManager_service_1 = require("./webApiManager.service");
+var auth_service_1 = require("./auth.service");
 var appSettings_setting_1 = require("../../appSettings.setting");
 var MailService = (function () {
     //TODO -- remove this Test Data Section after Web API implementation
@@ -21,18 +22,19 @@ var MailService = (function () {
     // testUserData: Array<User> = [{ id: 1, userid: 'abhishek', password: 'sahil', email: 'abhishek.job@hotmail.com' },
     // { id: 2, userid: 'josh', password: 'rosman', email: 'sample@hotmail.com' }];
     // End TestData Section  
-    function MailService(webApiService) {
+    function MailService(webApiService, authService) {
         this.webApiService = webApiService;
+        this.authService = authService;
         console.log('start Mail Service');
     }
     MailService_1 = MailService;
     MailService.prototype.sendMail = function (mail) {
-        return this.webApiService.post(MailService_1.mailUrl, mail);
+        return this.webApiService.post(MailService_1.mailUrl, mail, this.authService.token);
     };
     MailService.mailUrl = appSettings_setting_1.AppSettings.BaseAPIUrl + 'mail';
     MailService = MailService_1 = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [webApiManager_service_1.WebApiManager])
+        __metadata("design:paramtypes", [webApiManager_service_1.WebApiManager, auth_service_1.AuthService])
     ], MailService);
     return MailService;
     var MailService_1;

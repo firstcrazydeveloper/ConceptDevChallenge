@@ -10,6 +10,7 @@ import { AppSettings } from '../../appSettings.setting';
 @Injectable()
 export class AuthService {
     isLoggedIn: boolean = false;
+    token: string;
     userData: Observable<any> = null;
     currentUser: User;
     redirectUrl: string;
@@ -22,9 +23,7 @@ export class AuthService {
 
     // End TestData Section  
 
-    constructor(public webApiService: WebApiManager) {
-        console.log('start AuthService');
-    }
+    constructor(public webApiService: WebApiManager) { }
 
 
     //TODO -- uncomment this code after Web API implementation
@@ -43,13 +42,24 @@ export class AuthService {
             password: password
         }
 
-        this.userData = this.webApiService.post(AuthService.loginUrl, param);
-            
+        this.userData = this.webApiService.post(AuthService.loginUrl, param, undefined);
+
+
         return this.userData;
     }
 
-   
+    setUserDetails(currentUser: User) {
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    }
+
+
     logout(): Observable<boolean> {
+
+        this.token = null;
+        this.isLoggedIn = false;
+        this.currentUser = undefined;
+        this.userName = 'Guest';
+        localStorage.removeItem('currentUser');
         return Observable.of(true).delay(1000).do(val => this.isLoggedIn = false);
     }
     //verifuser(id: string, password: string) {

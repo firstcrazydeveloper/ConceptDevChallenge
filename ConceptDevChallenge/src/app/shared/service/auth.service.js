@@ -27,7 +27,6 @@ var AuthService = (function () {
         this.isLoggedIn = false;
         this.userData = null;
         this.userName = 'Guest';
-        console.log('start AuthService');
     }
     AuthService_1 = AuthService;
     //TODO -- remove this code after Web API implementation
@@ -40,11 +39,19 @@ var AuthService = (function () {
             userId: id,
             password: password
         };
-        this.userData = this.webApiService.post(AuthService_1.loginUrl, param);
+        this.userData = this.webApiService.post(AuthService_1.loginUrl, param, undefined);
         return this.userData;
+    };
+    AuthService.prototype.setUserDetails = function (currentUser) {
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
     };
     AuthService.prototype.logout = function () {
         var _this = this;
+        this.token = null;
+        this.isLoggedIn = false;
+        this.currentUser = undefined;
+        this.userName = 'Guest';
+        localStorage.removeItem('currentUser');
         return Observable_1.Observable.of(true).delay(1000).do(function (val) { return _this.isLoggedIn = false; });
     };
     //TODO -- uncomment this code after Web API implementation

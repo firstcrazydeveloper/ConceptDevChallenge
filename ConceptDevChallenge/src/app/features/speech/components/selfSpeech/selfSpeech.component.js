@@ -28,11 +28,11 @@ var ng2_toastr_1 = require("ng2-toastr/ng2-toastr");
 var auth_service_1 = require("../../../../shared/service/auth.service");
 var busyspinner_service_1 = require("../../../../shared/components/busyspinner/busyspinner.service");
 var speech_model_1 = require("../../model/speech.model");
+var speechConstants_1 = require("../../speechConstants");
 var SelfSpeechComponent = (function (_super) {
     __extends(SelfSpeechComponent, _super);
-    function SelfSpeechComponent(router, modalService, route, speechService, toastr, vcr, authService, busySpinnerService) {
+    function SelfSpeechComponent(modalService, route, speechService, toastr, vcr, authService, busySpinnerService) {
         var _this = _super.call(this, modalService, route, speechService, authService, busySpinnerService, toastr) || this;
-        _this.router = router;
         _this.modalService = modalService;
         _this.route = route;
         _this.speechService = speechService;
@@ -40,62 +40,39 @@ var SelfSpeechComponent = (function (_super) {
         _this.vcr = vcr;
         _this.authService = authService;
         _this.busySpinnerService = busySpinnerService;
-        _this.requestType = 'user';
         _this.toastr.setRootViewContainerRef(vcr);
         _this.buildUICommand();
         return _this;
     }
     SelfSpeechComponent.prototype.ngOnInit = function () {
-        this.busySpinnerService.dispatcher.next(true);
-        this.isActiveSpeechLoading = true;
-        this.filterType = this.requestType;
-        this.getSpeechCollection();
-    };
-    SelfSpeechComponent.prototype.getSpeechCollection = function () {
-        var _this = this;
-        this.getSpeechListCollection(this.requestType);
-        this.speechService.dispatcher.subscribe(function (val) {
-            if (val !== undefined) {
-                _this.isActiveSpeech = true;
-                _this.setInitialValue(val);
-            }
-            else {
-                _this.isActiveSpeech = false;
-                _this.setInitialValue(val);
-            }
-        });
-    };
-    SelfSpeechComponent.prototype.setInitialValue = function (val) {
-        this.activeSpeech = val;
-        this.isActiveSpeechLoading = false;
-        this.busySpinnerService.dispatcher.next(false);
+        this.setOnInItData(speechConstants_1.SpeechConstant.SelfSpeech_RequestType);
     };
     SelfSpeechComponent.prototype.buildUICommand = function () {
         var _this = this;
         this.screenCommands = [];
         this.screenCommands.push({
-            disabled: false, hidden: false, title: 'Delete', class: 'btn btn-primary  buttonSmall',
+            disabled: false, hidden: false, title: speechConstants_1.SpeechConstant.SelfSpeech_DeleteButton_Title, class: 'btn btn-primary  buttonSmall',
             handler: function () {
                 _this.activeSpeech.isDeleted = true;
                 _this.busySpinnerService.dispatcher.next(true);
                 _this.speechService.AddSpeech(_this.activeSpeech).subscribe(function () {
-                    _this.toastr.success('Your speech deleted successfully!', 'Success!');
+                    _this.toastr.success(speechConstants_1.SpeechConstant.SelfSpeech_DeleteButton_SuccessMessage, speechConstants_1.SpeechConstant.ToasterSuccess);
                     _this.activeSpeech = new speech_model_1.Speech();
                     //TODO -- If want to redirect default page after saved then uncomment this code
                     // this.navMenuService.dispatcher.next('userspeech');
                     //  this.router.navigate(['speechDashboard/userspeech']);
-                    _this.getSpeechCollection();
+                    _this.setOnInItData(speechConstants_1.SpeechConstant.SelfSpeech_RequestType);
                 });
             }
         });
         this.screenCommands.push({
-            disabled: false, hidden: false, title: 'Update', class: 'btn btn-primary  buttonSmall',
+            disabled: false, hidden: false, title: speechConstants_1.SpeechConstant.SelfSpeech_UpdateButton_Title, class: 'btn btn-primary  buttonSmall',
             handler: function () {
                 _this.busySpinnerService.dispatcher.next(true);
                 _this.activeSpeech.updatedOn = moment(_this.activeSpeech.updatedOn).utc().format();
                 _this.busySpinnerService.dispatcher.next(true);
                 _this.speechService.AddSpeech(_this.activeSpeech).subscribe(function () {
-                    _this.successToaster('Your speech updated successfully!');
+                    _this.successToaster(speechConstants_1.SpeechConstant.SelfSpeech_UpdateButton_SuccessMessage);
                     // this.activeSpeech = new Speech();
                     //TODO -- If want to redirect default page after saved then uncomment this code
                     // this.navMenuService.dispatcher.next('userspeech');
@@ -105,14 +82,20 @@ var SelfSpeechComponent = (function (_super) {
             }
         });
         this.screenCommands.push({
-            disabled: false, hidden: false, title: 'Share', class: 'btn btn-primary  buttonSmall',
+            disabled: false, hidden: false, title: speechConstants_1.SpeechConstant.SelfSpeech_ShareButton_Title, class: 'btn btn-primary  buttonSmall',
             handler: function () {
                 _this.openShareModel();
             }
         });
+        this.screenCommands.push({
+            disabled: false, hidden: false, title: speechConstants_1.SpeechConstant.ResetButton_Title, class: 'btn btn-primary  buttonSmall',
+            handler: function () {
+                _this.activeSpeech = Object.assign({}, _this.activeSpeechOldData);
+            }
+        });
     };
     SelfSpeechComponent.prototype.successToaster = function (msg) {
-        this.toastr.success(msg, 'Success!');
+        this.toastr.success(msg, speechConstants_1.SpeechConstant.ToasterSuccess);
     };
     SelfSpeechComponent = __decorate([
         core_1.Component({
@@ -120,7 +103,7 @@ var SelfSpeechComponent = (function (_super) {
             templateUrl: "./selfSpeech.component.html",
             styleUrls: ['./selfSpeech.component.min.css']
         }),
-        __metadata("design:paramtypes", [router_1.Router, ng_bootstrap_1.NgbModal, router_1.ActivatedRoute,
+        __metadata("design:paramtypes", [ng_bootstrap_1.NgbModal, router_1.ActivatedRoute,
             speech_service_1.SpeechService, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, auth_service_1.AuthService,
             busyspinner_service_1.BusySpinnerService])
     ], SelfSpeechComponent);

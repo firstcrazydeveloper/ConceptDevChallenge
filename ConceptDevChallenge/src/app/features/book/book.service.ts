@@ -14,7 +14,7 @@ export class BookService {
     public static googleBookAPIUrl = 'https://www.googleapis.com/books/v1/volumes?q=ISBN:';
 
     getBookDetails(ISBN: string): any {
-        return this.webApiService.get(BookService.googleBookAPIUrl + ISBN);
+        return this.webApiService.get(BookService.googleBookAPIUrl + ISBN, undefined);
     }
 
     AddOrUpdateSpeech() {

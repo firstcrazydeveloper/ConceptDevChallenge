@@ -1,5 +1,5 @@
 ﻿import { Component, ViewContainerRef } from '@angular/core';
-import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { SpeechComponentBase } from '../../speechComponentBase';
 import { SpeechService } from '../../speech.service';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -7,6 +7,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { AuthService } from '../../../../shared/service/auth.service';
 import { BusySpinnerService } from '../../../../shared/components/busyspinner/busyspinner.service';
 import { Speech } from '../../model/speech.model';
+import { SpeechConstant } from '../../speechConstants';
 declare var moment: any;
 @Component({
     selector: 'speech-page',
@@ -14,8 +15,7 @@ declare var moment: any;
     styleUrls: ['./selfSpeech.component.min.css']
 })
 export class SelfSpeechComponent extends SpeechComponentBase {
-    requestType: string = 'user';
-    constructor(private router: Router, public modalService: NgbModal, public route: ActivatedRoute,
+    constructor(public modalService: NgbModal, public route: ActivatedRoute,
         public speechService: SpeechService, public toastr: ToastsManager, public vcr: ViewContainerRef, public authService: AuthService,
         public busySpinnerService: BusySpinnerService) {
         super(modalService, route, speechService, authService, busySpinnerService, toastr);
@@ -25,63 +25,35 @@ export class SelfSpeechComponent extends SpeechComponentBase {
     }
 
     ngOnInit() {
-        this.busySpinnerService.dispatcher.next(true);
-        this.isActiveSpeechLoading = true;
-        this.filterType = this.requestType;
-        this.getSpeechCollection();
-
+        this.setOnInItData(SpeechConstant.SelfSpeech_RequestType);
     }
-
-    getSpeechCollection() {
-        this.getSpeechListCollection(this.requestType);
-        this.speechService.dispatcher.subscribe((val: any) => {
-            if (val !== undefined) {
-                this.isActiveSpeech = true;
-                this.setInitialValue(val);
-            }
-            else {
-                this.isActiveSpeech = false;
-                this.setInitialValue(val);
-            }
-
-        });
-    }
-
-    setInitialValue(val: any) {
-        this.activeSpeech = val;
-        this.isActiveSpeechLoading = false;
-        this.busySpinnerService.dispatcher.next(false);
-
-    }
-
-
 
     buildUICommand() {
         this.screenCommands = [];
         this.screenCommands.push({
-            disabled: false, hidden: false, title: 'Delete', class: 'btn btn-primary  buttonSmall',
+            disabled: false, hidden: false, title: SpeechConstant.SelfSpeech_DeleteButton_Title, class: 'btn btn-primary  buttonSmall',
             handler: () => {
                 this.activeSpeech.isDeleted = true;
                 this.busySpinnerService.dispatcher.next(true);
                 this.speechService.AddSpeech(this.activeSpeech).subscribe(() => {
-                    this.toastr.success('Your speech deleted successfully!', 'Success!');
+                    this.toastr.success(SpeechConstant.SelfSpeech_DeleteButton_SuccessMessage, SpeechConstant.ToasterSuccess);
                     this.activeSpeech = new Speech();
                     //TODO -- If want to redirect default page after saved then uncomment this code
                     // this.navMenuService.dispatcher.next('userspeech');
                     //  this.router.navigate(['speechDashboard/userspeech']);
-                    this.getSpeechCollection();
+                    this.setOnInItData(SpeechConstant.SelfSpeech_RequestType);
                 });
             }
         });
 
         this.screenCommands.push({
-            disabled: false, hidden: false, title: 'Update', class: 'btn btn-primary  buttonSmall',
+            disabled: false, hidden: false, title: SpeechConstant.SelfSpeech_UpdateButton_Title, class: 'btn btn-primary  buttonSmall',
             handler: () => {
                 this.busySpinnerService.dispatcher.next(true);
                 this.activeSpeech.updatedOn = moment(this.activeSpeech.updatedOn).utc().format();
                 this.busySpinnerService.dispatcher.next(true);
                 this.speechService.AddSpeech(this.activeSpeech).subscribe(() => {
-                    this.successToaster('Your speech updated successfully!');
+                    this.successToaster(SpeechConstant.SelfSpeech_UpdateButton_SuccessMessage);
                     // this.activeSpeech = new Speech();
                     //TODO -- If want to redirect default page after saved then uncomment this code
                     // this.navMenuService.dispatcher.next('userspeech');
@@ -92,14 +64,21 @@ export class SelfSpeechComponent extends SpeechComponentBase {
         });
 
         this.screenCommands.push({
-            disabled: false, hidden: false, title: 'Share', class: 'btn btn-primary  buttonSmall',
+            disabled: false, hidden: false, title: SpeechConstant.SelfSpeech_ShareButton_Title, class: 'btn btn-primary  buttonSmall',
             handler: () => {
                 this.openShareModel();
+            }
+        });
+
+        this.screenCommands.push({
+            disabled: false, hidden: false, title: SpeechConstant.ResetButton_Title, class: 'btn btn-primary  buttonSmall',
+            handler: () => {
+                this.activeSpeech = Object.assign({}, this.activeSpeechOldData);
             }
         });
     }
 
     successToaster(msg: string) {
-        this.toastr.success(msg, 'Success!');
+        this.toastr.success(msg, SpeechConstant.ToasterSuccess);
     }
 }

@@ -1,5 +1,7 @@
 ﻿import { Component, Input, Renderer2, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 import { SpeechService } from '../../../features/speech/speech.service';
+import { SideMenuService } from './sidemenu.service';
+import { ShareDataSettings } from '../../shareData.settings';
 declare var moment: any;
 
 @Component({
@@ -11,24 +13,41 @@ export class SideMenuComponent {
     @Input() sideMenus: Array<any>;
     @Input() activeSpeech: any;
 
-    constructor(public speechService: SpeechService) { }
+    constructor(public speechService: SpeechService, public sideMenuService: SideMenuService) { }
 
-    ngAfterContentChecked() {
+    ngAfterContentChecked() { }
+
+    ngOnInit() {
+
+        this.sideMenuService.sideMenuDispatcher.subscribe((sideMenusList: any) => {
+            this.sideMenus = sideMenusList;
+            if (this.sideMenus !== undefined && this.sideMenus.length > 0) {
+                this.activeSpeech = this.sideMenus[0];
+                this.updateDateFormat(this.activeSpeech);
+            }
+            else {
+                this.activeSpeech = undefined;
+            }
+            this.speechService.dispatcher.next(this.activeSpeech);
+        });
 
     }
-
-    ngOnInit() { }
 
     ngOnChanges(changes: any) {
 
     }
 
-    loadContent(speech: any) {
-        if (speech.createdOn === undefined) {
-            speech.createdOn = moment().format("YYYY-MM-DD");
+    updateDateFormat(activeSpeech: any) {
+        if (activeSpeech.createdOn === undefined) {
+            activeSpeech.createdOn = moment().format(ShareDataSettings.DateFormat);
+
         } else {
-            speech.createdOn = moment(speech.createdOn).format("YYYY-MM-DD");
+            activeSpeech.createdOn = moment(activeSpeech.createdOn).format(ShareDataSettings.DateFormat);
         }
+    }
+
+    loadContent(speech: any) {
+        this.updateDateFormat(speech);
         this.speechService.dispatcher.next(speech);
         this.activeSpeech = speech;
     }

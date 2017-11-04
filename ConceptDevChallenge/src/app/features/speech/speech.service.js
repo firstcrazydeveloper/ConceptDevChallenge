@@ -14,16 +14,21 @@ var webApiManager_service_1 = require("../../shared/service/webApiManager.servic
 var appSettings_setting_1 = require("../../../app/appSettings.setting");
 var Rx_1 = require("rxjs/Rx");
 var Subject_1 = require("rxjs/Subject");
+var auth_service_1 = require("../../shared/service/auth.service");
+var speechSearch_model_1 = require("./model/speechSearch.model");
 var SpeechService = (function () {
     //TODO -- remove this Test Data Section after Web API implementation
     // Start TestData Section  
     // End TestData Section
-    function SpeechService(webApiService) {
+    function SpeechService(webApiService, authService) {
         this.webApiService = webApiService;
+        this.authService = authService;
         this.speechCollection = null;
         this.speech = null;
         this.navigationMenu = null;
         this.dispatcher = new Subject_1.Subject();
+        this.isSearch = false;
+        this.speechSearch = new speechSearch_model_1.SpeechSearch();
     }
     SpeechService_1 = SpeechService;
     //TODO -- remove this code after Web API implementation
@@ -31,16 +36,27 @@ var SpeechService = (function () {
     //public static navMenuUrl = 'src/assets/navigationdata.json';
     //public static speechesUrl = 'assets/speechdata.json';
     //public static navMenuUrl = 'assets/navigationdata.json';
+    SpeechService.prototype.getGlobalSearchSpeechCollection = function (searchKey) {
+        var param = {
+            searchKey: searchKey
+        };
+        this.speechCollection = this.webApiService.get(SpeechService_1.searchSpeechUrl, searchKey);
+        return this.speechCollection;
+    };
+    SpeechService.prototype.getAdvanceSearchSpeechCollection = function (speechSearch) {
+        this.speechCollection = this.webApiService.post(SpeechService_1.searchSpeechUrl, speechSearch, this.authService.token);
+        return this.speechCollection;
+    };
     SpeechService.prototype.getSpeechCollection = function () {
         //TODO -- remove this code after Web API implementation
         // return Observable.of(this.testDataSpeechList).delay(10);
         // TODO -- uncomment this code after Web API implementation
-        this.speechCollection = this.webApiService.get(SpeechService_1.speechesUrl);
+        this.speechCollection = this.webApiService.get(SpeechService_1.speechesUrl, this.authService.token);
         return this.speechCollection;
     };
     SpeechService.prototype.getSpeech = function (speechId) {
         var modifiedUrl = SpeechService_1.speechesUrl + '/' + speechId;
-        this.speech = this.webApiService.get(modifiedUrl);
+        this.speech = this.webApiService.get(modifiedUrl, this.authService.token);
         return modifiedUrl;
     };
     SpeechService.prototype.AddOrUpdateSpeech = function (speech) {
@@ -54,10 +70,10 @@ var SpeechService = (function () {
         //this.testDataSpeechList.push(speech);
         //return Observable.of(true).delay(10);
         //TODO -- uncomment this code after Web API implementation
-        return this.webApiService.post(SpeechService_1.speechesUrl, speech);
+        return this.webApiService.post(SpeechService_1.speechesUrl, speech, this.authService.token);
     };
     SpeechService.prototype.AddSpeech = function (speech) {
-        return this.webApiService.post(SpeechService_1.speechesUrl, speech);
+        return this.webApiService.post(SpeechService_1.speechesUrl, speech, this.authService.token);
     };
     SpeechService.prototype.DeleteSpeech = function (speech) {
         // this.testDataSpeechList = this.testDataSpeechList.filter(item => item.id !== speech.id);
@@ -71,7 +87,7 @@ var SpeechService = (function () {
         return Rx_1.Observable.of(true).delay(100);
     };
     SpeechService.prototype.getSpeechDashBoardNavigationMenu = function () {
-        this.navigationMenu = this.webApiService.get(SpeechService_1.navMenuUrl);
+        this.navigationMenu = this.webApiService.get(SpeechService_1.navMenuUrl, this.authService.token);
         return this.navigationMenu;
     };
     //TODO -- remove this method after Web API implementation
@@ -84,9 +100,10 @@ var SpeechService = (function () {
     //TODO -- uncomment this code after Web API implementation
     SpeechService.speechesUrl = appSettings_setting_1.AppSettings.BaseAPIUrl + 'speech';
     SpeechService.navMenuUrl = appSettings_setting_1.AppSettings.BaseAPIUrl + 'speechMenu';
+    SpeechService.searchSpeechUrl = appSettings_setting_1.AppSettings.BaseAPIUrl + 'searchSpeech';
     SpeechService = SpeechService_1 = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [webApiManager_service_1.WebApiManager])
+        __metadata("design:paramtypes", [webApiManager_service_1.WebApiManager, auth_service_1.AuthService])
     ], SpeechService);
     return SpeechService;
     var SpeechService_1;

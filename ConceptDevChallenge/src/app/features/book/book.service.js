@@ -17,7 +17,7 @@ var BookService = (function () {
     }
     BookService_1 = BookService;
     BookService.prototype.getBookDetails = function (ISBN) {
-        return this.webApiService.get(BookService_1.googleBookAPIUrl + ISBN);
+        return this.webApiService.get(BookService_1.googleBookAPIUrl + ISBN, undefined);
     };
     BookService.prototype.AddOrUpdateSpeech = function () {
         // return this.webApiService.post(SpeechService.speechesUrl, speech);

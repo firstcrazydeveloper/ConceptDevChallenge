@@ -11,17 +11,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var speech_model_1 = require("../../model/speech.model");
+var shareData_settings_1 = require("../../../../shared/shareData.settings");
 var SpeechComponent = (function () {
     function SpeechComponent() {
     }
     SpeechComponent.prototype.ngOnInit = function () {
         if (this.activeSpeech.createdOn === undefined) {
-            this.activeSpeech.createdOn = moment().format("YYYY-MM-DD");
-            console.log(this.activeSpeech.createdOn);
+            this.activeSpeech.createdOn = moment().format(shareData_settings_1.ShareDataSettings.DateFormat);
         }
         else {
-            this.activeSpeech.createdOn = moment(this.activeSpeech.createdOn).format("YYYY-MM-DD");
-            console.log(this.activeSpeech.createdOn);
+            this.activeSpeech.createdOn = moment(this.activeSpeech.createdOn).format(shareData_settings_1.ShareDataSettings.DateFormat);
         }
     };
     __decorate([

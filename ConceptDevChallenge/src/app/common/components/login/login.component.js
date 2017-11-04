@@ -32,6 +32,8 @@ var LoginComponent = (function () {
             if (user.isAunthenticate) {
                 _this.authService.isLoggedIn = true;
                 _this.authService.currentUser = user;
+                _this.authService.setUserDetails(user);
+                _this.authService.token = user.token;
                 _this.authService.userName = user.firstName;
                 var redirect = _this.authService.redirectUrl ? _this.authService.redirectUrl : 'speechDashboard';
                 var navigationExtras = {
@@ -44,6 +46,10 @@ var LoginComponent = (function () {
                 _this.busySpinnerService.dispatcher.next(false);
                 _this.toastr.error('UserId and Password are not correct!', 'Oops!');
             }
+        }, function (err) {
+            _this.toastr.error('We are getting error to connect with server! Try again', 'Oops!');
+            console.log(err);
+            _this.busySpinnerService.dispatcher.next(false);
         });
     };
     LoginComponent = __decorate([

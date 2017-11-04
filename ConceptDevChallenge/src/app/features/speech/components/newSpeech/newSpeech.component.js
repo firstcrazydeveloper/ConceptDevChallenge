@@ -29,6 +29,7 @@ var auth_service_1 = require("../../../../shared/service/auth.service");
 var navmenu_service_1 = require("../../../../shared/components/navmenu/navmenu.service");
 var busyspinner_service_1 = require("../../../../shared/components/busyspinner/busyspinner.service");
 var speech_model_1 = require("../../model/speech.model");
+var speechConstants_1 = require("../../speechConstants");
 var NewSpeechComponent = (function (_super) {
     __extends(NewSpeechComponent, _super);
     function NewSpeechComponent(router, changedetectorref, route, modalService, speechService, toastr, vcr, authService, navMenuService, busySpinnerService) {
@@ -43,34 +44,25 @@ var NewSpeechComponent = (function (_super) {
         _this.authService = authService;
         _this.navMenuService = navMenuService;
         _this.busySpinnerService = busySpinnerService;
-        _this.requestType = 'new';
+        _this.requestType = speechConstants_1.SpeechConstant.NewSpeech_RequestType;
         _this.toastr.setRootViewContainerRef(vcr);
         _this.buildUICommand();
         _this.changedetector = changedetectorref;
         return _this;
     }
     NewSpeechComponent.prototype.ngOnInit = function () {
-        this.filterType = this.requestType;
         this.activeSpeech = new speech_model_1.Speech();
         this.changedetector.detectChanges();
-        // alert(this.valuedate);
     };
     NewSpeechComponent.prototype.ngOnChanges = function (changes) {
-        console.log('start change');
         for (var propName in changes) {
             var chng = changes[propName];
-            console.log(chng);
         }
     };
     NewSpeechComponent.prototype.buildUICommand = function () {
         var _this = this;
         this.screenCommands.push({
-            disabled: true, hidden: false, title: 'Delete', class: 'btn btn-primary  buttonSmall',
-            handler: function () {
-            }
-        });
-        this.screenCommands.push({
-            disabled: false, hidden: false, title: 'Save', class: 'btn btn-primary  buttonSmall',
+            disabled: false, hidden: false, title: speechConstants_1.SpeechConstant.NewSpeech_SaveButton_Title, class: 'btn btn-primary  buttonSmall',
             handler: function () {
                 _this.activeSpeech.createdBy = _this.authService.currentUser.id;
                 _this.activeSpeech.createdOn = moment(_this.activeSpeech.createdOn).utc().format();
@@ -78,24 +70,29 @@ var NewSpeechComponent = (function (_super) {
                 _this.activeSpeech.isDeleted = false;
                 _this.busySpinnerService.dispatcher.next(true);
                 _this.speechService.AddSpeech(_this.activeSpeech).subscribe(function () {
-                    _this.successToaster('Your speech saved successfully!');
-                    _this.activeSpeech = new speech_model_1.Speech();
+                    _this.successToaster(speechConstants_1.SpeechConstant.NewSpeech_SavedSucessMsg);
+                    setTimeout(function () {
+                        _this.navMenuService.dispatcher.next('userspeech');
+                        _this.router.navigate(['speechDashboard/userspeech']);
+                        _this.activeSpeech = new speech_model_1.Speech();
+                    }, 500);
                     //TODO -- If want to redirect default page after saved then uncomment this code
-                    // this.navMenuService.dispatcher.next('userspeech');
-                    //  this.router.navigate(['speechDashboard/userspeech']);
+                }, function (err) {
+                    _this.toastr.error('We are getting error to connect with server! Try again', 'Oops!');
+                    console.log(err);
                     _this.busySpinnerService.dispatcher.next(false);
                 });
             }
         });
         this.screenCommands.push({
-            disabled: true, hidden: false, title: 'Share', class: 'btn btn-primary  buttonSmall',
+            disabled: false, hidden: false, title: speechConstants_1.SpeechConstant.ClearButton_Title, class: 'btn btn-primary  buttonSmall',
             handler: function () {
-                _this.openShareModel();
+                _this.activeSpeech = new speech_model_1.Speech();
             }
         });
     };
     NewSpeechComponent.prototype.successToaster = function (msg) {
-        this.toastr.success(msg, 'Success!');
+        this.toastr.success(msg, speechConstants_1.SpeechConstant.NewSpeech_SucessMsg);
     };
     NewSpeechComponent = __decorate([
         core_1.Component({

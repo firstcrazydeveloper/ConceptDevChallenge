@@ -5,6 +5,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/delay';
 import { Mail } from '../model/mail.model';
 import { WebApiManager } from './webApiManager.service';
+import { AuthService } from './auth.service';
 import { AppSettings } from '../../appSettings.setting';
 
 @Injectable()
@@ -17,13 +18,13 @@ export class MailService {
 
     // End TestData Section  
 
-    constructor(public webApiService: WebApiManager) {
+    constructor(public webApiService: WebApiManager, public authService: AuthService) {
         console.log('start Mail Service');
     }
 
     public static mailUrl = AppSettings.BaseAPIUrl + 'mail';
 
     sendMail(mail: Mail) {
-        return this.webApiService.post(MailService.mailUrl, mail);
+        return this.webApiService.post(MailService.mailUrl, mail, this.authService.token);
     }
 }

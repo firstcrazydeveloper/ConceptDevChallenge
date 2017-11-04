@@ -5,6 +5,8 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class NavMenuService {
     dispatcher = new Subject();
+    navMenuDispatcher = new Subject();
+    currentNavItem: string;
 
     constructor() {
     }

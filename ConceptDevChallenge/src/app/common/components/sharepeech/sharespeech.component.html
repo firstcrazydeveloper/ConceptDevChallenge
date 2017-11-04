@@ -1,0 +1,34 @@
+﻿<busy-spinner [busyIndicator]="isMailSending"></busy-spinner>
+<div class="modal-header">
+    <h4 class="modal-title">Share Speech</h4>
+    <button type="button" class="close" aria-label="Close" style="cursor:pointer;" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form novalidate class="omb_loginForm" [formGroup]="sharespeechform">
+        <div class="input-group form-group" [ngClass]="{'has-danger': subject.invalid && (subject.dirty || subject.touched),'has-success': subject.valid && (subject.dirty || subject.touched)}">
+            <span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+            <input type="text" class="form-control" formControlName="subject" name="subject" required placeholder="mail subject">
+        </div>
+        <div class="form-control-feedback" style="margin-top:20px;"
+             *ngIf="subject.errors && (subject.dirty || subject.touched)">
+            <p *ngIf="subject.errors.required">Subject is required</p>
+        </div>
+        <div class="input-group form-group" style="margin-top:20px;" [ngClass]="{'has-danger': useremail.invalid && (useremail.dirty || useremail.touched),'has-success': useremail.valid && (useremail.dirty || useremail.touched)}">
+            <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+            <input type="email" class="form-control" formControlName="useremail" name="useremail" email required placeholder="user email">
+        </div>
+        <div class="form-control-feedback form-group" style="margin-top:20px;"
+             *ngIf="useremail.errors && (useremail.dirty || useremail.touched)">
+            <p *ngIf="useremail.errors.required">Email is required</p>
+            <p *ngIf="useremail.errors.pattern">The email address must contain at least the @ character</p>
+        </div>
+
+    </form>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-sm btn-primary" type="button" (click)="shareSpeech()" [disabled]="!sharespeechform.valid">Share</button>
+    <button type="button" class="btn btn-sm btn-primary" (click)="activeModal.close('Close click')">Cancel</button>
+</div>

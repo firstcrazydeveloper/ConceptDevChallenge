@@ -32,7 +32,12 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
     checkLogin(url: string): boolean {
         let data = url;
-        if (this.authService.isLoggedIn) {
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser !== null && currentUser !== undefined) {
+            this.authService.currentUser = currentUser;
+            this.authService.token = currentUser.token;
+            this.authService.userName = currentUser.firstName;
+            this.authService.isLoggedIn = true;
             return true;
         }
 

@@ -8,4 +8,5 @@
     public contact: string;
     public isAunthenticate: Boolean;
     public isActive: Boolean;
+    public token: string;
 }
